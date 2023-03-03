@@ -18,7 +18,7 @@ class SignInViewController: UIViewController {
         return imageView
     }()
     
-    let stackView = makeStackView(axis: .vertical, spacing: 100)
+    let stackView = makeStackView(axis: .vertical, spacing: 0)
     
     let usernameTextField: SignInTextFieldView = {
         let textFieldView = SignInTextFieldView(withText: "Email")
@@ -47,7 +47,7 @@ class SignInViewController: UIViewController {
         
         usernameTextField.textField.delegate = self
         passwordTextField.textField.delegate = self
-        
+       
     }
     
     private func addAllSubViews() {
@@ -69,12 +69,13 @@ class SignInViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: view.frame.size.height / 10),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            stackView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15 * 2)
         ])
         
         NSLayoutConstraint.activate([
             usernameTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15),
-            passwordTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15)
-
+            passwordTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15),
+            
         ])
     
   
@@ -85,5 +86,8 @@ class SignInViewController: UIViewController {
 }
 
 extension SignInViewController: UITextFieldDelegate {
-   
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

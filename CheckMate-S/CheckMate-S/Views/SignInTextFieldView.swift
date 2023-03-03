@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SignInTextFieldView: UIView {
+class SignInTextFieldView: UIView, UITextFieldDelegate {
     
     let hintLabel: UILabel = {
         let label = UILabel()
@@ -22,6 +22,8 @@ class SignInTextFieldView: UIView {
     let textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 50))
+        textField.leftViewMode = .always
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.layer.borderWidth = 1
@@ -40,6 +42,7 @@ class SignInTextFieldView: UIView {
         addSubview(textField)
         
         layout()
+        isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
@@ -56,6 +59,10 @@ class SignInTextFieldView: UIView {
             hintLabel.bottomAnchor.constraint(equalTo: textField.topAnchor, constant: -8),
             hintLabel.leadingAnchor.constraint(equalTo: textField.leadingAnchor)
         ])
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 100, height: 100)
     }
 
 }
