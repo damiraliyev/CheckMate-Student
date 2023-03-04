@@ -49,10 +49,8 @@ class SignInViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         addAllSubViews()
+        setup()
         layout()
-        
-        usernameTextField.textField.delegate = self
-        passwordTextField.textField.delegate = self
        
     }
     
@@ -65,6 +63,13 @@ class SignInViewController: UIViewController {
         stackView.addArrangedSubview(passwordTextField)
         
         view.addSubview(sduGradientButton)
+    }
+    
+    
+    private func setup() {
+        usernameTextField.textField.delegate = self
+        passwordTextField.textField.delegate = self
+        sduGradientButton.addTarget(self, action: #selector(didTapSignIn), for: .primaryActionTriggered)
     }
     
     
@@ -95,10 +100,6 @@ class SignInViewController: UIViewController {
             sduGradientButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             sduGradientButton.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15)
         ])
-//
-//
-        
-        
        
     }
 }
@@ -107,5 +108,17 @@ extension SignInViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+//MARK: - Actions
+
+extension SignInViewController {
+    
+    @objc func didTapSignIn() {
+        let vc = HomeViewController()
+        vc.modalPresentationStyle = .fullScreen
+        
+        present(vc, animated: true)
     }
 }

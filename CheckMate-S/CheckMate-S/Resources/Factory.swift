@@ -16,3 +16,19 @@ func makeStackView(axis: NSLayoutConstraint.Axis, spacing: CGFloat) -> UIStackVi
     
     return stackView
 }
+
+func makeLabel(fontSize: CGFloat, color: UIColor? = nil, weight: UIFont.Weight, text: String? = nil) -> UILabel {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = UIFont.systemFont(ofSize: fontSize, weight: weight)
+    
+    if let color = color {
+        label.textColor = color
+    }
+    
+    if let text = text {
+        label.text = text
+    }
+    
+    return label
+}
