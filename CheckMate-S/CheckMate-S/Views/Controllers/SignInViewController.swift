@@ -18,7 +18,7 @@ class SignInViewController: UIViewController {
         return imageView
     }()
     
-    let stackView = makeStackView(axis: .vertical, spacing: 0)
+    let stackView = makeStackView(axis: .vertical, spacing: 60)
     
     let usernameTextField: SignInTextFieldView = {
         let textFieldView = SignInTextFieldView(withText: "Email")
@@ -37,6 +37,12 @@ class SignInViewController: UIViewController {
     }()
     
     
+    let sduGradientButton: SDUGradientButton = {
+        let button = SDUGradientButton(withText: "Sign in")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +60,17 @@ class SignInViewController: UIViewController {
         view.addSubview(logoImageView)
         view.addSubview(stackView)
         
+        
         stackView.addArrangedSubview(usernameTextField)
         stackView.addArrangedSubview(passwordTextField)
+        
+        view.addSubview(sduGradientButton)
     }
     
     
     private func layout() {
+        let stackSpacing = view.frame.size.height / 13
+        
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.frame.size.height / 8),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -69,16 +80,23 @@ class SignInViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: view.frame.size.height / 10),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            stackView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15 * 2)
+        ])
+        
+        stackView.spacing = stackSpacing
+        
+        NSLayoutConstraint.activate([
+            usernameTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 14.5),
+            passwordTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 14.5),
         ])
         
         NSLayoutConstraint.activate([
-            usernameTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15),
-            passwordTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15),
-            
+            sduGradientButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: view.frame.size.height / 18),
+            sduGradientButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            sduGradientButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            sduGradientButton.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15)
         ])
-    
-  
+//
+//
         
         
        

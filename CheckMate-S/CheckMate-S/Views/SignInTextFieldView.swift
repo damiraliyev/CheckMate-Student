@@ -42,7 +42,6 @@ class SignInTextFieldView: UIView, UITextFieldDelegate {
         addSubview(textField)
         
         layout()
-        isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
@@ -51,8 +50,10 @@ class SignInTextFieldView: UIView, UITextFieldDelegate {
     
     private func layout() {
         NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: topAnchor),
             textField.leadingAnchor.constraint(equalTo: leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
         ])
         
         NSLayoutConstraint.activate([
@@ -62,7 +63,7 @@ class SignInTextFieldView: UIView, UITextFieldDelegate {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: 100, height: 50)
     }
 
 }
