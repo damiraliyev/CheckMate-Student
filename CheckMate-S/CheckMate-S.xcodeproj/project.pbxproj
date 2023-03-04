@@ -16,6 +16,7 @@
 		6814356A29B22C3200F53F33 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356929B22C3200F53F33 /* Factory.swift */; };
 		68E4E3F729B30E2300A1B956 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3F629B30E2300A1B956 /* HomeViewController.swift */; };
 		68E4E3FA29B30FDA00A1B956 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3F929B30FDA00A1B956 /* AccountInfoView.swift */; };
+		68E4E3FC29B32E3700A1B956 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3FB29B32E3700A1B956 /* ClassCell.swift */; };
 		68FA425829B2F61F00FC46A6 /* SDUGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FA425729B2F61F00FC46A6 /* SDUGradientButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		6814356929B22C3200F53F33 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		68E4E3F629B30E2300A1B956 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		68E4E3F929B30FDA00A1B956 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
+		68E4E3FB29B32E3700A1B956 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		68FA425729B2F61F00FC46A6 /* SDUGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUGradientButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 				6814356729B2282F00F53F33 /* SignInTextFieldView.swift */,
 				68FA425729B2F61F00FC46A6 /* SDUGradientButton.swift */,
 				68E4E3F929B30FDA00A1B956 /* AccountInfoView.swift */,
+				68E4E3FB29B32E3700A1B956 /* ClassCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68E4E3FC29B32E3700A1B956 /* ClassCell.swift in Sources */,
 				6814356829B2282F00F53F33 /* SignInTextFieldView.swift in Sources */,
 				6814356229B20B0900F53F33 /* SignInViewController.swift in Sources */,
 				68FA425829B2F61F00FC46A6 /* SDUGradientButton.swift in Sources */,

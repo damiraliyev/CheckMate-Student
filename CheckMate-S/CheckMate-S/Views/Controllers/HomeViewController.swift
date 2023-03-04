@@ -12,10 +12,21 @@ class HomeViewController: UIViewController {
     
     let accountInfoView = AccountInfoView()
     
+    let myClassesLabel = makeLabel(fontSize: 28, weight: .semibold, text: "My Classes")
+    
+    let collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
+    
+    let sectionInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemBackground
         
         setup()
         addAllSubViews()
@@ -24,12 +35,16 @@ class HomeViewController: UIViewController {
     
     private func setup() {
         accountInfoView.translatesAutoresizingMaskIntoConstraints = false
-        
-       
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .secondarySystemBackground
+        collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
     }
     
     private func addAllSubViews() {
         view.addSubview(accountInfoView)
+        view.addSubview(myClassesLabel)
+        view.addSubview(collectionView)
     }
     
     private func layout() {
@@ -39,6 +54,66 @@ class HomeViewController: UIViewController {
             accountInfoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             accountInfoView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 9)
         ])
+        
+        NSLayoutConstraint.activate([
+            myClassesLabel.topAnchor.constraint(equalTo: accountInfoView.bottomAnchor, constant: 24),
+            myClassesLabel.leadingAnchor.constraint(equalTo: accountInfoView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: myClassesLabel.bottomAnchor, constant: 24),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+       
+    }
+    
+    override func viewDidLayoutSubviews() {
+        createGradientToLabel()
+    }
+    
+    private func createGradientToLabel() {
+        let gradient = getGradientLayer(bounds: myClassesLabel.bounds)
+        
+        myClassesLabel.textColor = gradientColor(bounds: myClassesLabel.bounds, gradientLayer: gradient)
+    }
+    
+    
+}
+
+
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let itemsPerRow: CGFloat = 2
+        let paddingWidth = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = collectionView.frame.width - paddingWidth
+        let widthPerItem = availableWidth / itemsPerRow
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: sectionInsets.left, bottom: 8, right: sectionInsets.right)
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 15
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassCell.reuseID, for: indexPath) as! ClassCell
+        
+        return cell
     }
     
     
