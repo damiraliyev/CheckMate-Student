@@ -20,8 +20,8 @@ class SignInViewController: UIViewController {
     
     let stackView = makeStackView(axis: .vertical, spacing: 60)
     
-    let usernameTextField: SignInTextFieldView = {
-        let textFieldView = SignInTextFieldView(withText: "Email")
+    let IDTextField: SignInTextFieldView = {
+        let textFieldView = SignInTextFieldView(withText: "ID")
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         textFieldView.textField.keyboardType = .emailAddress
         return textFieldView
@@ -59,7 +59,7 @@ class SignInViewController: UIViewController {
         view.addSubview(stackView)
         
         
-        stackView.addArrangedSubview(usernameTextField)
+        stackView.addArrangedSubview(IDTextField)
         stackView.addArrangedSubview(passwordTextField)
         
         view.addSubview(sduGradientButton)
@@ -67,7 +67,7 @@ class SignInViewController: UIViewController {
     
     
     private func setup() {
-        usernameTextField.textField.delegate = self
+        IDTextField.textField.delegate = self
         passwordTextField.textField.delegate = self
         sduGradientButton.addTarget(self, action: #selector(didTapSignIn), for: .primaryActionTriggered)
     }
@@ -90,7 +90,7 @@ class SignInViewController: UIViewController {
         stackView.spacing = stackSpacing
         
         NSLayoutConstraint.activate([
-            usernameTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 14.5),
+            IDTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 14.5),
             passwordTextField.textField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 14.5),
         ])
         
@@ -116,9 +116,27 @@ extension SignInViewController: UITextFieldDelegate {
 extension SignInViewController {
     
     @objc func didTapSignIn() {
-        let vc = HomeViewController()
-        vc.modalPresentationStyle = .fullScreen
+        IDTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
         
-        present(vc, animated: true)
+        let domain = "@stu.sdu.edu.kz"
+       
+        guard var email = IDTextField.textField.text,
+              let password = passwordTextField.textField.text else {
+            return
+        }
+        
+        email += domain
+        
+        AuthManager.shared.signIn(email: email, password: password) { [weak self] result in
+            switch result {
+            case .success(let user):
+                let vc = HomeViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: true)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

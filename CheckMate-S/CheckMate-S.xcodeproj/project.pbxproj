@@ -14,13 +14,19 @@
 		6814356229B20B0900F53F33 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356129B20B0900F53F33 /* SignInViewController.swift */; };
 		6814356829B2282F00F53F33 /* SignInTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356729B2282F00F53F33 /* SignInTextFieldView.swift */; };
 		6814356A29B22C3200F53F33 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356929B22C3200F53F33 /* Factory.swift */; };
+		685641FB29BA0C78007735B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 685641FA29BA0C78007735B7 /* GoogleService-Info.plist */; };
+		68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE329BA0E9B007B4495 /* AuthManager.swift */; };
+		68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */; };
 		68E4E3F729B30E2300A1B956 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3F629B30E2300A1B956 /* HomeViewController.swift */; };
 		68E4E3FA29B30FDA00A1B956 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3F929B30FDA00A1B956 /* AccountInfoView.swift */; };
 		68E4E3FC29B32E3700A1B956 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3FB29B32E3700A1B956 /* ClassCell.swift */; };
 		68FA425829B2F61F00FC46A6 /* SDUGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FA425729B2F61F00FC46A6 /* SDUGradientButton.swift */; };
+		93CEB87FCCBC26AC6A79D8D7 /* Pods_CheckMate_S.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824C450409063A382E55E003 /* Pods_CheckMate_S.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A9E494242569B928C06906D /* Pods-CheckMate-S.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckMate-S.release.xcconfig"; path = "Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S.release.xcconfig"; sourceTree = "<group>"; };
+		5DF5E5FD0F189C94E377CD7E /* Pods-CheckMate-S.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckMate-S.debug.xcconfig"; path = "Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S.debug.xcconfig"; sourceTree = "<group>"; };
 		6814354429B2063B00F53F33 /* CheckMate-S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CheckMate-S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6814354729B2063B00F53F33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6814354929B2063B00F53F33 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,10 +36,14 @@
 		6814356129B20B0900F53F33 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6814356729B2282F00F53F33 /* SignInTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTextFieldView.swift; sourceTree = "<group>"; };
 		6814356929B22C3200F53F33 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		685641FA29BA0C78007735B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		68A7BDE329BA0E9B007B4495 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		68E4E3F629B30E2300A1B956 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		68E4E3F929B30FDA00A1B956 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
 		68E4E3FB29B32E3700A1B956 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		68FA425729B2F61F00FC46A6 /* SDUGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUGradientButton.swift; sourceTree = "<group>"; };
+		824C450409063A382E55E003 /* Pods_CheckMate_S.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckMate_S.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93CEB87FCCBC26AC6A79D8D7 /* Pods_CheckMate_S.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +63,8 @@
 			children = (
 				6814354629B2063B00F53F33 /* CheckMate-S */,
 				6814354529B2063B00F53F33 /* Products */,
+				7805F5223E868E0AD8938294 /* Pods */,
+				DF092A5F395807C5DECF5CF0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +85,7 @@
 				6814355E29B2079200F53F33 /* Views */,
 				6814355F29B2079E00F53F33 /* ViewModels */,
 				6814355529B2063C00F53F33 /* Info.plist */,
+				685641FA29BA0C78007735B7 /* GoogleService-Info.plist */,
 			);
 			path = "CheckMate-S";
 			sourceTree = "<group>";
@@ -90,6 +104,8 @@
 		6814355C29B2077300F53F33 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				68A7BDE329BA0E9B007B4495 /* AuthManager.swift */,
+				68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -138,6 +154,23 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
+		7805F5223E868E0AD8938294 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5DF5E5FD0F189C94E377CD7E /* Pods-CheckMate-S.debug.xcconfig */,
+				4A9E494242569B928C06906D /* Pods-CheckMate-S.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DF092A5F395807C5DECF5CF0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				824C450409063A382E55E003 /* Pods_CheckMate_S.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,9 +178,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6814355829B2063C00F53F33 /* Build configuration list for PBXNativeTarget "CheckMate-S" */;
 			buildPhases = (
+				29FC0F129A46F19362D2BFA6 /* [CP] Check Pods Manifest.lock */,
 				6814354029B2063B00F53F33 /* Sources */,
 				6814354129B2063B00F53F33 /* Frameworks */,
 				6814354229B2063B00F53F33 /* Resources */,
+				7CEBBDF8E6025367777386B6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,11 +232,54 @@
 			buildActionMask = 2147483647;
 			files = (
 				6814355429B2063C00F53F33 /* LaunchScreen.storyboard in Resources */,
+				685641FB29BA0C78007735B7 /* GoogleService-Info.plist in Resources */,
 				6814355129B2063C00F53F33 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		29FC0F129A46F19362D2BFA6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CheckMate-S-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CEBBDF8E6025367777386B6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6814354029B2063B00F53F33 /* Sources */ = {
@@ -209,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68E4E3FC29B32E3700A1B956 /* ClassCell.swift in Sources */,
+				68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */,
 				6814356829B2282F00F53F33 /* SignInTextFieldView.swift in Sources */,
 				6814356229B20B0900F53F33 /* SignInViewController.swift in Sources */,
 				68FA425829B2F61F00FC46A6 /* SDUGradientButton.swift in Sources */,
@@ -217,6 +296,7 @@
 				6814354A29B2063B00F53F33 /* SceneDelegate.swift in Sources */,
 				68E4E3F729B30E2300A1B956 /* HomeViewController.swift in Sources */,
 				6814356A29B22C3200F53F33 /* Factory.swift in Sources */,
+				68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +430,7 @@
 		};
 		6814355929B2063C00F53F33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DF5E5FD0F189C94E377CD7E /* Pods-CheckMate-S.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -377,6 +458,7 @@
 		};
 		6814355A29B2063C00F53F33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A9E494242569B928C06906D /* Pods-CheckMate-S.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
