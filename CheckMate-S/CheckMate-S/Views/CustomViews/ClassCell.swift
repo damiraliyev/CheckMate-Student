@@ -14,7 +14,7 @@ class ClassCell: UICollectionViewCell {
     
     let stackView = makeStackView(axis: .vertical, spacing: 8)
     
-    let code = makeLabel(fontSize: 20, color: .label, weight: .bold, text: "CSS 342")
+    let subjectCode = makeLabel(fontSize: 20, color: .label, weight: .bold, text: "CSS 342")
     
     let subjectName = makeLabel(fontSize: 15, color: .label, weight: .medium, text: "Sofware Engineering")
     
@@ -40,7 +40,7 @@ class ClassCell: UICollectionViewCell {
     private func layout() {
         contentView.addSubview(stackView)
         
-        stackView.addArrangedSubview(code)
+        stackView.addArrangedSubview(subjectCode)
         stackView.addArrangedSubview(subjectName)
         
         
@@ -50,6 +50,17 @@ class ClassCell: UICollectionViewCell {
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
+    }
+    
+    weak var viewModel: CollectionViewCellViewModelType? {
+        willSet(viewModel) {
+            guard let viewModel = viewModel else {
+                return
+            }
+            
+            subjectCode.text = viewModel.subjectCode
+            subjectName.text = viewModel.subjectName
+        }
     }
     
     

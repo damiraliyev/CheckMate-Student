@@ -32,8 +32,7 @@ final class AuthManager {
             
             completion(.success(result.user))
             
-            
-            
+            UserDefaults.standard.setValue(result.user.email, forKey: "email")
         }
     }
     

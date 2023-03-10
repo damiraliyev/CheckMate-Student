@@ -21,7 +21,7 @@ class SignInViewController: UIViewController {
     let stackView = makeStackView(axis: .vertical, spacing: 60)
     
     let IDTextField: SignInTextFieldView = {
-        let textFieldView = SignInTextFieldView(withText: "ID")
+        let textFieldView = SignInTextFieldView(withText: "Email")
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         textFieldView.textField.keyboardType = .emailAddress
         return textFieldView
@@ -130,7 +130,7 @@ extension SignInViewController {
         
         AuthManager.shared.signIn(email: email, password: password) { [weak self] result in
             switch result {
-            case .success(let user):
+            case .success:
                 let vc = HomeViewController()
                 vc.modalPresentationStyle = .fullScreen
                 self?.present(vc, animated: true)

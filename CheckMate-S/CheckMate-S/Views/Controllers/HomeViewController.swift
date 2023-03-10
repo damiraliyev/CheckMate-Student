@@ -10,6 +10,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    private var collectionViewModel: CollectionViewViewModelType?
+    
     let accountInfoView = AccountInfoView()
     
     let myClassesLabel = makeLabel(fontSize: 28, weight: .semibold, text: "My Classes")
@@ -31,6 +33,8 @@ class HomeViewController: UIViewController {
         setup()
         addAllSubViews()
         layout()
+        
+        collectionViewModel = CollectionViewViewModel()
     }
     
     private func setup() {
@@ -107,11 +111,14 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return collectionViewModel?.numberOfRows() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassCell.reuseID, for: indexPath) as! ClassCell
+        
+        let cellViewModel = collectionViewModel?.cellViewModel(for: indexPath)
+        cell.viewModel = cellViewModel
         
         return cell
     }
