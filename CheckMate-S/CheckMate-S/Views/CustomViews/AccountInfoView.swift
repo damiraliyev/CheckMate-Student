@@ -10,6 +10,8 @@ import UIKit
 
 class AccountInfoView: UIView {
     
+    weak var accountInfoViewModel: AccountInfoViewModelType?
+    
     private var gradientLayer = CAGradientLayer()
     
     let imageView: UIImageView = {
@@ -23,15 +25,17 @@ class AccountInfoView: UIView {
     
     let stackView = makeStackView(axis: .vertical, spacing: 8)
     
-    let fullName = makeLabel(fontSize: 16, color: .white, weight: .bold)
+    var fullName = makeLabel(fontSize: 16, color: .white, weight: .bold)
     
-    let email = makeLabel(fontSize: 16, color: .white, weight: .medium)
+    var email = makeLabel(fontSize: 16, color: .white, weight: .medium)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setup()
         layout()
+        
+//        accountInfoViewModel = AccountInfoViewModel(student: Student(name: "Askar", surname: "Askarov", email: "200107111"))
     }
     
     required init?(coder: NSCoder) {
@@ -92,6 +96,11 @@ class AccountInfoView: UIView {
         
         gradientLayer.frame = layer.bounds
         
+    }
+    
+    func accountInfo() {
+        fullName.text = accountInfoViewModel?.fullName
+        email.text = accountInfoViewModel?.email
     }
     
     

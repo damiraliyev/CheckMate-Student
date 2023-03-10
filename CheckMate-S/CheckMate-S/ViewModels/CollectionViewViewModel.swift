@@ -11,7 +11,8 @@ class CollectionViewViewModel: CollectionViewViewModelType {
     
     var subjects = [
         Subject(subjectCode: "CSS 342", subjectName: "Software Engineering"),
-        Subject(subjectCode: "CSS 309", subjectName: "Low level architecture")
+        Subject(subjectCode: "CSS 309", subjectName: "Low level architecture"),
+        Subject(subjectCode: "INF 423", subjectName: "Statistics and data vizualization for data analysis")
     
     ]
     

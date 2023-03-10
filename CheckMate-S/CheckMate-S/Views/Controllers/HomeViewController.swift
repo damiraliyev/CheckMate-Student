@@ -12,6 +12,8 @@ class HomeViewController: UIViewController {
     
     private var collectionViewModel: CollectionViewViewModelType?
     
+    private var homeViewModel: HomeViewModelType?
+    
     let accountInfoView = AccountInfoView()
     
     let myClassesLabel = makeLabel(fontSize: 28, weight: .semibold, text: "My Classes")
@@ -30,11 +32,15 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .secondarySystemBackground
         
+        let collectionViewViewModel = CollectionViewViewModel()
+        let accountInfoViewModel = AccountInfoViewModel(student: Student(name: "Damir", surname: "Aliyev", email: "200107116@stu.sdu.edu.kz"))
+        collectionViewModel = CollectionViewViewModel()
+        
+        homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
+        
         setup()
         addAllSubViews()
         layout()
-        
-        collectionViewModel = CollectionViewViewModel()
     }
     
     private func setup() {
@@ -43,6 +49,8 @@ class HomeViewController: UIViewController {
         collectionView.delegate = self
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
+        
+        setupInfo()
     }
     
     private func addAllSubViews() {
@@ -84,6 +92,10 @@ class HomeViewController: UIViewController {
         myClassesLabel.textColor = gradientColor(bounds: myClassesLabel.bounds, gradientLayer: gradient)
     }
     
+    private func setupInfo() {
+        accountInfoView.fullName.text = homeViewModel?.accountInfoViewModel?.fullName
+        accountInfoView.email.text = homeViewModel?.accountInfoViewModel?.email
+    }
     
 }
 
@@ -117,7 +129,8 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassCell.reuseID, for: indexPath) as! ClassCell
         
-        let cellViewModel = collectionViewModel?.cellViewModel(for: indexPath)
+        let cellViewModel = homeViewModel?.collectionViewViewModel?.cellViewModel(for: indexPath)
+       
         cell.viewModel = cellViewModel
         
         return cell
