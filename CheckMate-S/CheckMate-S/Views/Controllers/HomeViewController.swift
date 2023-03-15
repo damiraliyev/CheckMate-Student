@@ -10,7 +10,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private var collectionViewModel: CollectionViewViewModelType?
+//    private var collectionViewViewModel: CollectionViewViewModelType?
     
     private var homeViewModel: HomeViewModelType?
     
@@ -33,10 +33,17 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .secondarySystemBackground
         
         let collectionViewViewModel = CollectionViewViewModel()
-        let accountInfoViewModel = AccountInfoViewModel(student: Student(name: "Damir", surname: "Aliyev", email: "200107116@stu.sdu.edu.kz"))
-        collectionViewModel = CollectionViewViewModel()
+        let accountInfoViewModel = AccountInfoViewModel(student: Student(name: "Bakdaulet", surname: "Aidarbekov", email: "bakdaulet.aidarbekov@sdu.edu.kz"))
         
         homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
+        
+        
+        homeViewModel?.collectionViewViewModel?.querySubjects(
+            name: "Bakdaulet",
+            surname: "Aidarbekov",
+            completion: { [weak self] in
+                self?.collectionView.reloadData()
+            })
         
         setup()
         addAllSubViews()
@@ -51,6 +58,12 @@ class HomeViewController: UIViewController {
         collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
         
         setupInfo()
+        
+        let db = DB()
+        
+        db.attendanceCourseStudentIDValue()
+        
+        testQuery()
     }
     
     private func addAllSubViews() {
@@ -123,7 +136,7 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionViewModel?.numberOfRows() ?? 0
+        return homeViewModel?.collectionViewViewModel?.numberOfRows() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -136,5 +149,9 @@ extension HomeViewController: UICollectionViewDataSource {
         return cell
     }
     
+    
+}
+
+extension HomeViewController {
     
 }

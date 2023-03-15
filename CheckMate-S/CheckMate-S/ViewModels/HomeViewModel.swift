@@ -8,14 +8,19 @@
 import Foundation
 
 class HomeViewModel: HomeViewModelType {
+    let student = Student(name: "Bakdaulet", surname: "Aidarbekov", email: "bakdaulet.aidarbekov@stu.sdu.edu.kz")
     
     var collectionViewViewModel: CollectionViewViewModelType?
     var accountInfoViewModel: AccountInfoViewModelType?
+   
     
-    let student = Student(name: "Damir", surname: "Aliyev", email: "200107116@stu.sdu.edu.kz")
+    
     
     init(collectionViewViewModel: CollectionViewViewModelType, accountInfoViewModel: AccountInfoViewModelType) {
         self.collectionViewViewModel = collectionViewViewModel
+//        collectionViewViewModel.querySubjects(name: student.name, surname: student.surname)
         self.accountInfoViewModel = accountInfoViewModel
     }
+    
+    
 }

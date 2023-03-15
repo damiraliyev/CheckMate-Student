@@ -130,7 +130,7 @@ extension SignInViewController {
         
         AuthManager.shared.signIn(email: email, password: password) { [weak self] result in
             switch result {
-            case .success:
+            case .success(let user):
                 let vc = HomeViewController()
                 vc.modalPresentationStyle = .fullScreen
                 self?.present(vc, animated: true)

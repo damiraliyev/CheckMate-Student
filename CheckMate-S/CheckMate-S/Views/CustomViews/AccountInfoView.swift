@@ -100,7 +100,7 @@ class AccountInfoView: UIView {
     
     func accountInfo() {
         fullName.text = accountInfoViewModel?.fullName
-        email.text = accountInfoViewModel?.email
+        email.text    = accountInfoViewModel?.email
     }
     
     

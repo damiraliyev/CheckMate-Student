@@ -8,6 +8,7 @@
 import Foundation
 
 protocol CollectionViewViewModelType: AnyObject {
+    func querySubjects(name: String, surname: String, completion: @escaping () -> Void)
     func numberOfRows() -> Int
     func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModelType?
 }

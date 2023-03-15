@@ -14,6 +14,7 @@
 		6814356229B20B0900F53F33 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356129B20B0900F53F33 /* SignInViewController.swift */; };
 		6814356829B2282F00F53F33 /* SignInTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356729B2282F00F53F33 /* SignInTextFieldView.swift */; };
 		6814356A29B22C3200F53F33 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356929B22C3200F53F33 /* Factory.swift */; };
+		6821F3CC29C1ACA900583B1E /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6821F3CB29C1ACA900583B1E /* TestDatabase.swift */; };
 		6835173E29BB708200EB893A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835173D29BB708200EB893A /* HomeViewModel.swift */; };
 		6835174029BB757100EB893A /* HomeViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835173F29BB757100EB893A /* HomeViewModelType.swift */; };
 		6845DE8429BB64C80096A602 /* CollectionViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845DE8329BB64C80096A602 /* CollectionViewCellViewModelType.swift */; };
@@ -46,6 +47,7 @@
 		6814356129B20B0900F53F33 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6814356729B2282F00F53F33 /* SignInTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTextFieldView.swift; sourceTree = "<group>"; };
 		6814356929B22C3200F53F33 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		6821F3CB29C1ACA900583B1E /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
 		6835173D29BB708200EB893A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6835173F29BB757100EB893A /* HomeViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelType.swift; sourceTree = "<group>"; };
 		6845DE8329BB64C80096A602 /* CollectionViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellViewModelType.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				68A7BDE329BA0E9B007B4495 /* AuthManager.swift */,
 				68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */,
+				6821F3CB29C1ACA900583B1E /* TestDatabase.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 			files = (
 				6835174029BB757100EB893A /* HomeViewModelType.swift in Sources */,
 				68E4E3FC29B32E3700A1B956 /* ClassCell.swift in Sources */,
+				6821F3CC29C1ACA900583B1E /* TestDatabase.swift in Sources */,
 				68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */,
 				6845DE8629BB65160096A602 /* CollectionViewViewModelType.swift in Sources */,
 				6835173E29BB708200EB893A /* HomeViewModel.swift in Sources */,

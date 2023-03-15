@@ -12,7 +12,9 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     private let subject: Subject
     
     var subjectCode: String {
-        return subject.subjectCode
+        var code = subject.subjectCode.prefix(6)
+        code.insert(" ", at: code.index(code.startIndex, offsetBy: 3))
+        return String(code)
     }
     
     var subjectName: String {
@@ -22,4 +24,6 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     init(subject: Subject) {
         self.subject = subject
     }
+    
+    
 }

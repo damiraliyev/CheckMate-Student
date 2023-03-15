@@ -15,4 +15,7 @@ final class DatabaseManager {
     private init() {}
     
     let database = Firestore.firestore()
+    
+    
 }
+
