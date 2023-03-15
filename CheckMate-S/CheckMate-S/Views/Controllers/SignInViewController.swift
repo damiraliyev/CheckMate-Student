@@ -119,7 +119,7 @@ extension SignInViewController {
         IDTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         
-        let domain = "@stu.sdu.edu.kz"
+        let domain = ""
        
         guard var email = IDTextField.textField.text,
               let password = passwordTextField.textField.text else {

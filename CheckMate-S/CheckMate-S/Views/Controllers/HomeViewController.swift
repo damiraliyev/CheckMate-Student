@@ -33,7 +33,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .secondarySystemBackground
         
         let collectionViewViewModel = CollectionViewViewModel()
-        let accountInfoViewModel = AccountInfoViewModel(student: Student(name: "Bakdaulet", surname: "Aidarbekov", email: "bakdaulet.aidarbekov@sdu.edu.kz"))
+        let accountInfoViewModel = AccountInfoViewModel(student: Student(name: UserDefaults.standard.value(forKey: "fullname") as! String, surname: "", email: "bakdaulet.aidarbekov@sdu.edu.kz"))
         
         homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
         
