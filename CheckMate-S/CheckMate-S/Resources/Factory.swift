@@ -24,6 +24,7 @@ func makeLabel(fontSize: CGFloat, color: UIColor? = nil, weight: UIFont.Weight, 
     
     if let color = color {
         label.textColor = color
+       
     }
     
     if let text = text {

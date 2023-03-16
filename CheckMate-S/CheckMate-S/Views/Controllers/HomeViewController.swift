@@ -14,6 +14,15 @@ class HomeViewController: UIViewController {
     
     private var homeViewModel: HomeViewModelType?
     
+    let appNameLabel = makeLabel(
+        fontSize: 24,
+        color: UIColor(red: 0.031, green: 0.12, blue: 0.36, alpha: 1),
+        weight: .bold,
+        text: "CheckMate"
+    )
+    
+    let signOutButton = UIButton()
+    
     let accountInfoView = AccountInfoView()
     
     let myClassesLabel = makeLabel(fontSize: 28, weight: .semibold, text: "My Classes")
@@ -46,8 +55,8 @@ class HomeViewController: UIViewController {
         
         
         homeViewModel?.collectionViewViewModel?.querySubjects(
-            name: "Bakdaulet",
-            surname: "Aidarbekov",
+            name: accountInfoViewModel.student.name,
+            surname: accountInfoViewModel.student.surname,
             completion: { [weak self] in
                 self?.collectionView.reloadData()
             })
@@ -64,6 +73,13 @@ class HomeViewController: UIViewController {
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
         
+        signOutButton.translatesAutoresizingMaskIntoConstraints = false
+        signOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
+        signOutButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        signOutButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        signOutButton.tintColor = UIColor(red: 0.031, green: 0.12, blue: 0.36, alpha: 1)
+        signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .primaryActionTriggered)
+        
         setupInfo()
         
         let db = DB()
@@ -74,14 +90,27 @@ class HomeViewController: UIViewController {
     }
     
     private func addAllSubViews() {
+        view.addSubview(appNameLabel)
+        view.addSubview(signOutButton)
         view.addSubview(accountInfoView)
         view.addSubview(myClassesLabel)
         view.addSubview(collectionView)
     }
     
     private func layout() {
+        
         NSLayoutConstraint.activate([
-            accountInfoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            appNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            appNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            signOutButton.centerYAnchor.constraint(equalTo: appNameLabel.centerYAnchor),
+            signOutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            accountInfoView.topAnchor.constraint(equalTo: appNameLabel.bottomAnchor, constant: 16),
             accountInfoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             accountInfoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             accountInfoView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 9)
@@ -159,6 +188,27 @@ extension HomeViewController: UICollectionViewDataSource {
     
 }
 
+
+
+
+//MARK: - ACTIONS
+
 extension HomeViewController {
-    
+    @objc func didTapSignOut() {
+        let actionSheet = UIAlertController(title: "Sign out", message: "Are you sure?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        actionSheet.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { [weak self] _ in
+            AuthManager.shared.signOut { success in
+                if success {
+                    DispatchQueue.main.async {
+                        let vc = SignInViewController()
+                        vc.modalPresentationStyle = .fullScreen
+                        self?.present(vc, animated: true)
+                    }
+                }
+            }
+        }))
+        
+        present(actionSheet, animated: true)
+    }
 }

@@ -22,6 +22,7 @@ final class DatabaseManager {
         
         ref.getDocuments { snapshot, error in
             guard let snapshot = snapshot, error == nil else {
+                print("SNAPSHOT WASN'T FOUND")
                 return
             }
             

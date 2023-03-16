@@ -115,7 +115,7 @@ extension SignInViewController: UITextFieldDelegate {
 
 extension SignInViewController {
     
-    @objc func didTapSignIn() {
+    @objc func didTapSignIn(_ sender: UIButton) {
         IDTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         
@@ -132,11 +132,15 @@ extension SignInViewController {
             switch result {
             case .success(let user):
                 let vc = HomeViewController()
+                self?.IDTextField.textField.text = ""
+                self?.passwordTextField.textField.text = ""
                 vc.modalPresentationStyle = .fullScreen
                 self?.present(vc, animated: true)
             case .failure(let error):
                 print(error)
             }
         }
+        
+        sender.animatePress()
     }
 }

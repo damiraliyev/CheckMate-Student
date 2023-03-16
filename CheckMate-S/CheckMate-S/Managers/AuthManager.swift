@@ -27,6 +27,7 @@ final class AuthManager {
         auth.signIn(withEmail: email, password: password) { result, error in
             guard let result = result, error == nil else {
                 completion(.failure(error!))
+                print("USER WAS NOT FOUND!!!")
                 return
             }
             
@@ -34,18 +35,25 @@ final class AuthManager {
                 UserDefaults.standard.setValue(name, forKey: "name")
                 UserDefaults.standard.setValue(surname, forKey: "surname")
                 UserDefaults.standard.setValue(result.user.email, forKey: "email")
+                
+                completion(.success(result.user))
+               
             }
             
-            if UserDefaults.standard.value(forKey: "name") != nil {
-                completion(.success(result.user))
-            }
+            
 
             
         }
     }
     
     public func signOut(completion: @escaping (Bool) -> Void) {
-        
+        do {
+            try auth.signOut()
+            completion(true)
+        } catch {
+            print(error)
+            completion(false)
+        }
     }
     
 }
