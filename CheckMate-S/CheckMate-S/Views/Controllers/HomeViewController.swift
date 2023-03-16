@@ -32,8 +32,15 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .secondarySystemBackground
         
+        
         let collectionViewViewModel = CollectionViewViewModel()
-        let accountInfoViewModel = AccountInfoViewModel(student: Student(name: UserDefaults.standard.value(forKey: "fullname") as! String, surname: "", email: "bakdaulet.aidarbekov@sdu.edu.kz"))
+        
+        //Getting from UserDefaults
+        let accountInfoViewModel = AccountInfoViewModel(
+            student: Student(name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
+                             surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
+                             email: UserDefaults.standard.value(forKey: "email") as? String ?? "")
+        )
         
         homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
         

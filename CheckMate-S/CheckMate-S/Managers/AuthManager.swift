@@ -30,15 +30,16 @@ final class AuthManager {
                 return
             }
             
-
-            completion(.success(result.user))
-            
-            DatabaseManager.shared.findUser(with: email) { fullname in
-                print("Fullname", fullname)
-                UserDefaults.standard.setValue(fullname, forKey: "fullname")
+            DatabaseManager.shared.findUser(with: email) { name, surname in
+                UserDefaults.standard.setValue(name, forKey: "name")
+                UserDefaults.standard.setValue(surname, forKey: "surname")
                 UserDefaults.standard.setValue(result.user.email, forKey: "email")
             }
             
+            if UserDefaults.standard.value(forKey: "name") != nil {
+                completion(.success(result.user))
+            }
+
             
         }
     }

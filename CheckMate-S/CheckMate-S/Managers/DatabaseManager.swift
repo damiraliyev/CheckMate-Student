@@ -16,10 +16,9 @@ final class DatabaseManager {
     
     let database = Firestore.firestore()
     
-    func findUser(with email: String, completion: @escaping (String) -> Void) {
+    func findUser(with email: String, completion: @escaping (String, String) -> Void) {
         let ref = database.collection("teachers").whereField("email", isEqualTo: email)
         
-        var fullname = ""
         
         ref.getDocuments { snapshot, error in
             guard let snapshot = snapshot, error == nil else {
@@ -28,9 +27,8 @@ final class DatabaseManager {
             
             let name = snapshot.documents.first?.get("name") as? String ?? ""
             let surname = snapshot.documents.first?.get("surname") as? String ?? ""
-            print("FULLNAMEEEEE", name + surname)
-            fullname = "\(name) \(surname)"
-            completion(fullname)
+
+            completion(name, surname)
         }
 
     }
