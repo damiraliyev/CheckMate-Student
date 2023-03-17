@@ -78,7 +78,7 @@ class HomeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .secondarySystemBackground
-        collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
+        collectionView.register(SubjectCell.self, forCellWithReuseIdentifier: SubjectCell.reuseID)
         
         signOutButton.translatesAutoresizingMaskIntoConstraints = false
         signOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
@@ -129,7 +129,7 @@ class HomeViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: myClassesLabel.bottomAnchor, constant: 24),
+            collectionView.topAnchor.constraint(equalTo: myClassesLabel.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -178,7 +178,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
     
 extension HomeViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = SubjectScheduleViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
@@ -188,7 +193,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassCell.reuseID, for: indexPath) as! ClassCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubjectCell.reuseID, for: indexPath) as! SubjectCell
         
         let cellViewModel = homeViewModel?.collectionViewViewModel?.cellViewModel(for: indexPath)
        

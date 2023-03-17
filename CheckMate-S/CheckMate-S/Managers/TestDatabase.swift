@@ -47,6 +47,21 @@ class DB {
 //            ]
 //        ]
 //let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[07-P]").setData(data2, merge: true)
+        
+//        let data3 = [
+//                    "15.05.2023" : [
+//                        ["200107116": "0/1"],
+//                        ["200107055": "0/1"],
+//                        ["200107085": "0/1"],
+//                        ["200107094": "0/1"],
+//                        ["200107092": "0/1"],
+//                        ["200107038": "0/1"],
+//                        ["200107044": "0/1"],
+//                        ["200107005": "0/1"],
+//                        ["200107027": "0/1"],
+//                    ]
+//                ]
+//        let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(data3, merge: true)
     }
 }
 

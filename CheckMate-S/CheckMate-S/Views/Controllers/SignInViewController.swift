@@ -130,7 +130,7 @@ extension SignInViewController {
         
         AuthManager.shared.signIn(email: email, password: password) { [weak self] result in
             switch result {
-            case .success(let user):
+            case .success(let _):
                 let vc = HomeViewController()
                 self?.IDTextField.textField.text = ""
                 self?.passwordTextField.textField.text = ""
