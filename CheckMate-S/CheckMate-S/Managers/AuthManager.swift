@@ -40,9 +40,6 @@ final class AuthManager {
                
             }
             
-            
-
-            
         }
     }
     

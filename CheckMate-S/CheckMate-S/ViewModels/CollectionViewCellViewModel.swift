@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     
@@ -19,6 +20,35 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     
     var subjectName: String {
         return subject.subjectName
+    }
+    
+    var totalAttendanceCount: Int {
+        return subject.totalAttendanceCount
+    }
+    
+    var absenceCount: Int {
+        return subject.absenceCount
+    }
+    
+    var progress: Float {
+        return Float(absenceCount) / Float(totalAttendanceCount)
+    }
+    
+    var percentage: String {
+        return "\(Int(round(progress * 100)))%"
+    }
+    
+    var progressColor: UIColor {
+        print("progressColor", percentage)
+        if (Int(percentage.prefix(percentage.count - 1)) ?? 0 < 10) {
+            return .lightGreen
+        } else if(Int(percentage.prefix(percentage.count - 1)) ?? 0 < 20) {
+            return .lightYellow
+        } else if(Int(percentage.prefix(percentage.count - 1)) ?? 0 < 30) {
+            return .orange
+        } else {
+            return .systemRed
+        }
     }
     
     init(subject: Subject) {

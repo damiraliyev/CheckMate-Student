@@ -45,6 +45,7 @@ class AccountInfoView: UIView {
     private func setup() {
         fullName.text = "Askar Askarov"
         email.text = "200107111@stu.sdu.edu.kz"
+        email.adjustsFontSizeToFitWidth = true
         
         createGradient()
     }
@@ -63,7 +64,8 @@ class AccountInfoView: UIView {
         
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10)
+            stackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     

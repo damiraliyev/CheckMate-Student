@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     
     let appNameLabel = makeLabel(
         fontSize: 24,
-        color: UIColor(red: 0.031, green: 0.12, blue: 0.36, alpha: 1),
+        color: UIColor.sduBlue,
         weight: .bold,
         text: "CheckMate"
     )
@@ -55,11 +55,18 @@ class HomeViewController: UIViewController {
         
         
         homeViewModel?.collectionViewViewModel?.querySubjects(
-            name: accountInfoViewModel.student.name,
-            surname: accountInfoViewModel.student.surname,
+            name: "Damir",
+            surname: "Aliyev",
             completion: { [weak self] in
                 self?.collectionView.reloadData()
             })
+        
+        homeViewModel?.collectionViewViewModel?.queryAttendance(name: "Damir", surname: "Aliyev", completion: { [weak self] in
+            print("SUCCESSFULL")
+            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.totalAttendanceCount)
+            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.absenceCount)
+            self?.collectionView.reloadData()
+        })
         
         setup()
         addAllSubViews()
@@ -77,7 +84,7 @@ class HomeViewController: UIViewController {
         signOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
         signOutButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
         signOutButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
-        signOutButton.tintColor = UIColor(red: 0.031, green: 0.12, blue: 0.36, alpha: 1)
+        signOutButton.tintColor = UIColor.sduBlue
         signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .primaryActionTriggered)
         
         setupInfo()
@@ -153,18 +160,23 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let itemsPerRow: CGFloat = 2
+        let itemsPerRow: CGFloat = 1
         let paddingWidth = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = collectionView.frame.width - paddingWidth
         let widthPerItem = availableWidth / itemsPerRow
-        return CGSize(width: widthPerItem, height: widthPerItem)
+
+        return CGSize(width: widthPerItem, height: view.frame.height / 11)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: sectionInsets.left, bottom: 8, right: sectionInsets.right)
+        return UIEdgeInsets(top: 15, left: sectionInsets.left, bottom: 15, right: sectionInsets.right)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
     }
 }
-
+    
 extension HomeViewController: UICollectionViewDelegate {
     
 }

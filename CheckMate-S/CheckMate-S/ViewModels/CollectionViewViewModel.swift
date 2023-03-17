@@ -6,48 +6,183 @@
 //
 
 import Foundation
+import UIKit
 
 class CollectionViewViewModel: CollectionViewViewModelType {
     
+    
     var subjects: [Subject] = []
     
+    var totalAttendanceCount: Int = 0;
+    var absenceCount: Int = 0;
+    
+//    func querySubjects(name: String, surname: String, completion: @escaping () -> Void) {
+//        let docID = DatabaseManager.shared.database.collection("teachers").document("\(name) \(surname)")
+//
+//        docID.getDocument { [weak self] snapshot, error in
+//            guard let snapshot = snapshot, error == nil else {
+//                return
+//            }
+//
+//            guard let teacherID = snapshot.get("id") else { return }
+//
+//            let subjectRef = DatabaseManager.shared.database.collection("subjects")
+//
+//            let querySubject = subjectRef.whereField("teacherID", isEqualTo: teacherID)
+//
+//            querySubject.getDocuments { [self] snapshot, error in
+//                guard let snapshot = snapshot, error == nil else {
+//                    return
+//                }
+//
+//                for document in snapshot.documents {
+//                    let code = document.get("code") as? String ?? ""
+//                    let name = document.get("name") as? String ?? ""
+//
+//                    guard let contains = self?.checkIfContains(name: name) else { return }
+//                    if !contains {
+//                        self?.subjects.append(Subject(subjectCode: code, subjectName: name))
+//                    }
+//
+//
+//
+//                    print("APPENDED:", self?.subjects.count)
+//
+//                }
+//                completion()
+//            }
+//        }
+    
+    
     func querySubjects(name: String, surname: String, completion: @escaping () -> Void) {
-        let docID = DatabaseManager.shared.database.collection("teachers").document("\(name) \(surname)")
+        let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
         
         docID.getDocument { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 return
             }
         
-            guard let teacherID = snapshot.get("id") else { return }
+            guard let studentID = snapshot.get("id") else { return }
             
-            let subjectRef = DatabaseManager.shared.database.collection("subjects")
             
-            let querySubject = subjectRef.whereField("teacherID", isEqualTo: teacherID)
+            DatabaseManager.shared.database.collection("subjects")
+                .whereField("enrolledStudents", arrayContains: studentID)
+                .getDocuments() { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error getting documents: \(error)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            print("\(document.documentID) => \(document.data())")
+                            let code = document.get("code") as? String ?? ""
+                            let name = document.get("name") as? String ?? ""
+                            
+                            guard let contains = self?.checkIfContains(name: name) else { return }
+                            if !contains {
+                                print("Name", name)
+                                self?.subjects.append(
+                                    Subject(
+                                        subjectCode: code,
+                                        subjectName: name,
+                                        totalAttendanceCount: self?.totalAttendanceCount ?? 0,
+                                        absenceCount: self?.absenceCount ?? 0))
+                            }
+                           
+                        }
+                        completion()
+                    }
+                }
+        }
+        
+    }
+    
+    func queryAttendance(name: String, surname: String, completion: @escaping () -> Void) {
+        let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
+        
+        
+        docID.getDocument { [weak self] snapshot, error in
+            guard let snapshot = snapshot, error == nil else {
+                return
+            }
             
-            querySubject.getDocuments { [self] snapshot, error in
+            guard let studentID = snapshot.get("id") else {
+                return
+            }
+            
+            DatabaseManager.shared.database.collection("attendance").getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
+                    print("Error")
                     return
                 }
                 
                 for document in snapshot.documents {
-                    let code = document.get("code") as? String ?? ""
-                    let name = document.get("name") as? String ?? ""
+                    let dates = document.data().keys //dates 15.03.2023...
                     
-                    guard let contains = self?.checkIfContains(name: name) else { return }
-                    if !contains {
-                        self?.subjects.append(Subject(subjectCode: code, subjectName: name))
+                    for key in dates {
+                        let value = document.data()[key] // returns array
+                        
+                        if let arr = value as? [Any]{
+                            if let dict = arr[0] as? [String: Any] {
+                                guard let attendances = dict["\(studentID)"] as? [Int] else { continue }
+                                
+                                print("Attendances", attendances)
+                                self?.totalAttendanceCount += attendances.count
+                                for attendance in attendances {
+                                    
+                                    if(attendance == 0) {
+                                        self?.absenceCount += 1;
+                                    }
+                                }
+                                
+                            } else {
+                                print("ZAPARILSYA")
+                            }
+                        } else {
+                            print("NOOOOOASOFSDOASODSODOSDOSADO")
+                        }
                     }
-                    
-                    
-                    
-                    print("APPENDED:", self?.subjects.count)
-                    
                 }
                 completion()
             }
+
         }
     }
+    
+    
+//    func queryAttendance(name: String, surname: String, completion: @escaping () -> Void) {
+//        print("QUERY ATTENDANCE WAS SUCCESSFULL")
+//        let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
+//
+//        print("DOCID", docID)
+//
+//        docID.getDocument { [weak self] snapshot, error in
+//            guard let snapshot = snapshot, error == nil else {
+//
+//                return
+//            }
+//
+//
+//            guard let studentID = snapshot.get("id") else {
+////                print("ERRRRROOOOOORRRRRR")
+//                return
+//            }
+//
+//            print("QUery attendance", studentID)
+//
+//            DatabaseManager.shared.database.collection("attendance")
+//                .whereField("studentID", arrayContains: studentID)
+//                .getDocuments() { (querySnapshot, error) in
+//                    if let error = error {
+//                        print("Error getting documents: \(error)")
+//                    } else {
+//                        print("EEELLLLLSSSSEEEEEE")
+//                        for document in querySnapshot!.documents {
+//                            print("AAAAAAAAA", document.data())
+//                        }
+//                        completion()
+//                    }
+//                }
+//        }
+//    }
     
     func checkIfContains(name: String) -> Bool {
         var contains = false

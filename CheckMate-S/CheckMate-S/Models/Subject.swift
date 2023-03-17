@@ -10,4 +10,6 @@ import Foundation
 struct Subject {
     let subjectCode: String
     let subjectName: String
+    let totalAttendanceCount: Int
+    let absenceCount: Int
 }
