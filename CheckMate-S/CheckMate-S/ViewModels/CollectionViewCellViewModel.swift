@@ -11,6 +11,7 @@ import UIKit
 class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     
     private let subject: Subject
+//    private let attendance: Int
     
     var subjectCode: String {
         var code = subject.subjectCode.prefix(6)

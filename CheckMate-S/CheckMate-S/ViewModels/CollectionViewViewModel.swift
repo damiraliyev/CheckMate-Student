@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 class CollectionViewViewModel: CollectionViewViewModelType {
     
@@ -56,6 +57,7 @@ class CollectionViewViewModel: CollectionViewViewModelType {
     
     func querySubjects(name: String, surname: String, completion: @escaping () -> Void) {
         let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
+        let dispatchGroup = DispatchGroup()
         
         docID.getDocument { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
@@ -75,27 +77,37 @@ class CollectionViewViewModel: CollectionViewViewModelType {
                             print("\(document.documentID) => \(document.data())")
                             let code = document.get("code") as? String ?? ""
                             let name = document.get("name") as? String ?? ""
+                            print("CODEEEEE", String(code.prefix(6)))
                             
-                            guard let contains = self?.checkIfContains(name: name) else { return }
-                            if !contains {
-                                print("Name", name)
-                                self?.subjects.append(
-                                    Subject(
-                                        subjectCode: code,
-                                        subjectName: name,
-                                        totalAttendanceCount: self?.totalAttendanceCount ?? 0,
-                                        absenceCount: self?.absenceCount ?? 0))
-                            }
+                            dispatchGroup.enter()
+                            self?.queryAttendance(name: "Damir", surname: "Aliyev", for: String(code.prefix(6)), completion: {
+                                guard let contains = self?.checkIfContains(name: name) else { return }
+                                
+                                if !contains {
+                                    print("NEED TO APPEND")
+                                    self?.subjects.append(
+                                        Subject(
+                                            subjectCode: code,
+                                            subjectName: name,
+                                            totalAttendanceCount: self?.totalAttendanceCount ?? 0,
+                                            absenceCount: self?.absenceCount ?? 0))
+                                }
+                                self?.totalAttendanceCount = 0
+                                self?.absenceCount = 0;
+                                dispatchGroup.leave()
+                            })
                            
                         }
-                        completion()
+                        dispatchGroup.notify(queue: .main) { // Call the completion block when all tasks have finished
+                            completion()
+                        }
                     }
                 }
         }
         
     }
     
-    func queryAttendance(name: String, surname: String, completion: @escaping () -> Void) {
+    func queryAttendance(name: String, surname: String, for subject: String, completion: @escaping () -> Void) {
         let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
         
         
@@ -108,11 +120,16 @@ class CollectionViewViewModel: CollectionViewViewModelType {
                 return
             }
             
-            DatabaseManager.shared.database.collection("attendance").getDocuments { snapshot, error in
+            DatabaseManager.shared.database.collection("attendance")
+                .whereField(FieldPath.documentID(), isGreaterThan: "\(subject)")
+                .whereField(FieldPath.documentID(), isLessThan: "\(subject)z")
+                .getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
                     print("Error")
                     return
                 }
+                    
+                print("SNAPSHOT DOCUMENTS COUNT:", snapshot.documents.count)
                 
                 for document in snapshot.documents {
                     let dates = document.data().keys //dates 15.03.2023...
@@ -127,7 +144,6 @@ class CollectionViewViewModel: CollectionViewViewModelType {
                                 print("Attendances", attendances)
                                 self?.totalAttendanceCount += attendances.count
                                 for attendance in attendances {
-                                    
                                     if(attendance == 0) {
                                         self?.absenceCount += 1;
                                     }

@@ -58,15 +58,23 @@ class HomeViewController: UIViewController {
             name: "Damir",
             surname: "Aliyev",
             completion: { [weak self] in
+                print("Reload please")
                 self?.collectionView.reloadData()
             })
-        
-        homeViewModel?.collectionViewViewModel?.queryAttendance(name: "Damir", surname: "Aliyev", completion: { [weak self] in
-            print("SUCCESSFULL")
-            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.totalAttendanceCount)
-            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.absenceCount)
-            self?.collectionView.reloadData()
-        })
+//
+//        homeViewModel?.collectionViewViewModel?.queryAttendance(name: "Damir", surname: "Aliyev", for: "CSS342",completion: { [weak self] in
+//            print("SUCCESSFULL")
+//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.totalAttendanceCount)
+//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.absenceCount)
+//            self?.collectionView.reloadData()
+//        })
+//
+//        homeViewModel?.collectionViewViewModel?.queryAttendance(name: "Damir", surname: "Aliyev", for: "CSS358",completion: { [weak self] in
+//            print("SUCCESSFULL")
+//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.totalAttendanceCount)
+//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.absenceCount)
+//            self?.collectionView.reloadData()
+//        })
         
         setup()
         addAllSubViews()

@@ -109,6 +109,8 @@ class SubjectCell: UICollectionViewCell {
         absenceProgressBar.trackTintColor = .white
         absenceProgressBar.progressTintColor = .lightGreen
         
+        percentageLabel.text = "0%"
+        
     }
     
     override func layoutSubviews() {

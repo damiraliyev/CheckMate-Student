@@ -62,6 +62,24 @@ class DB {
 //                    ]
 //                ]
 //        let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(data3, merge: true)
+        
+        let attendanceData = [
+            "9.05.2023": [
+                [
+                    "200107116" : [true],
+                    "200107055" : [true],
+                    "200107111" : [true],
+                    "200107117" : [true],
+                    "200107191" : [true],
+                    "200107101" : [true],
+                    "200107110" : [true]
+                    
+                ],
+                // add more arrays for other students here
+            ],
+            
+        ]
+                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[07-P]").setData(attendanceData, merge: true)
     }
 }
 
@@ -76,8 +94,7 @@ func testQuery() {
             print("No matching subject found")
             return
         }
-        
-        print("MATCHING SUBJECT FOOOOOUUUUNNNDNDD!!!")
+
         let subjectID = subjectDoc.documentID
         
         // Step 2: Query the EnrolledStudents subcollection
@@ -87,8 +104,6 @@ func testQuery() {
                 print("Error querying enrolled students: \(error)")
                 return
             }
-            
-            print("WITHOUT ERROR QUERYING ENROLLED STUDENTS")
             
             // Step 3: For each document in the EnrolledStudents subcollection, query the attendance field for the specified date
             for enrolledStudentDoc in enrolledStudentsSnapshot!.documents {
