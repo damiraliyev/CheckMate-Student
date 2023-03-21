@@ -25,7 +25,13 @@ class AccountInfoView: UIView {
     
     let stackView = makeStackView(axis: .vertical, spacing: 8)
     
-    var fullName = makeLabel(fontSize: 16, color: .white, weight: .bold)
+//    var fullName = makeLabel(fontSize: 16, color: .white, weight: .bold)
+    
+    var fullName = UILabel()
+        .setAutoResizingMask(to: false)
+        .setFont(font: .systemFont(ofSize: 16, weight: .bold))
+        .setColor(color: .white)
+    
     
     var email = makeLabel(fontSize: 16, color: .white, weight: .medium)
     

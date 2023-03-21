@@ -36,6 +36,12 @@ class HomeViewController: UIViewController {
     
     let sectionInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -187,10 +193,13 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         let vc = SubjectScheduleViewController()
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.modalPresentationStyle = .fullScreen
-        present(navVC, animated: true)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.modalPresentationStyle = .fullScreen
+//        present(navVC, animated: true)
     }
 }
 

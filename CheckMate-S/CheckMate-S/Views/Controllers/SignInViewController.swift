@@ -119,7 +119,7 @@ extension SignInViewController {
         IDTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         
-        let domain = ""
+        let domain = "@stu.sdu.edu.kz"
        
         guard var email = IDTextField.textField.text,
               let password = passwordTextField.textField.text else {
@@ -132,10 +132,12 @@ extension SignInViewController {
             switch result {
             case .success(let _):
                 let vc = HomeViewController()
+                let navVC = UINavigationController(rootViewController: vc)
                 self?.IDTextField.textField.text = ""
                 self?.passwordTextField.textField.text = ""
-                vc.modalPresentationStyle = .fullScreen
-                self?.present(vc, animated: true)
+                navVC.modalPresentationStyle = .fullScreen
+                self?.present(navVC, animated: true)
+                
             case .failure(let error):
                 print(error)
             }

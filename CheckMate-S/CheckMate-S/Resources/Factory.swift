@@ -17,6 +17,34 @@ func makeStackView(axis: NSLayoutConstraint.Axis, spacing: CGFloat) -> UIStackVi
     return stackView
 }
 
+extension UILabel {
+    
+    func setAutoResizingMask(to value: Bool) -> Self {
+        translatesAutoresizingMaskIntoConstraints = value
+        return self
+    }
+    
+    
+    func setColor(color: UIColor) -> Self {
+        textColor = color
+        
+        return self
+    }
+    
+    func setText(text: String) -> Self {
+        self.text = text
+        
+        return self
+    }
+    
+    func setFont(font: UIFont) -> Self {
+        self.font = font
+        
+        return self
+    }
+    
+}
+
 func makeLabel(fontSize: CGFloat, color: UIColor? = nil, weight: UIFont.Weight, text: String? = nil) -> UILabel {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
