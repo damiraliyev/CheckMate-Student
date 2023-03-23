@@ -40,6 +40,30 @@ class ResetPasswordViewController: UIViewController {
         emailField.hintLabel.textColor = .sduLightBlue
         
         resetButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.addTarget(self, action: #selector(didTapReset), for: .primaryActionTriggered)
+    }
+    
+    @objc func didTapReset(_ sender: UIButton) {
+        AuthManager.shared.auth.sendPasswordReset(withEmail: emailField.textField.text ?? "") { [weak self] error in
+            guard error == nil else {
+                let alertController = UIAlertController(
+                    title: "Error",
+                    message: "\(error?.localizedDescription)",
+                    preferredStyle: .alert
+                )
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                self?.present(alertController, animated: true)
+                return
+            }
+            
+            let alertController = UIAlertController(title: "Success!", message: "Check your mail to reset your password", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+            self?.present(alertController, animated: true)
+            
+            self?.emailField.textField.text = ""
+        }
+        sender.animatePress()
     }
     
     private func layout() {
