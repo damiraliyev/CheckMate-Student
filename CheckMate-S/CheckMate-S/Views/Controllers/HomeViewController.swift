@@ -237,8 +237,9 @@ extension HomeViewController {
                 if success {
                     DispatchQueue.main.async {
                         let vc = SignInViewController()
-                        vc.modalPresentationStyle = .fullScreen
-                        self?.present(vc, animated: true)
+                        let navVC = UINavigationController(rootViewController: vc)
+                        navVC.modalPresentationStyle = .fullScreen
+                        self?.present(navVC, animated: true)
                     }
                 }
             }

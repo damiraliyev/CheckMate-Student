@@ -44,6 +44,13 @@ class SignInViewController: UIViewController {
         return button
     }()
     
+    let forgotPasswordLabel = makeLabel(fontSize: 15, color: .sduLightBlue, weight: .regular, text: "Forgot password?")
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -63,6 +70,8 @@ class SignInViewController: UIViewController {
         stackView.addArrangedSubview(passwordTextField)
         
         view.addSubview(sduGradientButton)
+        
+        view.addSubview(forgotPasswordLabel)
     }
     
     
@@ -70,8 +79,17 @@ class SignInViewController: UIViewController {
         IDTextField.textField.delegate = self
         passwordTextField.textField.delegate = self
         sduGradientButton.addTarget(self, action: #selector(didTapSignIn), for: .primaryActionTriggered)
+        
+        forgotPasswordLabel.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapForgotPassword))
+        forgotPasswordLabel.addGestureRecognizer(tapGesture)
     }
     
+    @objc func didTapForgotPassword() {
+        let vc = ResetPasswordViewController()
+        print(self.navigationController)
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func layout() {
         let stackSpacing = view.frame.size.height / 13
@@ -99,6 +117,11 @@ class SignInViewController: UIViewController {
             sduGradientButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             sduGradientButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             sduGradientButton.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15)
+        ])
+        
+        NSLayoutConstraint.activate([
+            forgotPasswordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            forgotPasswordLabel.topAnchor.constraint(equalTo: sduGradientButton.bottomAnchor, constant: 16)
         ])
        
     }
