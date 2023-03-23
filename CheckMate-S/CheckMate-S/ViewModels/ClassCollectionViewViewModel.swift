@@ -21,11 +21,12 @@ class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
         print(date)
         DatabaseManager.shared.database.collection("subjects")
             .whereField("code", isGreaterThanOrEqualTo: subjectCode)
-            .whereField("code", isLessThan: "CSS309[\u{f8ff}]")
-            .whereField("dates", arrayContainsAny: ["22.03.2023", "27.03.2023"])
+            .whereField("code", isLessThan: subjectCode + "\u{f8ff}]")
+            .whereField("dates", arrayContains: "27.03.2023")
             .getDocuments { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 print("CAN NOT FIND SUBJECT WITH SUCH CODE")
+                print(error?.localizedDescription)
                 return
             }
                 
@@ -33,17 +34,23 @@ class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                 var name = ""
                 var startTime = ""
                 var endTime = ""
-                print(snapshot.documents.first!["dates"])
-                for document in snapshot.documents {
-                    code  = String((document["code"] as? String)?.suffix(6) ?? "")
-                    name = String((document["name"] as? String) ?? "")
-                    startTime = (document["startTime"] as? String ?? "")
-                    endTime = (document["endTime"] as? String ?? "")
+                
+                if snapshot.documents.count > 0 {
+                    for document in snapshot.documents {
+                        code  = String((document["code"] as? String)?.suffix(6) ?? "")
+                        name = String((document["name"] as? String) ?? "")
+                        startTime = (document["startTime"] as? String ?? "")
+                        endTime = (document["endTime"] as? String ?? "")
+                    }
+               
+                let subjectClass = SubjectClass(subjectCode: code, subjectName: name, startTime: startTime, endTime: endTime)
+                    self?.classes.append(subjectClass)
+                
                 }
-           
-            let subjectClass = SubjectClass(subjectCode: code, subjectName: name, startTime: startTime, endTime: endTime)
-                self?.classes.append(subjectClass)
-            completion()
+                
+                completion()
+                
+                
             
             
         }

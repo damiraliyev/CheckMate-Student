@@ -14,11 +14,11 @@ class SubjectScheduleViewController: UIViewController {
     
     var subjectScheduleViewModel: SubjectScheduleViewModelType?
     
-    let dateLabel = makeLabel(fontSize: 15, weight: .regular)
+    let dateLabel = makeLabel(fontSize: 18, color: .sduLightBlue, weight: .regular)
     
     let sectionInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     
-    
+//    let calendarView = UICalendarView()
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -54,6 +54,10 @@ class SubjectScheduleViewController: UIViewController {
         title = subjectScheduleViewModel?.subjectCodeWithoutDetail
         
         dateLabel.text = subjectScheduleViewModel?.dateText
+        dateLabel.isUserInteractionEnabled = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
+        dateLabel.addGestureRecognizer(tapGesture)
         
         guard let subjectScheduleViewModel = subjectScheduleViewModel else {
             return
@@ -62,7 +66,7 @@ class SubjectScheduleViewController: UIViewController {
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
-            date: "27.03.2023",
+            date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
             
             self?.collectionView.reloadData()
@@ -75,6 +79,10 @@ class SubjectScheduleViewController: UIViewController {
         collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
         
         navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(didTapBack))
+        
+    }
+    
+    @objc func showCalendar() {
         
     }
     

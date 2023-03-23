@@ -12,6 +12,8 @@ extension UIColor {
     
     static let sduBlue = ColorAdapter.adapt(hexValue: "081F5C")
     
+    static let sduLightBlue = ColorAdapter.adapt(hexValue: "002469")
+    
     static let lightGreen = ColorAdapter.adapt(hexValue: "DEFFDB")
     
     static let lightYellow = ColorAdapter.adapt(hexValue: "FFF500")

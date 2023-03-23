@@ -62,6 +62,18 @@ func makeLabel(fontSize: CGFloat, color: UIColor? = nil, weight: UIFont.Weight, 
     return label
 }
 
+func makeButton(withText text: String, image: UIImage? = nil) -> UIButton {
+    let button = UIButton()
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.setTitle(text, for: .normal)
+    
+    if let image = image {
+        button.setImage(image, for: .normal)
+    }
+    
+    return button
+}
+
 
 func getGradientLayer(bounds : CGRect) -> CAGradientLayer{
     let gradient = CAGradientLayer()
