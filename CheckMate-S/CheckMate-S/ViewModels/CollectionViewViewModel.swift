@@ -11,8 +11,9 @@ import FirebaseFirestore
 
 class CollectionViewViewModel: CollectionViewViewModelType {
     
-    
     var subjects: [Subject] = []
+    
+    private var selectedIndexPath: IndexPath?
     
     var totalAttendanceCount: Int = 0;
     var absenceCount: Int = 0;
@@ -217,6 +218,19 @@ class CollectionViewViewModel: CollectionViewViewModelType {
     func numberOfRows() -> Int {
         print(subjects.count)
         return subjects.count
+    }
+    
+    func viewModelForSelectedRow() -> SubjectScheduleViewModelType? {
+        guard let selectedIndexPath = selectedIndexPath else {
+            return nil
+        }
+        
+        return SubjectScheduleViewModel(subject: subjects[selectedIndexPath.row])
+    }
+    
+    
+    func selectRow(atIndextPath indexPath: IndexPath) {
+        self.selectedIndexPath = indexPath
     }
     
     func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModelType? {

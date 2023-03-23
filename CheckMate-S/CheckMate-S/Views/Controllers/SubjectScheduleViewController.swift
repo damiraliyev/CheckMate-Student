@@ -10,7 +10,15 @@ import UIKit
 
 class SubjectScheduleViewController: UIViewController {
     
+    private var collectionViewViewModel: ClassCollectionViewViewModelType?
+    
+    var subjectScheduleViewModel: SubjectScheduleViewModelType?
+    
+    let dateLabel = makeLabel(fontSize: 15, weight: .regular)
+    
     let sectionInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+    
+    
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -26,14 +34,41 @@ class SubjectScheduleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "CSS 342"
+//        title = "CSS 342"
         view.backgroundColor = .secondarySystemBackground
         
+        
+//        collectionViewViewModel?.queryClassForDate(subjectCode: "CSS309[03-P]", date: "27.03.2023", completion: { [weak self] in
+//            self?.collectionView.reloadData()
+//        })
         setup()
         layout()
     }
     
     private func setup() {
+        
+        collectionViewViewModel = ClassCollectionViewViewModel()
+        
+        subjectScheduleViewModel?.classCollectionViewViewModel = collectionViewViewModel
+        
+        title = subjectScheduleViewModel?.subjectCodeWithoutDetail
+        
+        dateLabel.text = subjectScheduleViewModel?.dateText
+        
+        guard let subjectScheduleViewModel = subjectScheduleViewModel else {
+            return
+        }
+
+        
+        subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
+            subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
+            date: "27.03.2023",
+            completion: { [weak self] in
+            
+            self?.collectionView.reloadData()
+        })
+        
+        
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -44,10 +79,16 @@ class SubjectScheduleViewController: UIViewController {
     }
     
     private func layout() {
+        view.addSubview(dateLabel)
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -83,11 +124,16 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
 
 extension SubjectScheduleViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return collectionViewViewModel?.numberOfRows() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassCell.reuseID, for: indexPath) as! ClassCell
+        
+        let cellViewModel = collectionViewViewModel?.classCellViewModel(for: indexPath)
+        
+//        cell.configure(viewModel: cellViewModel)
+        cell.viewModel = cellViewModel
         
         return cell;
     }

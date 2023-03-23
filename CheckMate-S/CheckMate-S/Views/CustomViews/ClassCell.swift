@@ -60,8 +60,26 @@ class ClassCell: UICollectionViewCell {
             subjectName.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
         
-        
-        
+    }
+    
+    func configure(viewModel: ClassCollectionViewCellViewModelType) {
+        subjectName.text = viewModel.subjectName
+        subjectCode.text = viewModel.subjectCode
+        startLabel.text = viewModel.startTime
+        endLabel.text = viewModel.endTime
+    }
+    
+    weak var viewModel: ClassCollectionViewCellViewModelType? {
+        willSet(viewModel) {
+            guard let viewModel = viewModel else {
+                return
+            }
+            
+            subjectName.text = viewModel.subjectName
+            subjectCode.text = viewModel.subjectCode
+            startLabel.text = viewModel.startTime
+            endLabel.text = viewModel.endTime
+        }
     }
     
     

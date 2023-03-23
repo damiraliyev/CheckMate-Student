@@ -18,3 +18,13 @@ extension UIButton {
 
     }
 }
+
+
+extension String {
+    static func date(from date: Date) -> String? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        
+        return formatter.string(from: date)
+    }
+}

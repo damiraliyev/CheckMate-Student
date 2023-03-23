@@ -13,5 +13,7 @@ protocol CollectionViewViewModelType: AnyObject {
     var totalAttendanceCount: Int {get set}
     var absenceCount: Int {get set}
     func numberOfRows() -> Int
+    func selectRow(atIndextPath indexPath: IndexPath)
+    func viewModelForSelectedRow() -> SubjectScheduleViewModelType?
     func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModelType?
 }

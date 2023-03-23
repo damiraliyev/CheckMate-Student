@@ -32,6 +32,13 @@
 		685A3EEB29C2DB27007B1EA1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A3EEA29C2DB27007B1EA1 /* Extensions.swift */; };
 		68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE329BA0E9B007B4495 /* AuthManager.swift */; };
 		68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */; };
+		68D1596029CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1595F29CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift */; };
+		68D1596229CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596129CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift */; };
+		68D1596429CAE63900051FE6 /* SubjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596329CAE63900051FE6 /* SubjectClass.swift */; };
+		68D1596629CAEB7700051FE6 /* ClassCollectionViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596529CAEB7700051FE6 /* ClassCollectionViewViewModelType.swift */; };
+		68D1596829CAECAF00051FE6 /* ClassCollectionViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596729CAECAF00051FE6 /* ClassCollectionViewViewModel.swift */; };
+		68D1596A29CB01D200051FE6 /* SubjectScheduleViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596929CB01D200051FE6 /* SubjectScheduleViewModelType.swift */; };
+		68D1596C29CB023C00051FE6 /* SubjectScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596B29CB023C00051FE6 /* SubjectScheduleViewModel.swift */; };
 		68E4E3F729B30E2300A1B956 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3F629B30E2300A1B956 /* HomeViewController.swift */; };
 		68E4E3FA29B30FDA00A1B956 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3F929B30FDA00A1B956 /* AccountInfoView.swift */; };
 		68E4E3FC29B32E3700A1B956 /* SubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E4E3FB29B32E3700A1B956 /* SubjectCell.swift */; };
@@ -69,6 +76,13 @@
 		685A3EEA29C2DB27007B1EA1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		68A7BDE329BA0E9B007B4495 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		68D1595F29CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewCellViewModelType.swift; sourceTree = "<group>"; };
+		68D1596129CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		68D1596329CAE63900051FE6 /* SubjectClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectClass.swift; sourceTree = "<group>"; };
+		68D1596529CAEB7700051FE6 /* ClassCollectionViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewViewModelType.swift; sourceTree = "<group>"; };
+		68D1596729CAECAF00051FE6 /* ClassCollectionViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewViewModel.swift; sourceTree = "<group>"; };
+		68D1596929CB01D200051FE6 /* SubjectScheduleViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectScheduleViewModelType.swift; sourceTree = "<group>"; };
+		68D1596B29CB023C00051FE6 /* SubjectScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectScheduleViewModel.swift; sourceTree = "<group>"; };
 		68E4E3F629B30E2300A1B956 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		68E4E3F929B30FDA00A1B956 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
 		68E4E3FB29B32E3700A1B956 /* SubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCell.swift; sourceTree = "<group>"; };
@@ -149,6 +163,7 @@
 			children = (
 				6845DE8B29BB67840096A602 /* Subject.swift */,
 				6845DE9129BB6D590096A602 /* Student.swift */,
+				68D1596329CAE63900051FE6 /* SubjectClass.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,6 +185,9 @@
 				6845DE8929BB67370096A602 /* CollectionViewCellViewModel.swift */,
 				6845DE8D29BB6CEA0096A602 /* AccountInfoViewModel.swift */,
 				6835173D29BB708200EB893A /* HomeViewModel.swift */,
+				68D1596129CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift */,
+				68D1596729CAECAF00051FE6 /* ClassCollectionViewViewModel.swift */,
+				68D1596B29CB023C00051FE6 /* SubjectScheduleViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -191,6 +209,9 @@
 				6845DE8529BB65160096A602 /* CollectionViewViewModelType.swift */,
 				6845DE8F29BB6CFC0096A602 /* AccountInfoViewModelType.swift */,
 				6835173F29BB757100EB893A /* HomeViewModelType.swift */,
+				68D1595F29CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift */,
+				68D1596529CAEB7700051FE6 /* ClassCollectionViewViewModelType.swift */,
+				68D1596929CB01D200051FE6 /* SubjectScheduleViewModelType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -347,24 +368,31 @@
 				68E4E3FC29B32E3700A1B956 /* SubjectCell.swift in Sources */,
 				6821F3CC29C1ACA900583B1E /* TestDatabase.swift in Sources */,
 				68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */,
+				68D1596A29CB01D200051FE6 /* SubjectScheduleViewModelType.swift in Sources */,
 				6845DE8629BB65160096A602 /* CollectionViewViewModelType.swift in Sources */,
 				6835173E29BB708200EB893A /* HomeViewModel.swift in Sources */,
+				68D1596229CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift in Sources */,
 				6845DE8E29BB6CEA0096A602 /* AccountInfoViewModel.swift in Sources */,
 				6814356829B2282F00F53F33 /* SignInTextFieldView.swift in Sources */,
+				68D1596029CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift in Sources */,
+				68D1596629CAEB7700051FE6 /* ClassCollectionViewViewModelType.swift in Sources */,
 				6845DE8A29BB67370096A602 /* CollectionViewCellViewModel.swift in Sources */,
 				6814356229B20B0900F53F33 /* SignInViewController.swift in Sources */,
 				68FA425829B2F61F00FC46A6 /* SDUGradientButton.swift in Sources */,
 				6845DE8429BB64C80096A602 /* CollectionViewCellViewModelType.swift in Sources */,
 				6845DE8C29BB67840096A602 /* Subject.swift in Sources */,
 				6814354829B2063B00F53F33 /* AppDelegate.swift in Sources */,
+				68D1596C29CB023C00051FE6 /* SubjectScheduleViewModel.swift in Sources */,
 				68E4E3FA29B30FDA00A1B956 /* AccountInfoView.swift in Sources */,
 				6814354A29B2063B00F53F33 /* SceneDelegate.swift in Sources */,
+				68D1596829CAECAF00051FE6 /* ClassCollectionViewViewModel.swift in Sources */,
 				68E4E3F729B30E2300A1B956 /* HomeViewController.swift in Sources */,
 				6845DE8829BB672C0096A602 /* CollectionViewViewModel.swift in Sources */,
 				6814356A29B22C3200F53F33 /* Factory.swift in Sources */,
 				6845DE9029BB6CFC0096A602 /* AccountInfoViewModelType.swift in Sources */,
 				6845DE9229BB6D590096A602 /* Student.swift in Sources */,
 				68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */,
+				68D1596429CAE63900051FE6 /* SubjectClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
