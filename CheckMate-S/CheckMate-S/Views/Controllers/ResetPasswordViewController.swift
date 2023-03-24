@@ -48,7 +48,7 @@ class ResetPasswordViewController: UIViewController {
             guard error == nil else {
                 let alertController = UIAlertController(
                     title: "Error",
-                    message: "\(error?.localizedDescription)",
+                    message: "\(error?.localizedDescription ?? "Error")",
                     preferredStyle: .alert
                 )
                 

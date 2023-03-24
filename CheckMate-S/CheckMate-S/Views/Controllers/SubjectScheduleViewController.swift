@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+@available(iOS 16.0, *)
 class SubjectScheduleViewController: UIViewController {
     
     private var collectionViewViewModel: ClassCollectionViewViewModelType?
@@ -18,7 +19,7 @@ class SubjectScheduleViewController: UIViewController {
     
     let sectionInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     
-//    let calendarView = UICalendarView()
+    let calendarView = UICalendarView()
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -78,17 +79,27 @@ class SubjectScheduleViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
         
-        navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(didTapBack))
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.calendar = .current
+        calendarView.locale = .current
+        calendarView.fontDesign = .rounded
+        calendarView.layer.cornerRadius = 10
+        calendarView.clipsToBounds = true
+        calendarView.backgroundColor = .white
+        calendarView.delegate = self
+        calendarView.isHidden = true
+ 
         
     }
     
     @objc func showCalendar() {
-        
+        calendarView.isHidden = !calendarView.isHidden
     }
     
     private func layout() {
         view.addSubview(dateLabel)
         view.addSubview(collectionView)
+        view.addSubview(calendarView)
         
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -101,15 +112,20 @@ class SubjectScheduleViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            calendarView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
+            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            calendarView.heightAnchor.constraint(equalToConstant: 300)
+        ])
     }
-    
-    @objc func didTapBack() {
-        self.dismiss(animated: true)
-    }
+
     
     
 }
 
+@available(iOS 16.0, *)
 extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemsPerRow: CGFloat = 1
@@ -130,6 +146,7 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
+@available(iOS 16.0, *)
 extension SubjectScheduleViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionViewViewModel?.numberOfRows() ?? 0
@@ -146,5 +163,10 @@ extension SubjectScheduleViewController: UICollectionViewDataSource {
         return cell;
     }
     
+    
+}
+
+@available(iOS 16.0, *)
+extension SubjectScheduleViewController: UICalendarViewDelegate {
     
 }
