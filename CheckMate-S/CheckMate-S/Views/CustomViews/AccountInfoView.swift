@@ -23,7 +23,7 @@ class AccountInfoView: UIView {
         return imageView
     }()
     
-    let stackView = makeStackView(axis: .vertical, spacing: 8)
+    let stackView = ViewFactory.makeStackView(axis: .vertical, spacing: 8)
     
 //    var fullName = makeLabel(fontSize: 16, color: .white, weight: .bold)
     
@@ -33,7 +33,7 @@ class AccountInfoView: UIView {
         .setColor(color: .white)
     
     
-    var email = makeLabel(fontSize: 16, color: .white, weight: .medium)
+    var email = ViewFactory.makeLabel(fontSize: 16, color: .white, weight: .medium)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

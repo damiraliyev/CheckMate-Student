@@ -18,7 +18,7 @@ class SignInViewController: UIViewController {
         return imageView
     }()
     
-    let stackView = makeStackView(axis: .vertical, spacing: 60)
+    let stackView = ViewFactory.makeStackView(axis: .vertical, spacing: 60)
     
     let IDTextField: SignInTextFieldView = {
         let textFieldView = SignInTextFieldView(withText: "Email")
@@ -44,7 +44,7 @@ class SignInViewController: UIViewController {
         return button
     }()
     
-    let forgotPasswordLabel = makeLabel(fontSize: 15, color: .sduLightBlue, weight: .regular, text: "Forgot password?")
+    let forgotPasswordLabel = ViewFactory.makeLabel(fontSize: 15, color: .sduLightBlue, weight: .regular, text: "Forgot password?")
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

@@ -15,7 +15,9 @@ class SubjectScheduleViewController: UIViewController {
     
     var subjectScheduleViewModel: SubjectScheduleViewModelType?
     
-    let dateLabel = makeLabel(fontSize: 18, color: .sduLightBlue, weight: .regular)
+    let dateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduLightBlue, weight: .regular)
+    
+    let noClassesLabel = ViewFactory.makeLabel(fontSize: 19, color: .systemGray2, weight: .medium)
     
     let sectionInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     
@@ -57,21 +59,27 @@ class SubjectScheduleViewController: UIViewController {
         dateLabel.text = subjectScheduleViewModel?.dateText
         dateLabel.isUserInteractionEnabled = true
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showOrHideCalendar))
         dateLabel.addGestureRecognizer(tapGesture)
         
         guard let subjectScheduleViewModel = subjectScheduleViewModel else {
             return
         }
-
+        
+        noClassesLabel.isHidden = true
+        noClassesLabel.text = "There is no classes of \(subjectScheduleViewModel.subjectCodeWithoutDetail) for this date."
+        noClassesLabel.numberOfLines = 0
+        noClassesLabel.textAlignment = .center
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
             date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
-            
-            self?.collectionView.reloadData()
-        })
+                self?.collectionView.reloadData()
+                if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
+                    self?.noClassesLabel.isHidden = false
+                }
+            })
         
         
         collectionView.backgroundColor = .secondarySystemBackground
@@ -79,31 +87,29 @@ class SubjectScheduleViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
         
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.calendar = .current
-        calendarView.locale = .current
-        calendarView.fontDesign = .rounded
-        calendarView.layer.cornerRadius = 10
-        calendarView.clipsToBounds = true
-        calendarView.backgroundColor = .white
-        calendarView.delegate = self
-        calendarView.isHidden = true
+        configureCalendarView()
  
         
     }
     
-    @objc func showCalendar() {
+    @objc func showOrHideCalendar() {
         calendarView.isHidden = !calendarView.isHidden
     }
     
     private func layout() {
         view.addSubview(dateLabel)
         view.addSubview(collectionView)
+        view.addSubview(noClassesLabel)
         view.addSubview(calendarView)
         
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            noClassesLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            noClassesLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -119,6 +125,21 @@ class SubjectScheduleViewController: UIViewController {
             calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             calendarView.heightAnchor.constraint(equalToConstant: 300)
         ])
+    }
+    
+    func configureCalendarView() {
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.calendar = .current
+        calendarView.locale = .current
+        calendarView.fontDesign = .rounded
+        calendarView.layer.cornerRadius = 10
+        calendarView.clipsToBounds = true
+        calendarView.backgroundColor = .white
+        calendarView.delegate = self
+        let dateSelection = UICalendarSelectionSingleDate(delegate: self)
+        calendarView.selectionBehavior = dateSelection
+        
+        calendarView.isHidden = true
     }
 
     
@@ -167,6 +188,35 @@ extension SubjectScheduleViewController: UICollectionViewDataSource {
 }
 
 @available(iOS 16.0, *)
-extension SubjectScheduleViewController: UICalendarViewDelegate {
+extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
+    
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        guard let subjectScheduleViewModel = subjectScheduleViewModel else { return }
+        let selectedDate = subjectScheduleViewModel.convertDate(
+            day: dateComponents?.day,
+            month: dateComponents?.month,
+            year: dateComponents?.year
+        )
+        
+        subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail, date: selectedDate, completion: { [weak self] in
+            self?.dateLabel.text = selectedDate
+            self?.collectionView.reloadData()
+            
+            if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
+                self?.noClassesLabel.isHidden = false
+            } else {
+                self?.noClassesLabel.isHidden = true
+            }
+        })
+        
+        showOrHideCalendar()
+    }
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, canSelectDate dateComponents: DateComponents?) -> Bool {
+        return true
+    }
+    
+//    func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
+//        return .
+//    }
     
 }

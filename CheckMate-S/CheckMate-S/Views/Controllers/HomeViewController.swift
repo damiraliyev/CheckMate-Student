@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     
     private var homeViewModel: HomeViewModelType?
     
-    let appNameLabel = makeLabel(
+    let appNameLabel = ViewFactory.makeLabel(
         fontSize: 24,
         color: UIColor.sduBlue,
         weight: .bold,
@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
     
     let accountInfoView = AccountInfoView()
     
-    let myClassesLabel = makeLabel(fontSize: 28, weight: .semibold, text: "My Classes")
+    let myClassesLabel = ViewFactory.makeLabel(fontSize: 28, weight: .semibold, text: "My Classes")
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())

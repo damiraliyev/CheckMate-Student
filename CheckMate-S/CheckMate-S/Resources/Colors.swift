@@ -18,6 +18,8 @@ extension UIColor {
     
     static let lightYellow = ColorAdapter.adapt(hexValue: "FFF500")
     
+    static let redOrange = ColorAdapter.adapt(hexValue: "E33538")
+    
 }
 
 class ColorAdapter {

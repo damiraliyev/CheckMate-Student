@@ -10,9 +10,9 @@ import UIKit
 
 class ResetPasswordViewController: UIViewController {
     
-    let headerLabel = makeLabel(fontSize: 25, color: .sduBlue, weight: .semibold, text: "Reset password")
+    let headerLabel = ViewFactory.makeLabel(fontSize: 25, color: .sduBlue, weight: .semibold, text: "Reset password")
     
-    let descriptionLabel = makeLabel(fontSize: 17, weight: .regular)
+    let descriptionLabel = ViewFactory.makeLabel(fontSize: 17, weight: .regular)
     
     let emailField = SignInTextFieldView(withText: "Email")
     

@@ -19,10 +19,11 @@ class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     ) {
         print("APPROPRIATE SUBJECT", subjectCode)
         print(date)
+        classes = []
         DatabaseManager.shared.database.collection("subjects")
             .whereField("code", isGreaterThanOrEqualTo: subjectCode)
             .whereField("code", isLessThan: subjectCode + "\u{f8ff}]")
-            .whereField("dates", arrayContains: "27.03.2023")
+            .whereField("dates", arrayContains: date)
             .getDocuments { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 print("CAN NOT FIND SUBJECT WITH SUCH CODE")

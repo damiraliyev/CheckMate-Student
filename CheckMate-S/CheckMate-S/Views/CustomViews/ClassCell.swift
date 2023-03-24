@@ -12,16 +12,16 @@ class ClassCell: UICollectionViewCell {
     
     static let reuseID = "ClassCell"
     
-    private let startLabel = makeLabel(fontSize: 15, color: .sduBlue, weight: .regular, text: "12:00")
-    private let endLabel = makeLabel(fontSize: 15, color: .sduBlue, weight: .regular, text: "12:50")
+    private let startLabel = ViewFactory.makeLabel(fontSize: 15, color: .sduBlue, weight: .regular, text: "12:00")
+    private let endLabel = ViewFactory.makeLabel(fontSize: 15, color: .sduBlue, weight: .regular, text: "12:50")
     
-    let infoButton = makeButton(withText: "", image: UIImage(systemName: "info.circle"))
+    let infoButton = ViewFactory.makeButton(withText: "", image: UIImage(systemName: "info.circle"))
     
-    let subjectName = makeLabel(fontSize: 17, color: .sduBlue, weight: .bold, text: "Software Engineering")
+    let subjectName = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .bold, text: "Software Engineering")
     
-    let subjectCode = makeLabel(fontSize: 17, color: .sduBlue, weight: .medium, text: "[01-N]")
+    let subjectCode = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .medium, text: "[01-N]")
     
-    private let stackView = makeStackView(axis: .vertical, spacing: 3)
+    private let stackView = ViewFactory.makeStackView(axis: .vertical, spacing: 3)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

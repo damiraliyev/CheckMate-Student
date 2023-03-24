@@ -25,5 +25,19 @@ class SubjectScheduleViewModel: SubjectScheduleViewModelType {
         self.subject = subject
     }
     
+    func convertDate(day: Int?, month: Int?, year: Int?) -> String {
+        guard let day = day,
+              let month = month,
+              let year = year
+        else {
+            return ""
+        }
+        
+        var monthString = String(month)
+        if monthString.count == 1 {
+            monthString = "0\(monthString)"
+        }
+        return "\(day).\(monthString).\(year)"
+    }
     
 }

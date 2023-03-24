@@ -71,15 +71,15 @@ class SubjectCell: UICollectionViewCell {
     
     static let reuseID = "SubjectCell"
     
-    let subjectCode = makeLabel(fontSize: 17, color: .label, weight: .bold, text: "CSS 342")
+    let subjectCode = ViewFactory.makeLabel(fontSize: 17, color: .label, weight: .bold, text: "CSS 342")
     
-    let subjectName = makeLabel(fontSize: 15, color: .label, weight: .medium, text: "Sofware Engineering")
+    let subjectName = ViewFactory.makeLabel(fontSize: 15, color: .label, weight: .medium, text: "Sofware Engineering")
     
     let lineView = UIView()
     
     let absenceProgressBar = UIProgressView()
     
-    let percentageLabel = makeLabel(fontSize: 10, color: UIColor.sduBlue, weight: .bold)
+    let percentageLabel = ViewFactory.makeLabel(fontSize: 10, color: UIColor.sduBlue, weight: .bold)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

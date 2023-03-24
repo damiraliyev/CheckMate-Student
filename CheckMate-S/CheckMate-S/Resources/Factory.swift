@@ -8,14 +8,49 @@
 import Foundation
 import UIKit
 
-func makeStackView(axis: NSLayoutConstraint.Axis, spacing: CGFloat) -> UIStackView {
-    let stackView = UIStackView()
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = axis
-    stackView.spacing = spacing
+final class ViewFactory {
     
-    return stackView
+    static func makeStackView(axis: NSLayoutConstraint.Axis, spacing: CGFloat) -> UIStackView {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = axis
+        stackView.spacing = spacing
+        
+        return stackView
+    }
+    
+    static func makeLabel(fontSize: CGFloat, color: UIColor? = nil, weight: UIFont.Weight, text: String? = nil) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: fontSize, weight: weight)
+        
+        if let color = color {
+            label.textColor = color
+           
+        }
+        
+        if let text = text {
+            label.text = text
+        }
+        
+        return label
+    }
+
+    static func makeButton(withText text: String, image: UIImage? = nil) -> UIButton {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(text, for: .normal)
+        
+        if let image = image {
+            button.setImage(image, for: .normal)
+        }
+        
+        return button
+    }
+    
 }
+
+
 
 extension UILabel {
     
@@ -45,34 +80,6 @@ extension UILabel {
     
 }
 
-func makeLabel(fontSize: CGFloat, color: UIColor? = nil, weight: UIFont.Weight, text: String? = nil) -> UILabel {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.systemFont(ofSize: fontSize, weight: weight)
-    
-    if let color = color {
-        label.textColor = color
-       
-    }
-    
-    if let text = text {
-        label.text = text
-    }
-    
-    return label
-}
-
-func makeButton(withText text: String, image: UIImage? = nil) -> UIButton {
-    let button = UIButton()
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.setTitle(text, for: .normal)
-    
-    if let image = image {
-        button.setImage(image, for: .normal)
-    }
-    
-    return button
-}
 
 
 func getGradientLayer(bounds : CGRect) -> CAGradientLayer{
