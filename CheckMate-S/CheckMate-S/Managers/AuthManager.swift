@@ -35,6 +35,7 @@ final class AuthManager {
                 UserDefaults.standard.setValue(name, forKey: "name")
                 UserDefaults.standard.setValue(surname, forKey: "surname")
                 UserDefaults.standard.setValue(result.user.email, forKey: "email")
+                UserDefaults.standard.setValue(String(result.user.email?.prefix(9) ?? ""), forKey: "id")
                 
                 completion(.success(result.user))
                

@@ -11,32 +11,12 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     
     private var classes = [SubjectClass]()
     
-//    func queryClassForDate(
-//        subjectCode: String,
-//        date: String,
-//        completion: @escaping () -> Void
-//    ) {
-//        let studentEnrolledSubjects = DatabaseManager.shared.database.collection("enrollments")
-//            .whereField("code", isGreaterThanOrEqualTo: subjectCode)
-//            .whereField("code", isLessThan: subjectCode + "\u{f8ff}]")
-//            .whereField("enrolledStudents", arrayContains: "200107116")
-//
-//
-//        studentEnrolledSubjects.getDocuments { snapshot, error in
-//            guard let snapshot = snapshot, error == nil else {
-//                return
-//            }
-//
-//
-//        }
-//
-//    }
-    
-    
+
     func queryClassForDate(
-           subjectCode: String,
-           date: String,
-           completion: @escaping () -> Void
+        studentID: String,
+        subjectCode: String,
+        date: String,
+        completion: @escaping () -> Void
        ) {
            print("APPROPRIATE SUBJECT", subjectCode)
            print(date)
@@ -57,11 +37,10 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                    var name = ""
                    var startTime = ""
                    var endTime = ""
-                   
+                   print("STUDENT ID", studentID)
                    if snapshot.documents.count > 0 {
                        for document in snapshot.documents {
-                           print("COUNNTTT", snapshot.documents.count)
-                           if (document["enrolledStudents"] as! [String]).contains("200107116") {
+                           if (document["enrolledStudents"] as! [String]).contains(studentID) {
                                code  = String((document["code"] as? String)?.suffix(6) ?? "")
                                name = String((document["name"] as? String) ?? "")
                                startTime = (document["startTime"] as? String ?? "")

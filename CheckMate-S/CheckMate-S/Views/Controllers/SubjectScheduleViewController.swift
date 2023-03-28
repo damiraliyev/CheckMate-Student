@@ -72,6 +72,7 @@ final class SubjectScheduleViewController: UIViewController {
         noClassesLabel.textAlignment = .center
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
+            studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",
             subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
             date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
@@ -199,7 +200,11 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
             year: dateComponents?.year
         )
         
-        subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail, date: selectedDate, completion: { [weak self] in
+        subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
+            studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",
+            subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
+            date: selectedDate,
+            completion: { [weak self] in
             self?.dateLabel.text = selectedDate
             self?.collectionView.reloadData()
             

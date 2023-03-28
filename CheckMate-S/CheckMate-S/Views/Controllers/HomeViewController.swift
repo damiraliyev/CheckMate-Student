@@ -61,8 +61,8 @@ final class HomeViewController: UIViewController {
         
         
         homeViewModel?.collectionViewViewModel?.querySubjects(
-            name: "Damir",
-            surname: "Aliyev",
+            name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
+            surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
             completion: { [weak self] in
                 print("Reload please")
                 self?.collectionView.reloadData()
