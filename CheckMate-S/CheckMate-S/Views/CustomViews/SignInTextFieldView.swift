@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SignInTextFieldView: UIView, UITextFieldDelegate {
+final class SignInTextFieldView: UIView, UITextFieldDelegate {
     
     let hintLabel: UILabel = {
         let label = UILabel()

@@ -79,7 +79,7 @@ class DB {
             ],
             
         ]
-                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[07-P]").setData(attendanceData, merge: true)
+//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[07-P]").setData(attendanceData, merge: true)
     }
 }
 
@@ -122,3 +122,5 @@ func testQuery() {
     }
 
 }
+
+

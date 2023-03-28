@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AccountInfoViewModel: AccountInfoViewModelType {
+final class AccountInfoViewModel: AccountInfoViewModelType {
     
     let student: Student
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ClassCollectionViewCellViewModel: ClassCollectionViewCellViewModelType {
+final class ClassCollectionViewCellViewModel: ClassCollectionViewCellViewModelType {
     
     let subjectClass: SubjectClass
     

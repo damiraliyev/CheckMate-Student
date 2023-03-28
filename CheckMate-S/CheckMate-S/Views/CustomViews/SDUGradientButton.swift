@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SDUGradientButton: UIButton {
+final class SDUGradientButton: UIButton {
     
     private var gradientLayer = CAGradientLayer()
     
@@ -21,6 +21,7 @@ class SDUGradientButton: UIButton {
           UIColor(red: 0, green: 0.141, blue: 0.412, alpha: 1).cgColor,
           UIColor(red: 0.608, green: 0.157, blue: 0.165, alpha: 1).cgColor
         ]
+        
         gradientLayer.locations = [0.01, 1]
         gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)

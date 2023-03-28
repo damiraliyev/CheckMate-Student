@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class AccountInfoView: UIView {
+final class AccountInfoView: UIView {
     
     weak var accountInfoViewModel: AccountInfoViewModelType?
     

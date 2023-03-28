@@ -67,7 +67,7 @@ import UIKit
 //}
 
 
-class SubjectCell: UICollectionViewCell {
+final class SubjectCell: UICollectionViewCell {
     
     static let reuseID = "SubjectCell"
     

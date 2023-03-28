@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import FirebaseFirestore
 
-class CollectionViewViewModel: CollectionViewViewModelType {
+final class CollectionViewViewModel: CollectionViewViewModelType {
     
     var subjects: [Subject] = []
     
@@ -58,7 +58,9 @@ class CollectionViewViewModel: CollectionViewViewModelType {
     
     func querySubjects(name: String, surname: String, completion: @escaping () -> Void) {
         let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
+        print("QUERYSUBJECT", docID)
         let dispatchGroup = DispatchGroup()
+        print("QUERY SUBJECTS CHECK FOR THE BUG")
         
         docID.getDocument { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
@@ -110,7 +112,7 @@ class CollectionViewViewModel: CollectionViewViewModelType {
     
     func queryAttendance(name: String, surname: String, for subject: String, completion: @escaping () -> Void) {
         let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
-        
+        print("QUERY ATTENDANCE CHECK FOR THE BUG")
         
         docID.getDocument { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
@@ -121,9 +123,10 @@ class CollectionViewViewModel: CollectionViewViewModelType {
                 return
             }
             
+            print("FIELD PATH DOCUMENT ID", FieldPath.documentID())
             DatabaseManager.shared.database.collection("attendance")
-                .whereField(FieldPath.documentID(), isGreaterThan: "\(subject)")
-                .whereField(FieldPath.documentID(), isLessThan: "\(subject)z")
+                .whereField("code", isGreaterThan: "\(subject)")
+                .whereField("code", isLessThan: "\(subject)u{f8ff}]")
                 .getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
                     print("Error")

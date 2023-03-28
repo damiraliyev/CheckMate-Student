@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @available(iOS 16.0, *)
-class SubjectScheduleViewController: UIViewController {
+final class SubjectScheduleViewController: UIViewController {
     
     private var collectionViewViewModel: ClassCollectionViewViewModelType?
     
@@ -76,6 +76,7 @@ class SubjectScheduleViewController: UIViewController {
             date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
                 self?.collectionView.reloadData()
+                print("NUMOFROWS", self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows())
                 if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
                     self?.noClassesLabel.isHidden = false
                 }

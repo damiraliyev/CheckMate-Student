@@ -8,14 +8,19 @@
 import Foundation
 import UIKit
 
-class CollectionViewCellViewModel: CollectionViewCellViewModelType {
+final class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     
     private let subject: Subject
 //    private let attendance: Int
     
     var subjectCode: String {
+        print("SUBJECT CODE FIX:", subject.subjectCode)
         var code = subject.subjectCode.prefix(6)
-        code.insert(" ", at: code.index(code.startIndex, offsetBy: 3))
+        
+        if code.count == 6 {
+            code.insert(" ", at: code.index(code.startIndex, offsetBy: 3))
+        }
+        
         return String(code)
     }
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HomeViewModel: HomeViewModelType {
+final class HomeViewModel: HomeViewModelType {
     let student = Student(name: "Bakdaulet", surname: "Aidarbekov", email: "bakdaulet.aidarbekov@stu.sdu.edu.kz")
     
     var collectionViewViewModel: CollectionViewViewModelType?

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SignInViewController: UIViewController {
+final class SignInViewController: UIViewController {
     
     let logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -40,7 +40,7 @@ class SignInViewController: UIViewController {
     let sduGradientButton: SDUGradientButton = {
         let button = SDUGradientButton(withText: "Sign in")
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return button
     }()
     
@@ -162,6 +162,12 @@ extension SignInViewController {
                 self?.present(navVC, animated: true)
                 
             case .failure(let error):
+                let alertController = UIAlertController(
+                    title: "Sign in error",
+                    message: "\(error.localizedDescription)",
+                    preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                self?.present(alertController, animated: true)
                 print(error)
             }
         }

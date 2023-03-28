@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ResetPasswordViewController: UIViewController {
+final class ResetPasswordViewController: UIViewController {
     
     let headerLabel = ViewFactory.makeLabel(fontSize: 25, color: .sduBlue, weight: .semibold, text: "Reset password")
     

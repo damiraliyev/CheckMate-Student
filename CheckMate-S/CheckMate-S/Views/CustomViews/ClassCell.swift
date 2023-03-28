@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ClassCell: UICollectionViewCell {
+final class ClassCell: UICollectionViewCell {
     
     static let reuseID = "ClassCell"
     

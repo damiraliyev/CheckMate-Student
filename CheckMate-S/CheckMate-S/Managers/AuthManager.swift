@@ -18,7 +18,7 @@ final class AuthManager {
     public var isSignedIn: Bool {
         return auth.currentUser != nil
     }
-    
+
     public func signIn(
         email: String,
         password: String,

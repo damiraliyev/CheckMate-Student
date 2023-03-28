@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SubjectScheduleViewModel: SubjectScheduleViewModelType {
+final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
     var classCollectionViewViewModel: ClassCollectionViewViewModelType? = nil
     
     var dateText: String {
