@@ -27,6 +27,8 @@ final class HomeViewController: UIViewController {
     
     let myClassesLabel = ViewFactory.makeLabel(fontSize: 28, weight: .semibold, text: "My Classes")
     
+    var isLoaded = false
+    
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,14 +61,14 @@ final class HomeViewController: UIViewController {
         
         homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
         
-        
-        homeViewModel?.collectionViewViewModel?.querySubjects(
-            name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
-            surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
-            completion: { [weak self] in
-                print("Reload please")
-                self?.collectionView.reloadData()
-            })
+        loadAttendance()
+//        homeViewModel?.collectionViewViewModel?.querySubjects(
+//            name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
+//            surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
+//            completion: { [weak self] in
+//                print("Reload please")
+//                self?.collectionView.reloadData()
+//            })
 //
 //        homeViewModel?.collectionViewViewModel?.queryAttendance(name: "Damir", surname: "Aliyev", for: "CSS342",completion: { [weak self] in
 //            print("SUCCESSFULL")
@@ -107,7 +109,8 @@ final class HomeViewController: UIViewController {
         
         db.attendanceCourseStudentIDValue()
         
-        testQuery()
+//        testQuery()
+        
     }
     
     private func addAllSubViews() {
@@ -166,6 +169,34 @@ final class HomeViewController: UIViewController {
         accountInfoView.fullName.text = homeViewModel?.accountInfoViewModel?.fullName
         accountInfoView.email.text = homeViewModel?.accountInfoViewModel?.email
     }
+    
+    func loadAttendance() {
+        
+        let docRef = DatabaseManager.shared.database.collection("attendance")
+            
+        
+             docRef
+            .addSnapshotListener {[weak self] snapshot, error in
+                guard let _ = snapshot, error == nil else {
+                return
+            }
+            
+            self?.homeViewModel?.collectionViewViewModel?.querySubjects(
+                name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
+                surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
+                completion: { [weak self] in
+                    print("Reload please")
+                    DispatchQueue.main.async { [weak self] in
+                        self?.collectionView.reloadData()
+                    }
+                    
+                })
+            
+        }
+
+    }
+
+    
     
 }
 

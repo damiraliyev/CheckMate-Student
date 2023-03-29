@@ -108,11 +108,22 @@ final class SubjectCell: UICollectionViewCell {
         absenceProgressBar.layer.cornerRadius = 5
         absenceProgressBar.trackTintColor = .white
         absenceProgressBar.progressTintColor = .lightGreen
+        absenceProgressBar.progress = 0
+//        absenceProgressBar.progressViewStyle = .default
         
         percentageLabel.text = "0%"
         
+        
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        absenceProgressBar.progress = 0
+        percentageLabel.text = "0%"
+        subjectCode.text = nil
+        subjectName.text = nil
+    }
+//
     override func layoutSubviews() {
         absenceProgressBar.heightAnchor.constraint(equalToConstant: frame.height / 3.5).isActive = true
         absenceProgressBar.widthAnchor.constraint(equalToConstant: frame.width / 4.5).isActive = true
@@ -169,12 +180,16 @@ final class SubjectCell: UICollectionViewCell {
             subjectCode.text = viewModel.subjectCode
             subjectName.text = viewModel.subjectName
             
-            if viewModel.totalAttendanceCount != 0 {
-                print("Set progress", viewModel.absenceCount)
-                absenceProgressBar.progress = viewModel.progress
-                absenceProgressBar.progressTintColor = viewModel.progressColor
-                percentageLabel.text = viewModel.percentage
+            
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.absenceProgressBar.progress = viewModel.progress
+//                self?.absenceProgressBar.progress = 0.1111232
+                self?.absenceProgressBar.progressTintColor = viewModel.progressColor
+                self?.percentageLabel.text = viewModel.percentage
             }
+            
+            
             
         }
     }

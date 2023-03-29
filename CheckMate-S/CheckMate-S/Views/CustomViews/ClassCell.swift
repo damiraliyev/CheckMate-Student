@@ -43,6 +43,8 @@ final class ClassCell: UICollectionViewCell {
        
     }
     
+ 
+    
     @objc func didTapInfo() {
         
         guard let collectionView = superview as? UICollectionView else {

@@ -64,7 +64,7 @@ class DB {
 //        let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(data3, merge: true)
         
         let attendanceData = [
-            "9.05.2023": [
+            "16.05.2023": [
                 [
                     "200107116" : [true],
                     "200107055" : [true],
@@ -79,7 +79,7 @@ class DB {
             ],
             
         ]
-//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[07-P]").setData(attendanceData, merge: true)
+//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS309[03-P]").setData(attendanceData, merge: true)
     }
 }
 

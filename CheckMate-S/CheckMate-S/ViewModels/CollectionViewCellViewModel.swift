@@ -37,15 +37,18 @@ final class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     }
     
     var progress: Float {
+        print("IN VIEW MODEL", Float(absenceCount) / Float(totalAttendanceCount))
         return Float(absenceCount) / Float(totalAttendanceCount)
+//        return 0.1111232223342432
     }
     
     var percentage: String {
+        
         return "\(Int(round(progress * 100)))%"
     }
     
     var progressColor: UIColor {
-        print("progressColor", percentage)
+        print("LOADED COLLECTION VIEW progressColor", percentage)
         if (Int(percentage.prefix(percentage.count - 1)) ?? 0 < 10) {
             return .lightGreen
         } else if(Int(percentage.prefix(percentage.count - 1)) ?? 0 < 20) {

@@ -57,6 +57,9 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
     
     
     func querySubjects(name: String, surname: String, completion: @escaping () -> Void) {
+        subjects = []
+        totalAttendanceCount  = 0
+        absenceCount = 0
         let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
         print("QUERYSUBJECT", docID)
         let dispatchGroup = DispatchGroup()
@@ -71,9 +74,10 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
             
             
             DatabaseManager.shared.database.collection("subjects")
-                .order(by: "code", descending: true)
                 .whereField("enrolledStudents", arrayContains: studentID)
-                .getDocuments() { (querySnapshot, error) in
+                .order(by: "id")
+                .getDocuments  { (querySnapshot, error) in
+                    print("LISTENER WILL BE TRIGGERED")
                     if let error = error {
                         print("Error getting documents: \(error)")
                     } else {
@@ -82,6 +86,7 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
                             let code = document.get("code") as? String ?? ""
                             let name = document.get("name") as? String ?? ""
                             print("CODEEEEE", String(code.prefix(6)))
+                            
                             
                             dispatchGroup.enter()
                             self?.queryAttendance(name: "Damir", surname: "Aliyev", for: String(code.prefix(6)), completion: {
@@ -94,7 +99,11 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
                                             subjectCode: code,
                                             subjectName: name,
                                             totalAttendanceCount: self?.totalAttendanceCount ?? 0,
-                                            absenceCount: self?.absenceCount ?? 0))
+                                            absenceCount: self?.absenceCount ?? 0)
+                                    )
+                                    self?.subjects.sort(by: { s1, s2 in
+                                        s1.subjectCode < s2.subjectCode
+                                    })
                                 }
                                 self?.totalAttendanceCount = 0
                                 self?.absenceCount = 0;
@@ -111,19 +120,70 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
         
     }
     
+//    func queryAttendance(
+//        name: String,
+//        surname: String,
+//        for subject: String,
+//        completion: @escaping () -> Void
+//    ) {
+//        let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
+//
+//        docID.getDocument { snapshot, error in
+//            guard let snapshot = snapshot, error == nil else {
+//                return
+//            }
+//
+//            guard let studentID = snapshot.get("id") as? String else {
+//                return
+//            }
+//
+//            let attendanceDocID = DatabaseManager.shared.database.collection("attendance2.0").document(studentID)
+//
+//            attendanceDocID.getDocument { document, error in
+//                guard let document = document, error == nil else {
+//                    return
+//                }
+//
+//                guard let data = document.data() else {
+//                    print("No data")
+//                    return
+//                }
+//
+//                guard let datesArray = data["CSS309[03-P]"] as? [Any] else {
+//                    print("There is no dates for this subject.")
+//                    return
+//                }
+//
+//                guard let datesArray2 = datesArray as? [String] else {
+//                    print("It is not array of Any")
+//                    return
+//                }
+//
+//
+//                print(datesDictionary)
+//
+//            }
+//        }
+//
+//
+//    }
+    
     func queryAttendance(name: String, surname: String, for subject: String, completion: @escaping () -> Void) {
-        let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
+        let docID = DatabaseManager.shared.database.collection("students")
+            .document("\(name) \(surname)")
+
         print("QUERY ATTENDANCE CHECK FOR THE BUG")
-        
-        docID.getDocument { [weak self] snapshot, error in
+
+        docID
+            .getDocument { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 return
             }
-            
+
             guard let studentID = snapshot.get("id") else {
                 return
             }
-            
+
             print("FIELD PATH DOCUMENT ID", FieldPath.documentID())
             DatabaseManager.shared.database.collection("attendance")
                 .whereField("code", isGreaterThan: "\(subject)")
@@ -133,19 +193,19 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
                     print("Error")
                     return
                 }
-                    
+
                 print("SNAPSHOT DOCUMENTS COUNT:", snapshot.documents.count)
-                
+
                 for document in snapshot.documents {
                     let dates = document.data().keys //dates 15.03.2023...
-                    
+
                     for key in dates {
                         let value = document.data()[key] // returns array
-                        
+
                         if let arr = value as? [Any]{
                             if let dict = arr[0] as? [String: Any] {
                                 guard let attendances = dict["\(studentID)"] as? [Int] else { continue }
-                                
+
                                 print("Attendances", attendances)
                                 self?.totalAttendanceCount += attendances.count
                                 for attendance in attendances {
@@ -154,20 +214,27 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
                                     }
                                 }
                                 
+
                             } else {
                                 print("ZAPARILSYA")
                             }
                         } else {
                             print("NOOOOOASOFSDOASODSODOSDOSADO")
                         }
+                        
                     }
+                    
+                    
                 }
-                completion()
+                    
+                    completion()
+                    
+                
             }
 
         }
     }
-    
+
     
 //    func queryAttendance(name: String, surname: String, completion: @escaping () -> Void) {
 //        print("QUERY ATTENDANCE WAS SUCCESSFULL")

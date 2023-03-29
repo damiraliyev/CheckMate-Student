@@ -87,7 +87,6 @@ final class SignInViewController: UIViewController {
     
     @objc func didTapForgotPassword() {
         let vc = ResetPasswordViewController()
-        print(self.navigationController)
         navigationController?.pushViewController(vc, animated: true)
     }
     
