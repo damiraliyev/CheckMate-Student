@@ -71,6 +71,7 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
             
             
             DatabaseManager.shared.database.collection("subjects")
+                .order(by: "code", descending: true)
                 .whereField("enrolledStudents", arrayContains: studentID)
                 .getDocuments() { (querySnapshot, error) in
                     if let error = error {
