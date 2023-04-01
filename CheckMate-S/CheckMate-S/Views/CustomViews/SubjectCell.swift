@@ -77,7 +77,9 @@ final class SubjectCell: UICollectionViewCell {
     
     let lineView = UIView()
     
-    let absenceProgressBar = UIProgressView()
+//    let absenceProgressBar = UIProgressView()
+    
+    let absenceProgressBar = CustomProgressView()
     
     let percentageLabel = ViewFactory.makeLabel(fontSize: 10, color: UIColor.sduBlue, weight: .bold)
     
@@ -106,10 +108,10 @@ final class SubjectCell: UICollectionViewCell {
         absenceProgressBar.translatesAutoresizingMaskIntoConstraints = false
         absenceProgressBar.layer.borderWidth = 1.5
         absenceProgressBar.layer.cornerRadius = 5
-        absenceProgressBar.trackTintColor = .white
-        absenceProgressBar.progressTintColor = .lightGreen
-        absenceProgressBar.progress = 0
-//        absenceProgressBar.progressViewStyle = .default
+        absenceProgressBar.progressView.layer.cornerRadius = 5
+        absenceProgressBar.barView.backgroundColor = .white
+        absenceProgressBar.progressView.backgroundColor = .lightGreen
+        absenceProgressBar.percentage = 0
         
         percentageLabel.text = "0%"
         
@@ -118,7 +120,7 @@ final class SubjectCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        absenceProgressBar.progress = 0
+        absenceProgressBar.percentage = 0
         percentageLabel.text = "0%"
         subjectCode.text = nil
         subjectName.text = nil
@@ -183,9 +185,9 @@ final class SubjectCell: UICollectionViewCell {
             
             
             DispatchQueue.main.async { [weak self] in
-                self?.absenceProgressBar.progress = viewModel.progress
-//                self?.absenceProgressBar.progress = 0.1111232
-                self?.absenceProgressBar.progressTintColor = viewModel.progressColor
+                self?.absenceProgressBar.percentage = viewModel.progress
+                self?.absenceProgressBar.progressView.backgroundColor = viewModel.progressColor
+                self?.absenceProgressBar.updateProgressViewWidthConstraint()
                 self?.percentageLabel.text = viewModel.percentage
             }
             

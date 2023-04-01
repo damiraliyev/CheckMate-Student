@@ -39,7 +39,7 @@ final class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     var progress: Float {
         print("IN VIEW MODEL", Float(absenceCount) / Float(totalAttendanceCount))
         return Float(absenceCount) / Float(totalAttendanceCount)
-//        return 0.1111232223342432
+
     }
     
     var percentage: String {
