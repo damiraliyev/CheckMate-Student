@@ -46,8 +46,35 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                startTime = (document["startTime"] as? String ?? "")
                                endTime = (document["endTime"] as? String ?? "")
                                
-                               let subjectClass = SubjectClass(subjectCode: code, subjectName: name, startTime: startTime, endTime: endTime)
-                                   self?.classes.append(subjectClass)
+                               let startHour = Int(String(startTime.prefix(2))) ?? 0
+                               let endHour = Int(String(endTime.prefix(2))) ?? 0
+
+                               if endHour - startHour >= 1 {
+                                   
+                                   let firstClassEnd = String(startHour) + ":50"
+                                   let secondClassStart = String(startHour + 1) + ":00"
+                                   
+                                   let subjectFirstClass = SubjectClass(
+                                    subjectCode: code,
+                                    subjectName: name,
+                                    startTime: startTime,
+                                    endTime: firstClassEnd
+                                   )
+                                   
+                                   let subjectSecondClass = SubjectClass(
+                                    subjectCode: code,
+                                    subjectName: name,
+                                    startTime: secondClassStart,
+                                    endTime: endTime)
+                                   
+                                   self?.classes.append(subjectFirstClass)
+                                   self?.classes.append(subjectSecondClass)
+                               } else {
+                                   let subjectClass = SubjectClass(subjectCode: code, subjectName: name, startTime: startTime, endTime: endTime)
+                                       self?.classes.append(subjectClass)
+                               }
+                               
+                               
                            }
                            
                        }
@@ -69,6 +96,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
         let subjectClass = classes[indexPath.row]
         
         return ClassCollectionViewCellViewModel(subjectClass: subjectClass)
+        NotificationCenter.post(<#T##self: NotificationCenter##NotificationCenter#>)
     }
     
     
