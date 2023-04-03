@@ -94,7 +94,8 @@ class DB {
 //            ],
 //
         ]
-                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS358[03-P]").setData(attendanceData, merge: true)
+//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS358[03-P]").setData(attendanceData, merge: true)
+        
     }
 }
 

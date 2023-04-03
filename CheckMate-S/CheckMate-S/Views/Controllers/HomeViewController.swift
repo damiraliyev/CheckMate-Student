@@ -45,10 +45,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        loadAttendance { [weak self] in
-            print("LISTENER", self?.listener)
-            self?.listener?.remove()
-        }
+        loadAttendance()
         
     }
     
@@ -70,7 +67,7 @@ final class HomeViewController: UIViewController {
         homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
         
         
-
+        loadAttendance()
         setup()
         addAllSubViews()
         layout()
@@ -120,7 +117,7 @@ final class HomeViewController: UIViewController {
             signOutButton.centerYAnchor.constraint(equalTo: appNameLabel.centerYAnchor),
             signOutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ])
-        
+    
         NSLayoutConstraint.activate([
             accountInfoView.topAnchor.constraint(equalTo: appNameLabel.bottomAnchor, constant: 16),
             accountInfoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
@@ -158,30 +155,27 @@ final class HomeViewController: UIViewController {
         accountInfoView.email.text = homeViewModel?.accountInfoViewModel?.email
     }
     
-    func loadAttendance(completion: @escaping () -> Void) {
-        
-        let docRef = DatabaseManager.shared.database.collection("attendance")
-            
-        
-        listener = docRef
-            .addSnapshotListener {[weak self] snapshot, error in
-                guard let _ = snapshot, error == nil else {
-                return
+    func loadAttendance() {
+        self.homeViewModel?.collectionViewViewModel?.loadSubjectsInfo(completion: { [weak self] in
+//            print(homeViewModel?.collectionViewViewModel.subj)
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.reloadData()
             }
-            
-            self?.homeViewModel?.collectionViewViewModel?.querySubjects(
-                name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
-                surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
-                completion: { [weak self] in
-                    print("Reload please")
-                    DispatchQueue.main.async { [weak self] in
-                        self?.collectionView.reloadData()
-                    }
-                    
-                })
+        })
+             
+//            self?.homeViewModel?.collectionViewViewModel?.querySubjects(
+//                name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
+//                surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
+//                completion: { [weak self] in
+//                    print("Reload please")
+//                    DispatchQueue.main.async { [weak self] in
+//                        self?.collectionView.reloadData()
+//                    }
+//
+//                })
                 
-            completion()
-        }
+//            completion()
+//        }
 
     }
 
