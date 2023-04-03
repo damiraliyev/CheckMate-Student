@@ -37,7 +37,6 @@ final class SubjectScheduleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        title = "CSS 342"
         view.backgroundColor = .secondarySystemBackground
         
         
@@ -77,7 +76,7 @@ final class SubjectScheduleViewController: UIViewController {
             date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
                 self?.collectionView.reloadData()
-                print("NUMOFROWS", self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows())
+                print("WHAT DOES DATE RETURN", String.date(from: Date()))
                 if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
                     self?.noClassesLabel.isHidden = false
                 }
@@ -199,6 +198,7 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
             month: dateComponents?.month,
             year: dateComponents?.year
         )
+        print("WHAT DATE COMPONENTS RETURN?", dateComponents?.day)
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",

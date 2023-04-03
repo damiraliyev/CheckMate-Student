@@ -17,6 +17,7 @@ final class AccountInfoView: UIView {
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         imageView.image = UIImage(named: "avatar-man")
         imageView.clipsToBounds = true
         
@@ -50,7 +51,7 @@ final class AccountInfoView: UIView {
     
     private func setup() {
         fullName.text = "Askar Askarov"
-        email.text = "200107111@stu.sdu.edu.kz"
+        email.text    = "200107111@stu.sdu.edu.kz"
         email.adjustsFontSizeToFitWidth = true
         
         createGradient()
@@ -80,11 +81,11 @@ final class AccountInfoView: UIView {
           UIColor(red: 0, green: 0.141, blue: 0.412, alpha: 1).cgColor,
           UIColor(red: 0.608, green: 0.157, blue: 0.165, alpha: 1).cgColor
         ]
-        gradientLayer.locations = [0.01, 1]
+        gradientLayer.locations  = [0.01, 1]
         gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
-        gradientLayer.bounds = bounds.insetBy(dx: -0.5 * bounds.size.width, dy: -0.5 * bounds.size.height)
-        gradientLayer.position = center
+        gradientLayer.endPoint   = CGPoint(x: 0.75, y: 0.5)
+        gradientLayer.bounds     = bounds.insetBy(dx: -0.5 * bounds.size.width, dy: -0.5 * bounds.size.height)
+        gradientLayer.position   = center
         
         layer.addSublayer(gradientLayer)
         

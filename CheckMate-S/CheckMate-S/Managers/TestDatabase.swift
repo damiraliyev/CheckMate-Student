@@ -63,23 +63,38 @@ class DB {
 //                ]
 //        let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(data3, merge: true)
         
-        let attendanceData = [
-            "16.05.2023": [
-                [
-                    "200107116" : [true],
-                    "200107055" : [true],
-                    "200107111" : [true],
-                    "200107117" : [true],
-                    "200107191" : [true],
-                    "200107101" : [true],
-                    "200107110" : [true]
-                    
-                ],
-                // add more arrays for other students here
-            ],
-            
+        let attendanceData: [String: [String:Bool]] = [ :
+//            "23.05.2023": [
+//                [
+//                    "200107116" : [false],
+//                    "200107055" : [true],
+//                    "200107111" : [true],
+//                    "200107117" : [true],
+//                    "200107191" : [true],
+//                    "200107101" : [true],
+////                    "200107110" : [true]
+//
+//                ],
+//
+//                // add more arrays for other students here
+//            ],
+//            "30.05.2023": [
+//                [
+//                    "200107116" : [false],
+//                    "200107055" : [true],
+//                    "200107111" : [true],
+//                    "200107117" : [true],
+//                    "200107191" : [true],
+//                    "200107101" : [true],
+////                    "200107110" : [true]
+//
+//                ],
+//
+//                // add more arrays for other students here
+//            ],
+//
         ]
-//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS309[03-P]").setData(attendanceData, merge: true)
+                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS358[03-P]").setData(attendanceData, merge: true)
     }
 }
 

@@ -33,11 +33,16 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
             return ""
         }
         
+        var dayString = String(day)
+        if String(day).count == 1 {
+            dayString = "0\(day)"
+        }
+        
         var monthString = String(month)
         if monthString.count == 1 {
             monthString = "0\(monthString)"
         }
-        return "\(day).\(monthString).\(year)"
+        return "\(dayString).\(monthString).\(year)"
     }
     
 }

@@ -51,8 +51,17 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
 
                                if endHour - startHour >= 1 {
                                    
-                                   let firstClassEnd = String(startHour) + ":50"
-                                   let secondClassStart = String(startHour + 1) + ":00"
+                                   var firstClassEnd = String(startHour) + ":50"
+                                   if String(startHour).count == 1 {
+                                       firstClassEnd = "0\(startHour):50"
+                                   }
+                                   
+                                   var secondClassStart = String(startHour + 1) + ":00"
+                                   if String(startHour + 1).count == 1 {
+                                       secondClassStart = "0\(startHour + 1):00"
+                                   }
+                                   
+                                   
                                    
                                    let subjectFirstClass = SubjectClass(
                                     subjectCode: code,
@@ -96,7 +105,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
         let subjectClass = classes[indexPath.row]
         
         return ClassCollectionViewCellViewModel(subjectClass: subjectClass)
-        NotificationCenter.post(<#T##self: NotificationCenter##NotificationCenter#>)
+        
     }
     
     

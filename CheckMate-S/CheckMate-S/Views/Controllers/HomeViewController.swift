@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 final class HomeViewController: UIViewController {
     
@@ -38,9 +39,16 @@ final class HomeViewController: UIViewController {
     
     let sectionInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     
+    var listener: ListenerRegistration?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        loadAttendance { [weak self] in
+            print("LISTENER", self?.listener)
+            self?.listener?.remove()
+        }
         
     }
     
@@ -61,33 +69,13 @@ final class HomeViewController: UIViewController {
         
         homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
         
-        loadAttendance()
-//        homeViewModel?.collectionViewViewModel?.querySubjects(
-//            name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
-//            surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
-//            completion: { [weak self] in
-//                print("Reload please")
-//                self?.collectionView.reloadData()
-//            })
-//
-//        homeViewModel?.collectionViewViewModel?.queryAttendance(name: "Damir", surname: "Aliyev", for: "CSS342",completion: { [weak self] in
-//            print("SUCCESSFULL")
-//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.totalAttendanceCount)
-//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.absenceCount)
-//            self?.collectionView.reloadData()
-//        })
-//
-//        homeViewModel?.collectionViewViewModel?.queryAttendance(name: "Damir", surname: "Aliyev", for: "CSS358",completion: { [weak self] in
-//            print("SUCCESSFULL")
-//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.totalAttendanceCount)
-//            print("Attendance count", self?.homeViewModel?.collectionViewViewModel?.absenceCount)
-//            self?.collectionView.reloadData()
-//        })
         
+
         setup()
         addAllSubViews()
         layout()
     }
+    
     
     private func setup() {
         accountInfoView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,12 +158,12 @@ final class HomeViewController: UIViewController {
         accountInfoView.email.text = homeViewModel?.accountInfoViewModel?.email
     }
     
-    func loadAttendance() {
+    func loadAttendance(completion: @escaping () -> Void) {
         
         let docRef = DatabaseManager.shared.database.collection("attendance")
             
         
-             docRef
+        listener = docRef
             .addSnapshotListener {[weak self] snapshot, error in
                 guard let _ = snapshot, error == nil else {
                 return
@@ -191,7 +179,8 @@ final class HomeViewController: UIViewController {
                     }
                     
                 })
-            
+                
+            completion()
         }
 
     }

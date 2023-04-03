@@ -17,6 +17,19 @@ final class SDUGradientButton: UIButton {
         
         clipsToBounds = true
         
+        
+        setupGradientLayer()
+        
+        self.setTitle(text, for: .normal)
+        titleLabel?.text = text
+        
+        titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        titleLabel?.textColor = .white
+        
+        
+    }
+    
+    private func setupGradientLayer() {
         gradientLayer.colors = [
           UIColor(red: 0, green: 0.141, blue: 0.412, alpha: 1).cgColor,
           UIColor(red: 0.608, green: 0.157, blue: 0.165, alpha: 1).cgColor
@@ -31,14 +44,6 @@ final class SDUGradientButton: UIButton {
         layer.addSublayer(gradientLayer)
 
         layer.cornerRadius = 10
-        
-        self.setTitle(text, for: .normal)
-        titleLabel?.text = text
-        
-        titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        titleLabel?.textColor = .white
-        
-        
     }
     
     required init?(coder: NSCoder) {

@@ -75,9 +75,8 @@ final class SubjectCell: UICollectionViewCell {
     
     let subjectName = ViewFactory.makeLabel(fontSize: 15, color: .label, weight: .medium, text: "Sofware Engineering")
     
-    let lineView = UIView()
-    
-//    let absenceProgressBar = UIProgressView()
+    let lineView    = UIView()
+
     
     let absenceProgressBar = CustomProgressView()
     
@@ -105,6 +104,14 @@ final class SubjectCell: UICollectionViewCell {
         lineView.widthAnchor.constraint(equalToConstant: 1.5).isActive = true
         lineView.backgroundColor = .black
         
+        setupAbsenceProgressBar()
+        
+        percentageLabel.text = "0%"
+        
+        
+    }
+    
+    private func setupAbsenceProgressBar() {
         absenceProgressBar.translatesAutoresizingMaskIntoConstraints = false
         absenceProgressBar.layer.borderWidth = 1.5
         absenceProgressBar.layer.cornerRadius = 5
@@ -112,10 +119,6 @@ final class SubjectCell: UICollectionViewCell {
         absenceProgressBar.barView.backgroundColor = .white
         absenceProgressBar.progressView.backgroundColor = .lightGreen
         absenceProgressBar.percentage = 0
-        
-        percentageLabel.text = "0%"
-        
-        
     }
     
     override func prepareForReuse() {
@@ -181,8 +184,6 @@ final class SubjectCell: UICollectionViewCell {
             
             subjectCode.text = viewModel.subjectCode
             subjectName.text = viewModel.subjectName
-            
-            
             
             DispatchQueue.main.async { [weak self] in
                 self?.absenceProgressBar.percentage = viewModel.progress
