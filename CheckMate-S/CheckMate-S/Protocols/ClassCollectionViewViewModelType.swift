@@ -13,4 +13,6 @@ protocol ClassCollectionViewViewModelType: AnyObject {
     func numberOfRows() -> Int
     func classCellViewModel(for indexPath: IndexPath) -> ClassCollectionViewCellViewModelType?
     func queryClassForDate(studentID: String, subjectCode: String, date: String, completion: @escaping () -> Void)
+    func loadAttendanceStatusesForDate(date: String, completion: @escaping () -> ())
+    
 }

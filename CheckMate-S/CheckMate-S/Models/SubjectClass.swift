@@ -12,4 +12,6 @@ struct SubjectClass {
     let subjectName: String
     let startTime: String
     let endTime: String
+    let needToAttend: Int
+    let attended: Int
 }

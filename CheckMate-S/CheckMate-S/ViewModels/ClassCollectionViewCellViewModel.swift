@@ -27,6 +27,14 @@ final class ClassCollectionViewCellViewModel: ClassCollectionViewCellViewModelTy
         return subjectClass.endTime
     }
     
+    var needToAttend: Int {
+        return 1
+    }
+    
+    var attended: Int {
+        return subjectClass.attended
+    }
+    
     init(subjectClass: SubjectClass) {
         self.subjectClass = subjectClass
     }

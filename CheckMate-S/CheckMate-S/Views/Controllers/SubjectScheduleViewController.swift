@@ -39,16 +39,8 @@ final class SubjectScheduleViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
         
-        
-//        collectionViewViewModel?.queryClassForDate(subjectCode: "CSS309[03-P]", date: "27.03.2023", completion: { [weak self] in
-//            self?.collectionView.reloadData()
-//        })
         setup()
         layout()
-        
-        DatabaseManager.shared.loadAttendanceStatusForParticularDate { value in
-            print("Fetched \(value)")
-        }
         
     }
     
@@ -81,7 +73,6 @@ final class SubjectScheduleViewController: UIViewController {
             date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
                 self?.collectionView.reloadData()
-                print("WHAT DOES DATE RETURN", String.date(from: Date()))
                 if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
                     self?.noClassesLabel.isHidden = false
                 }
@@ -95,6 +86,7 @@ final class SubjectScheduleViewController: UIViewController {
         
         configureCalendarView()
  
+//        subjectScheduleViewModel.loadAttendanceStatusesForDate()
         
     }
     
@@ -129,7 +121,7 @@ final class SubjectScheduleViewController: UIViewController {
             calendarView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
             calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            calendarView.heightAnchor.constraint(equalToConstant: 300)
+            calendarView.heightAnchor.constraint(equalToConstant: 330)
         ])
     }
     
@@ -182,7 +174,7 @@ extension SubjectScheduleViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassCell.reuseID, for: indexPath) as! ClassCell
         
-        let cellViewModel = collectionViewViewModel?.classCellViewModel(for: indexPath)
+        let cellViewModel = subjectScheduleViewModel?.classCollectionViewViewModel?.classCellViewModel(for: indexPath)
         
 //        cell.configure(viewModel: cellViewModel)
         cell.viewModel = cellViewModel
@@ -197,13 +189,17 @@ extension SubjectScheduleViewController: UICollectionViewDataSource {
 extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        guard let subjectScheduleViewModel = subjectScheduleViewModel else { return }
+        guard var subjectScheduleViewModel = subjectScheduleViewModel else { return }
         let selectedDate = subjectScheduleViewModel.convertDate(
             day: dateComponents?.day,
             month: dateComponents?.month,
             year: dateComponents?.year
         )
-        print("WHAT DATE COMPONENTS RETURN?", dateComponents?.day)
+        
+        subjectScheduleViewModel.dateText = selectedDate
+        
+        print("BEFOR LOADING ATTENDANCE STATUSES", subjectScheduleViewModel.dateText)
+//        subjectScheduleViewModel.loadAttendanceStatusesForDate()
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",
@@ -225,9 +221,5 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
     func dateSelection(_ selection: UICalendarSelectionSingleDate, canSelectDate dateComponents: DateComponents?) -> Bool {
         return true
     }
-    
-//    func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-//        return .
-//    }
     
 }

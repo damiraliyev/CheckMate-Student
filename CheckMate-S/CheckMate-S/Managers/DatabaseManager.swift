@@ -37,6 +37,7 @@ final class DatabaseManager {
     func queryAmountOfClasses(subjectCode code: String, completion: @escaping (Int) -> ()) {
             let docID = DatabaseManager.shared.database.collection("students").document("Damir Aliyev")
             var totalAttendanceCount = 0
+            var amountOfHours = 0
             docID.getDocument {snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
                     return
@@ -55,11 +56,23 @@ final class DatabaseManager {
                         return
                     }
                     print("QUERY AMOUNT OF CLASSES", snapshot.documents.count)
+                    
                     for doc in snapshot.documents {
                         print("NEW WAY TO CALCULATE ATTENDANCE!!!", (doc.get("dates") as? [String])?.count ?? 15 )
                         totalAttendanceCount += (doc.get("dates") as? [String])?.count ?? 15
+                        
+                        let startTime = (doc.get("startTime") as? String ?? "")
+                        let endTime = (doc.get("endTime") as? String ?? "")
+                        
+                        let startHour = Int(String(startTime.prefix(2))) ?? 0
+                        let endHour = Int(String(endTime.prefix(2))) ?? 0
+                        
+                        amountOfHours = endHour - startHour
+                        print("AMOUNT OF HOURS", amountOfHours)
+
                     }
-                    completion(totalAttendanceCount)
+                    
+                    completion(totalAttendanceCount * (amountOfHours + 1))
                     totalAttendanceCount = 0
                 }
                 
@@ -242,14 +255,32 @@ final class DatabaseManager {
         
     }
     
-    func loadAttendanceStatusForParticularDate(completion: @escaping (Any) -> Void) {
-        let documentReference = Firestore.firestore().collection("attendance").document("CSS309[03-P]")
+    func loadAttendanceStatusForParticularDate(dataString: String, completion: @escaping ( [String: Any] ) -> Void) {
+        let documentReference = DatabaseManager.shared.database.collection("attendance").document("CSS309[03-P]")
         documentReference.getDocument { (document, error) in
             if let document = document, document.exists {
                 let data = document.data()
-                let attendance = data?["23.05.2023"] as? [Any]
-                print("ATT FROM PARTICULAR DATE", attendance)
-                completion(attendance)
+                if let attendance = data?[dataString] as? [[String: Any]] {
+                    let studentID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+                    let attStatus = attendance[0][studentID] as! [Int]
+                    var attended: [Int] = [0]
+                    for attendance in attStatus {
+                        if attendance == 1 {
+                            attended.append(1)
+                        } else {
+                            attended.append(0)
+                        }
+                    }
+                    let dict = [
+                        "needToAttend": attStatus.count,
+                        "attended": attended
+                    ]
+                    
+                    completion(dict)
+                } else {
+                    completion([:])
+                }
+                
             } else {
                 print("Document does not exist")
             }

@@ -12,5 +12,7 @@ protocol ClassCollectionViewCellViewModelType: AnyObject {
     var subjectName: String { get }
     var startTime: String { get }
     var endTime: String { get }
+    var needToAttend: Int { get }
+    var attended: Int { get }
     
 }

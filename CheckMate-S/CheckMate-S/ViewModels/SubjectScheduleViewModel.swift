@@ -10,9 +10,8 @@ import Foundation
 final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
     var classCollectionViewViewModel: ClassCollectionViewViewModelType? = nil
     
-    var dateText: String {
-        return String.date(from: Date()) ?? ""
-    }
+    var dateText = String.date(from: Date()) ?? ""
+
     
     private var subject: Subject
     
@@ -20,6 +19,10 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
         let codePart = String(subject.subjectCode.prefix(6))
         return codePart
     }
+    
+    
+    var needToAttend = 0
+    var attended = 0
     
     init(subject: Subject) {
         self.subject = subject
@@ -44,5 +47,19 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
         }
         return "\(dayString).\(monthString).\(year)"
     }
+    
+//    func loadAttendanceStatusesForDate() {
+//        print("IN load attendance statuses for date", dateText)
+//        DatabaseManager.shared.loadAttendanceStatusForParticularDate(dataString: dateText) { [weak self] dict in
+//            print("Fetched \(dict)")
+//            if dict.count == 0 {
+//                print("There is no information for this particular date.")
+//            } else {
+//                self?.needToAttend = dict["needToAttend"] ?? 0
+//                self?.attended = dict["attended"] ?? 0
+//            }
+//        }
+//    }
+    
     
 }

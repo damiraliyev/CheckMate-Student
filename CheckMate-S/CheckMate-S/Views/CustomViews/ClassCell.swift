@@ -28,7 +28,7 @@ final class ClassCell: UICollectionViewCell {
         let button = ViewFactory.makeButton(withText: "", image: UIImage(systemName: "circle"))
         button.imageView?.layer.transform = CATransform3DMakeScale(1.7, 1.7, 1.7)
         button.imageView?.tintColor = .gray
-        button.addTarget(self, action: #selector(attendanceButtonTapped), for: .primaryActionTriggered)
+        button.addTarget(ClassCell.self, action: #selector(attendanceButtonTapped), for: .primaryActionTriggered)
         return button
     }()
     
@@ -147,6 +147,11 @@ final class ClassCell: UICollectionViewCell {
                 print(startHour)
                 print(endHour)
                 infoButton.isHidden = true
+            }
+            
+            if viewModel.attended == 1 {
+                attendanceButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+                attendanceButton.imageView?.tintColor = .systemGreen
             }
         }
     }
