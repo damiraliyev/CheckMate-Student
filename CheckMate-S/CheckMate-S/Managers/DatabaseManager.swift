@@ -16,26 +16,6 @@ final class DatabaseManager {
     
     let database = Firestore.firestore()
     
-    
-    //For teachers
-//    func findUser(with email: String, completion: @escaping (String, String) -> Void) {
-//        let ref = database.collection("teachers").whereField("email", isEqualTo: email)
-//
-//
-//        ref.getDocuments { snapshot, error in
-//            guard let snapshot = snapshot, error == nil else {
-//                print("SNAPSHOT WASN'T FOUND")
-//                return
-//            }
-//
-//            let name = snapshot.documents.first?.get("name") as? String ?? ""
-//            let surname = snapshot.documents.first?.get("surname") as? String ?? ""
-//
-//            completion(name, surname)
-//        }
-//
-//    }
-    
     func findUser(with email: String, completion: @escaping (String, String) -> Void) {
         let ref = database.collection("students").whereField("email", isEqualTo: email)
         
@@ -248,7 +228,7 @@ final class DatabaseManager {
         
         
         var listener = docRef
-            .getDocuments {[weak self] snapshot, error in
+            .addSnapshotListener {[weak self] snapshot, error in
                 guard let _ = snapshot, error == nil else {
                     return
                 }
@@ -262,7 +242,23 @@ final class DatabaseManager {
         
     }
     
-    
+    func loadAttendanceStatusForParticularDate(completion: @escaping (Any) -> Void) {
+        let documentReference = Firestore.firestore().collection("attendance").document("CSS309[03-P]")
+        documentReference.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                let attendance = data?["23.05.2023"] as? [Any]
+                print("ATT FROM PARTICULAR DATE", attendance)
+                completion(attendance)
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
+//        completion()
+        
+        
+    }
     
 }
 

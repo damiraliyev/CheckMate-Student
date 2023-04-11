@@ -99,6 +99,7 @@ final class SubjectCell: UICollectionViewCell {
         layer.borderWidth = 1
         subjectName.numberOfLines = 0
         subjectCode.textColor = UIColor.sduBlue
+        subjectCode.numberOfLines = 0
         
         lineView.translatesAutoresizingMaskIntoConstraints = false
         lineView.widthAnchor.constraint(equalToConstant: 1.5).isActive = true

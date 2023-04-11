@@ -22,6 +22,15 @@ final class ClassCell: UICollectionViewCell {
     let subjectCode = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .medium, text: "[01-N]")
     
     private let stackView = ViewFactory.makeStackView(axis: .vertical, spacing: 3)
+    private let stackView2 = ViewFactory.makeStackView(axis: .vertical, spacing: 3)
+    
+    private let attendanceButton: UIButton = {
+        let button = ViewFactory.makeButton(withText: "", image: UIImage(systemName: "circle"))
+        button.imageView?.layer.transform = CATransform3DMakeScale(1.7, 1.7, 1.7)
+        button.imageView?.tintColor = .gray
+        button.addTarget(self, action: #selector(attendanceButtonTapped), for: .primaryActionTriggered)
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,8 +47,7 @@ final class ClassCell: UICollectionViewCell {
 //        layer.borderWidth = 1
         layer.cornerRadius = 10
         
-       
-        
+        stackView2.alignment = .center
        
     }
     
@@ -70,10 +78,14 @@ final class ClassCell: UICollectionViewCell {
         stackView.addArrangedSubview(startLabel)
         stackView.addArrangedSubview(endLabel)
         
-        contentView.addSubview(subjectName)
-        contentView.addSubview(subjectCode)
+        contentView.addSubview(stackView2)
+        
+        stackView2.addArrangedSubview(subjectName)
+        stackView2.addArrangedSubview(subjectCode)
         
         contentView.addSubview(infoButton)
+        
+        contentView.addSubview(attendanceButton)
         
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -81,19 +93,26 @@ final class ClassCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            subjectCode.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            subjectCode.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
-        ])
-        
-        NSLayoutConstraint.activate([
-            subjectName.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            subjectName.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            stackView2.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stackView2.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
             infoButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
             infoButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
+        
+        NSLayoutConstraint.activate([
+            attendanceButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            attendanceButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            attendanceButton.heightAnchor.constraint(equalToConstant: 35),
+            attendanceButton.widthAnchor.constraint(equalToConstant: 35)
+        ])
+        
+        
+    }
+    
+    @objc func attendanceButtonTapped(_ sender: UIButton) {
         
     }
     

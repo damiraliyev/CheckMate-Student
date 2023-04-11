@@ -29,7 +29,8 @@ final class SignInTextFieldView: UIView, UITextFieldDelegate {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 10
         textField.layer.borderColor = UIColor.secondaryLabel.cgColor
-        textField.backgroundColor = .secondarySystemBackground
+//        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .white
         
         return textField
     }()

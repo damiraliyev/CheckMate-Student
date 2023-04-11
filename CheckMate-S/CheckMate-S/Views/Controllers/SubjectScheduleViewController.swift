@@ -45,6 +45,11 @@ final class SubjectScheduleViewController: UIViewController {
 //        })
         setup()
         layout()
+        
+        DatabaseManager.shared.loadAttendanceStatusForParticularDate { value in
+            print("Fetched \(value)")
+        }
+        
     }
     
     private func setup() {

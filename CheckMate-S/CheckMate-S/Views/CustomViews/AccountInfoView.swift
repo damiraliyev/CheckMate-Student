@@ -97,8 +97,8 @@ final class AccountInfoView: UIView {
         super.layoutSubviews()
     
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: frame.size.width / 5.5),
-            imageView.heightAnchor.constraint(equalToConstant: frame.size.width / 5.5),
+            imageView.widthAnchor.constraint(equalToConstant: frame.size.width / 6),
+            imageView.heightAnchor.constraint(equalToConstant: frame.size.width / 6),
         ])
         
         imageView.layer.cornerRadius = imageView.frame.size.height / 2
