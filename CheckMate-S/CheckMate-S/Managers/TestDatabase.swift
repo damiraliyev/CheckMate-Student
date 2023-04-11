@@ -65,7 +65,33 @@ class DB {
 
         
         let attendanceData = [
-                    "13.04.2023": [
+                    "10.04.2023": [
+                        [
+                            "200107116" : [true, true],
+                            "200107055" : [true, true],
+                            "200107111" : [true, true],
+                            "200107117" : [true, true],
+                            "200107191" : [true, true],
+                            "200107101" : [true, true],
+                            "200107110" : [true, true]
+                            
+                        ],
+                        // add more arrays for other students here
+                    ],
+                    "17.04.2023": [
+                        [
+                            "200107116" : [true, true],
+                            "200107055" : [true, true],
+                            "200107111" : [true, true],
+                            "200107117" : [true, true],
+                            "200107191" : [true, true],
+                            "200107101" : [true, true],
+                            "200107110" : [true, true]
+                            
+                        ],
+                        // add more arrays for other students here
+                    ],
+                    "24.04.2023": [
                         [
                             "200107116" : [true, true],
                             "200107055" : [true, true],
@@ -81,7 +107,7 @@ class DB {
                     
                 ]
 
-//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS309[03-P]").setData(attendanceData, merge: true)
+                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(attendanceData, merge: true)
         
     }
 }

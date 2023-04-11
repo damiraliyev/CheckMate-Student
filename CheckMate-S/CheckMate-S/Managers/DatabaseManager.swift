@@ -256,14 +256,14 @@ final class DatabaseManager {
     }
     
     func loadAttendanceStatusForParticularDate(dataString: String, completion: @escaping ( [String: Any] ) -> Void) {
-        let documentReference = DatabaseManager.shared.database.collection("attendance").document("CSS309[03-P]")
+        let documentReference = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]")
         documentReference.getDocument { (document, error) in
             if let document = document, document.exists {
                 let data = document.data()
                 if let attendance = data?[dataString] as? [[String: Any]] {
                     let studentID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
                     let attStatus = attendance[0][studentID] as! [Int]
-                    var attended: [Int] = [0]
+                    var attended: [Int] = []
                     for attendance in attStatus {
                         if attendance == 1 {
                             attended.append(1)

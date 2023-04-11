@@ -12,7 +12,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     private var classes = [SubjectClass]()
     
     var needToAttend = 0
-    var attended: [Int] = []
+    var attended: [Int] = [0,0]
     
     func loadAttendanceStatusesForDate(date: String, completion: @escaping () -> ()) {
         DatabaseManager.shared.loadAttendanceStatusForParticularDate(dataString: date) { [weak self] dict in
@@ -21,7 +21,8 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                 print("There is no information for this particular date.")
             } else {
                 self?.needToAttend = dict["needToAttend"] as? Int ?? 0
-                self?.attended = dict["attended"] as? [Int] ?? []
+                print("self?.attende", dict["attended"])
+                self?.attended = dict["attended"] as? [Int] ?? [0]
             }
             completion()
         }
@@ -39,7 +40,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
            print(date)
            classes = []
            
-           loadAttendanceStatusesForDate(date: "13.04.2023") {
+           loadAttendanceStatusesForDate(date: date) {
                
                 DatabaseManager.shared.database.collection("subjects")
                     .whereField("code", isGreaterThanOrEqualTo: subjectCode)
@@ -101,6 +102,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                         self?.classes.append(subjectFirstClass)
                                         self?.classes.append(subjectSecondClass)
                                     } else {
+                                        print("Why is it crashing?", self?.attended)
                                         let subjectClass = SubjectClass(
                                          subjectCode: code,
                                          subjectName: name,
