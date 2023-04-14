@@ -212,9 +212,6 @@ extension HomeViewController: UICollectionViewDelegate {
         homeViewModel?.collectionViewViewModel?.selectRow(atIndextPath: indexPath)
         vc.subjectScheduleViewModel = homeViewModel?.collectionViewViewModel?.viewModelForSelectedRow()
         self.navigationController?.pushViewController(vc, animated: true)
-//        let navVC = UINavigationController(rootViewController: vc)
-//        navVC.modalPresentationStyle = .fullScreen
-//        present(navVC, animated: true)
     }
 }
 

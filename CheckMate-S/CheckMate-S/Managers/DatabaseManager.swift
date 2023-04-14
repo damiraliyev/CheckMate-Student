@@ -255,8 +255,8 @@ final class DatabaseManager {
         
     }
     
-    func loadAttendanceStatusForParticularDate(dataString: String, completion: @escaping ( [String: Any] ) -> Void) {
-        let documentReference = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]")
+    func loadAttendanceStatusForParticularDate(dataString: String, fullCode: String, completion: @escaping ( [String: Any] ) -> Void) {
+        let documentReference = DatabaseManager.shared.database.collection("attendance").document(fullCode)
         documentReference.getDocument { (document, error) in
             if let document = document, document.exists {
                 let data = document.data()
@@ -275,19 +275,22 @@ final class DatabaseManager {
                         "needToAttend": attStatus.count,
                         "attended": attended
                     ]
-                    
                     completion(dict)
                 } else {
+                    print(data?[dataString] as? [[String: Any]])
+                    print("Unfortunately, it goes to else block")
                     completion([:])
                 }
                 
             } else {
+                completion([:])
                 print("Document does not exist")
             }
         }
         
-//        completion()
-        
+    }
+    
+    func getToken(for date: String) {
         
     }
     

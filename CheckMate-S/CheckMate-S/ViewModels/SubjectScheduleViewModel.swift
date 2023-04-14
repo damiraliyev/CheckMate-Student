@@ -20,6 +20,10 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
         return codePart
     }
     
+    var fullSubjectCode: String {
+        return subject.subjectCode
+    }
+    
     
     var needToAttend = 0
     var attended = 0

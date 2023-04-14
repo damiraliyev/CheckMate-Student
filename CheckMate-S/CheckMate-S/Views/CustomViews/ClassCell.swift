@@ -24,11 +24,11 @@ final class ClassCell: UICollectionViewCell {
     private let stackView = ViewFactory.makeStackView(axis: .vertical, spacing: 3)
     private let stackView2 = ViewFactory.makeStackView(axis: .vertical, spacing: 3)
     
-    private let attendanceButton: UIButton = {
+    let attendanceButton: UIButton = {
         let button = ViewFactory.makeButton(withText: "", image: UIImage(systemName: "circle"))
         button.imageView?.layer.transform = CATransform3DMakeScale(1.7, 1.7, 1.7)
         button.imageView?.tintColor = .gray
-        button.addTarget(ClassCell.self, action: #selector(attendanceButtonTapped), for: .primaryActionTriggered)
+//        button.addTarget(self, action: #selector(attendanceButtonTapped), for: .primaryActionTriggered)
         return button
     }()
     
@@ -112,9 +112,9 @@ final class ClassCell: UICollectionViewCell {
         
     }
     
-    @objc func attendanceButtonTapped(_ sender: UIButton) {
-        
-    }
+//    @objc func attendanceButtonTapped(_ sender: UIButton) {
+//        print("tapped")
+//    }
     
     func configure(viewModel: ClassCollectionViewCellViewModelType) {
         subjectName.text = viewModel.subjectName
@@ -152,6 +152,9 @@ final class ClassCell: UICollectionViewCell {
             if viewModel.attended == 1 {
                 attendanceButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
                 attendanceButton.imageView?.tintColor = .systemGreen
+            } else {
+                attendanceButton.setImage(UIImage(systemName: "circle"), for: .normal)
+                attendanceButton.imageView?.tintColor = .gray
             }
         }
     }

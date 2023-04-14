@@ -67,47 +67,22 @@ class DB {
         let attendanceData = [
                     "10.04.2023": [
                         [
-                            "200107116" : [true, true],
-                            "200107055" : [true, true],
-                            "200107111" : [true, true],
-                            "200107117" : [true, true],
-                            "200107191" : [true, true],
-                            "200107101" : [true, true],
-                            "200107110" : [true, true]
+                            "200107116" : [true],
+                            "200107055" : [true],
+                            "200107111" : [true],
+                            "200107117" : [true],
+                            "200107191" : [true],
+                            "200107101" : [true],
+                            "200107110" : [true]
                             
                         ],
                         // add more arrays for other students here
                     ],
-                    "17.04.2023": [
-                        [
-                            "200107116" : [true, true],
-                            "200107055" : [true, true],
-                            "200107111" : [true, true],
-                            "200107117" : [true, true],
-                            "200107191" : [true, true],
-                            "200107101" : [true, true],
-                            "200107110" : [true, true]
-                            
-                        ],
-                        // add more arrays for other students here
-                    ],
-                    "24.04.2023": [
-                        [
-                            "200107116" : [true, true],
-                            "200107055" : [true, true],
-                            "200107111" : [true, true],
-                            "200107117" : [true, true],
-                            "200107191" : [true, true],
-                            "200107101" : [true, true],
-                            "200107110" : [true, true]
-                            
-                        ],
-                        // add more arrays for other students here
-                    ],
+                
                     
                 ]
 
-                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(attendanceData, merge: true)
+//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[07-P]").setData(attendanceData, merge: true)
         
     }
 }

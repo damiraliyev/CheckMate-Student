@@ -32,6 +32,7 @@ final class ClassCollectionViewCellViewModel: ClassCollectionViewCellViewModelTy
     }
     
     var attended: Int {
+        print("ATTENDED VALUE", subjectClass.attended)
         return subjectClass.attended
     }
     

@@ -69,9 +69,11 @@ final class SubjectScheduleViewController: UIViewController {
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",
+            fullSubjectCode: subjectScheduleViewModel.fullSubjectCode,
             subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
             date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
+                print("CLASSES ARRAY AFTER COMPLETION", subjectScheduleViewModel.classCollectionViewViewModel?.classes)
                 self?.collectionView.reloadData()
                 if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
                     self?.noClassesLabel.isHidden = false
@@ -139,6 +141,15 @@ final class SubjectScheduleViewController: UIViewController {
         
         calendarView.isHidden = true
     }
+    
+    @objc func checkAttendanceTapped(_ sender: UIButton) {
+//        let alertController = UIAlertController(title: "Check attendance", message: "Enter the token that teacher provided to you.", preferredStyle: .alert)
+//        alertController.addTextField()
+//        alertController.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
+//            let enteredToken = alertController.textFields![0]
+//            let actualToken =
+//        })
+    }
 
     
     
@@ -178,6 +189,7 @@ extension SubjectScheduleViewController: UICollectionViewDataSource {
         
 //        cell.configure(viewModel: cellViewModel)
         cell.viewModel = cellViewModel
+        cell.attendanceButton.addTarget(self, action: #selector(checkAttendanceTapped), for: .primaryActionTriggered)
         
         return cell;
     }
@@ -203,10 +215,12 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",
+            fullSubjectCode: subjectScheduleViewModel.fullSubjectCode,
             subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
             date: selectedDate,
             completion: { [weak self] in
             self?.dateLabel.text = selectedDate
+            print("CLASSES ARRAY AFTER COMPLETION", subjectScheduleViewModel.classCollectionViewViewModel?.classes)
             self?.collectionView.reloadData()
             
             if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
