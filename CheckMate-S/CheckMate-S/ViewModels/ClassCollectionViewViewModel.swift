@@ -13,7 +13,10 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     
     var tokens: [String]? = nil
     
+    var isValidToken: Bool = false
+    
     var selectedIndexPath: IndexPath?
+    
     
     var needToAttend = 0
     var attended: [Int] = []
@@ -218,12 +221,15 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
             for i in stride(from: 0, to: tokens.count, by: 1) {
                 if tokens[i] == enteredToken {
                     if i == indexOfClassInArray {
+                        isValidToken = true
                         return true
                     }
                 }
             }
+            isValidToken = false
             return false
         } else {
+            isValidToken = false
             return false
         }
     }
@@ -254,17 +260,9 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                             print("No entered token or tokens")
                             return
                         }
-                        for i in stride(from: 0, to: tokens.count, by: 1) {
-                            if tokens[i] == enteredToken {
-                                tokens.remove(at: i)
-                                self?.tokens = tokens
-                                break
-                            }
-                        }
                         self?.classes[selectedIndexPath.row].attended = 1
                         
                     }
-                    print("TOKENS AFTER REMOVING", self?.tokens)
                     completion(hasUpdated)
                 }
         }

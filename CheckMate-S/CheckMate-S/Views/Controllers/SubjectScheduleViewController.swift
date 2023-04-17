@@ -149,13 +149,7 @@ final class SubjectScheduleViewController: UIViewController {
         
         calendarView.isHidden = true
     }
-    
-    @objc func checkAttendanceTapped(_ sender: UIButton) {
-        
-    }
 
-    
-    
 }
 
 @available(iOS 16.0, *)
@@ -206,17 +200,44 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                             fullSubjectCode: selectedClass.fullSubjectCode) { hasUpdated in
                                 if hasUpdated {
                                     print("Attendance was successfully checked")
+                                    self?.showResultAlert(isSuccessfull: true)
                                     collectionView.reloadData()
                                 } else {
+                                    print("NEED TO SHOW THE ALERT")
+                                    self?.showResultAlert(isSuccessfull: false)
                                     print("Attendance was not checked")
                                 }
                             }
+                    } else {
+                        self?.showResultAlert(isSuccessfull: false)
                     }
                     
                 })
                 self?.present(alertController, animated: true)
             }
         
+    }
+    
+    private func showResultAlert(isSuccessfull: Bool) {
+        
+        guard let viewModel = subjectScheduleViewModel?.classCollectionViewViewModel else {
+            return
+        }
+        
+        let alerController = UIAlertController(title: "Success!", message: "Your attendance has been checked.", preferredStyle: .alert)
+        alerController.addAction(UIAlertAction(title: "Ok", style: .default))
+        
+        if !isSuccessfull {
+            alerController.title = "Failure."
+            
+            if !viewModel.isValidToken {
+                alerController.message = "Invalid token."
+            } else {
+                alerController.message = "Fail to check your attendance."
+            }
+            
+        }
+        present(alerController, animated: true)
     }
     
 }
@@ -235,7 +256,8 @@ extension SubjectScheduleViewController: UICollectionViewDataSource {
         
 //        cell.configure(viewModel: cellViewModel)
         cell.viewModel = cellViewModel
-        cell.attendanceButton.addTarget(self, action: #selector(checkAttendanceTapped), for: .primaryActionTriggered)
+        
+        
         
         return cell;
     }

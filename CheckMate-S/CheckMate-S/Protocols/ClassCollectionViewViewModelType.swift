@@ -12,6 +12,7 @@ protocol ClassCollectionViewViewModelType: AnyObject {
     var classes: [SubjectClass] { get set}
     var tokens: [String]? { get }
     var enteredToken: String? { get set }
+    var isValidToken: Bool { get set }
     func getTokensForClass(date: String,fullSubjectCode: String,completion: @escaping () -> Void)
     func checkToken(fullSubjectCode: String) -> Bool
     func updateAttendanceStatus(date: String, studentID: String, fullSubjectCode: String, completion: @escaping (Bool) -> Void)
