@@ -11,6 +11,10 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     
     var classes = [SubjectClass]()
     
+    var tokens: [String]? = nil
+    
+    var selectedIndexPath: IndexPath?
+    
     var needToAttend = 0
     var attended: [Int] = []
     var attendedDict: [String : [Int]] = [:]
@@ -39,7 +43,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     }
     
 
-    
+    #warning("full subject code here needs to be deleted")
     func queryClassForDate(
         studentID: String,
         fullSubjectCode: String,
@@ -79,11 +83,13 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                     dispatchGroup.enter()
                                     self?.loadAttendanceStatusesForDate(date: date, fullSubjectCode: (document["code"] as? String) ?? "No code", completion: { attendedValues in
                                         code = String((document["code"] as? String)?.suffix(6) ?? "")
-                                        
+                                        print("WHY only 07-P \(fullSubjectCode)")
                                         fullCodes.append((document["code"] as? String) ?? "No code")
                                         name = String((document["name"] as? String) ?? "")
                                         startTime = (document["startTime"] as? String ?? "")
                                         endTime = (document["endTime"] as? String ?? "")
+                                        
+                                        let fullCode = String((document["code"] as? String ?? "No code"))
                                         let startHour = Int(String(startTime.prefix(2))) ?? 0
                                         let endHour = Int(String(endTime.prefix(2))) ?? 0
   
@@ -100,33 +106,36 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                             }
                                             
                                             let subjectFirstClass = SubjectClass(
-                                             subjectCode: code,
-                                             subjectName: name,
-                                             startTime: startTime,
-                                             endTime: firstClassEnd,
-                                             needToAttend: 1,
-                                             attended: attendedValues[0]
+                                                fullSubjectCode: fullCode,
+                                                shortSubjectCode: code,
+                                                subjectName: name,
+                                                startTime: startTime,
+                                                endTime: firstClassEnd,
+                                                needToAttend: 1,
+                                                attended: attendedValues[0]
                                             )
                                             
                                             let subjectSecondClass = SubjectClass(
-                                             subjectCode: code,
-                                             subjectName: name,
-                                             startTime: secondClassStart,
-                                             endTime: endTime,
-                                             needToAttend: 1,
-                                             attended: attendedValues[1]
+                                                fullSubjectCode: fullCode,
+                                                shortSubjectCode: code,
+                                                subjectName: name,
+                                                startTime: secondClassStart,
+                                                endTime: endTime,
+                                                needToAttend: 1,
+                                                attended: attendedValues[1]
                                             )
                                             
                                             self?.classes.append(subjectFirstClass)
                                             self?.classes.append(subjectSecondClass)
                                         } else {
                                             let subjectClass = SubjectClass(
-                                             subjectCode: code,
-                                             subjectName: name,
-                                             startTime: startTime,
-                                             endTime: endTime,
-                                             needToAttend: 1,
-                                             attended: attendedValues[0]
+                                                fullSubjectCode: fullCode,
+                                                shortSubjectCode: code,
+                                                subjectName: name,
+                                                startTime: startTime,
+                                                endTime: endTime,
+                                                needToAttend: 1,
+                                                attended: attendedValues[0]
                                             )
                                                 self?.classes.append(subjectClass)
                                         }
@@ -160,6 +169,84 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
         return ClassCollectionViewCellViewModel(subjectClass: subjectClass)
         
     }
+    
+    
+    func selectedClass() -> SubjectClass? {
+        guard let selectedIndexPath = selectedIndexPath else {
+            return nil
+        }
+        print(selectedIndexPath.row)
+        print("CLASSES IN VIEW MODEL WHY ONLY 07-P \(classes)")
+        return classes[selectedIndexPath.row]
+    }
+    
+    func getTokensForClass(
+        date: String,
+        fullSubjectCode: String,
+        completion: @escaping () -> Void
+    ) {
+        DatabaseManager.shared.getTokens(for: date, fullCode: fullSubjectCode) { tokens in
+            self.tokens = tokens
+            completion()
+        }
+    }
+    
+    var enteredToken: String?
+    
+    func checkToken() -> Bool {
+        guard let tokens = tokens, let enteredToken = enteredToken else {
+            return false
+        }
+        
+        
+        if tokens.contains(enteredToken) {
+            print("IT SHOULD BE REMOVED \(tokens)")
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func updateAttendanceStatus(
+        date: String,
+        studentID: String,
+        fullSubjectCode: String,
+        completion: @escaping (Bool) -> Void) {
+            guard let selectedIndexPath = selectedIndexPath else {
+                return
+            }
+            var counter = 0
+            for class_ in classes {
+                if class_.fullSubjectCode == fullSubjectCode {
+                    break
+                } else {
+                    counter += 1
+                }
+            }
+            DatabaseManager.shared.updateAttendanceStatus(
+                date: date,
+                studentID: studentID,
+                fullSubjectCode: fullSubjectCode,
+                index: selectedIndexPath.row - counter) {[weak self] hasUpdated in
+                    if hasUpdated {
+                        guard let enteredToken = self?.enteredToken, var tokens = self?.tokens else {
+                            print("No entered token or tokens")
+                            return
+                        }
+                        for i in stride(from: 0, to: tokens.count, by: 1) {
+                            if tokens[i] == enteredToken {
+                                tokens.remove(at: i)
+                                self?.tokens = tokens
+                                break
+                            }
+                        }
+                        self?.classes[selectedIndexPath.row].attended = 1
+                        
+                    }
+                    print("TOKENS AFTER REMOVING", self?.tokens)
+                    completion(hasUpdated)
+                }
+        }
     
     
 }

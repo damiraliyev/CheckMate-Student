@@ -49,16 +49,13 @@ final class DatabaseManager {
                     .whereField("code", isGreaterThan: "\(code)")
                     .whereField("code", isLessThan: "\(code)u{f8ff}]")
                     .whereField("enrolledStudents", arrayContains: studentID)
-                print("SUBJECTS THAT ENTERS TO QUERYAMOUNTOFCLASSES", code)
                 ref.getDocuments { snapshot, error in
                     guard let snapshot = snapshot, error == nil else {
                         print("queryAmountOfClasses: \(error)")
                         return
                     }
-                    print("QUERY AMOUNT OF CLASSES", snapshot.documents.count)
                     
                     for doc in snapshot.documents {
-                        print("NEW WAY TO CALCULATE ATTENDANCE!!!", (doc.get("dates") as? [String])?.count ?? 15 )
                         totalAttendanceCount += (doc.get("dates") as? [String])?.count ?? 15
                         
                         let startTime = (doc.get("startTime") as? String ?? "")
@@ -68,28 +65,18 @@ final class DatabaseManager {
                         let endHour = Int(String(endTime.prefix(2))) ?? 0
                         
                         amountOfHours = endHour - startHour
-                        print("AMOUNT OF HOURS", amountOfHours)
-
                     }
-                    
                     completion(totalAttendanceCount * (amountOfHours + 1))
                     totalAttendanceCount = 0
                 }
-                
             }
-            
-            
         }
     
     func querySubjects(name: String, surname: String, completion: @escaping ([Subject]) -> Void) {
         var subjects: [Subject] = []
-//        totalAttendanceCount  = 0
-//        absenceCount = 0
         let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
-        print("QUERYSUBJECT", docID)
         let dispatchGroup = DispatchGroup()
-        print("QUERY SUBJECTS CHECK FOR THE BUG")
-        
+ 
         docID.getDocument { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 return
@@ -102,16 +89,12 @@ final class DatabaseManager {
                 .whereField("enrolledStudents", arrayContains: studentID)
                 .order(by: "id")
                 .getDocuments  { (querySnapshot, error) in
-                    print("LISTENER WILL BE TRIGGERED")
                     if let error = error {
                         print("Error getting documents: \(error)")
                     } else {
                         for document in querySnapshot!.documents {
-                            print("\(document.documentID) => \(document.data())")
                             let code = document.get("code") as? String ?? ""
                             let name = document.get("name") as? String ?? ""
-                            print("CODEEEEE", String(code.prefix(6)))
-                            
                             
                             dispatchGroup.enter()
                             self?.queryAmountOfClasses(subjectCode: String(code.prefix(6))) { total in
@@ -123,7 +106,6 @@ final class DatabaseManager {
                                         guard let contains = self?.checkIfContains(subjects: subjects,name: name) else { return }
                                     
                                     if !contains {
-//                                        print("NEED TO APPEND", self?.totalAttendanceCount)
                                         subjects.append(
                                             Subject(
                                                 subjectCode: code,
@@ -135,13 +117,9 @@ final class DatabaseManager {
                                             s1.subjectCode < s2.subjectCode
                                         })
                                     }
-//                                    self?.totalAttendanceCount = 0
-//                                    self?.absenceCount = 0;
                                     dispatchGroup.leave()
                                 })
                             }
-                            
-                           
                         }
                         dispatchGroup.notify(queue: .main) { // Call the completion block when all tasks have finished
                             completion(subjects)
@@ -156,9 +134,6 @@ final class DatabaseManager {
     func queryAttendance(name: String, surname: String, for subject: String, completion: @escaping (Int) -> Void) {
         let docID = DatabaseManager.shared.database.collection("students")
             .document("\(name) \(surname)")
-
-        print("QUERY ATTENDANCE CHECK FOR THE BUG")
-        
         var absenceCount = 0
 
         docID
@@ -170,32 +145,24 @@ final class DatabaseManager {
             guard let studentID = snapshot.get("id") else {
                 return
             }
-
-            print("FIELD PATH DOCUMENT ID", FieldPath.documentID())
+                
             DatabaseManager.shared.database.collection("attendance")
                 .whereField("code", isGreaterThanOrEqualTo: subject)
                 .whereField("code", isLessThan: "\(subject)u{f8ff}]")
                 .getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
-                    print("Error")
+                    print("Error: \(error)")
                     return
                 }
 
-                print("SNAPSHOT DOCUMENTS COUNT:", snapshot.documents.count)
-
                 for document in snapshot.documents {
                     let dates = document.data().keys //dates 15.03.2023...
-                    print("DATES ATTENDANCEC LENGTH", dates)
                     for key in dates {
                         let value = document.data()[key] // returns array
 
                         if let arr = value as? [Any]{
                             if let dict = arr[0] as? [String: Any] {
                                 guard let attendances = dict["\(studentID)"] as? [Int] else { continue }
-
-                                print("Attendances", attendances)
-//                                self?.totalAttendanceCount += attendances.count
-                                print("ATTENDANCEC LENGTH", attendances.count)
                                 for attendance in attendances {
                                     if(attendance == 0) {
                                         absenceCount += 1;
@@ -204,20 +171,14 @@ final class DatabaseManager {
                                 
 
                             } else {
-                                print("ZAPARILSYA")
+                                print("Could not cast to [String: Any]")
                             }
                         } else {
-                            print("NOOOOOASOFSDOASODSODOSDOSADO")
+                            print("Could not cast to [Any]")
                         }
-                        
                     }
-                    
-                    
                 }
-                    print("Why 0?", absenceCount)
                     completion(absenceCount ?? 0)
-                    
-                
             }
 
         }
@@ -277,7 +238,6 @@ final class DatabaseManager {
                     ]
                     completion(dict)
                 } else {
-                    print(data?[dataString] as? [[String: Any]])
                     print("Unfortunately, it goes to else block")
                     completion([:])
                 }
@@ -290,8 +250,67 @@ final class DatabaseManager {
         
     }
     
-    func getToken(for date: String) {
-        
+    
+    
+    func getTokens(for date: String, fullCode: String, completion: @escaping ([String]?) -> Void) {
+        let documentReference = DatabaseManager.shared.database.collection("attendance").document(fullCode)
+        documentReference.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                if let tokens = data?["tokens"] as? [String: Any] {
+                    let studentID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+                    let tokensForDate = tokens[date] as? [String]
+                    
+                    completion(tokensForDate)
+                } else {
+                    print("Unfortunately, it goes to else block")
+                    completion(nil)
+                }
+                
+            } else {
+                completion(nil)
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    func updateAttendanceStatus(
+        date: String,
+        studentID: String,
+        fullSubjectCode: String,
+        index: Int,
+        completion: @escaping (Bool) -> Void) {
+        let docRef = DatabaseManager.shared.database.collection("attendance").document(fullSubjectCode)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                var attendanceData = document.data() ?? [:]
+                if var dataForDate = attendanceData[date] as? [[String: Any]], var studentData = dataForDate.first(where: { $0[studentID] != nil }) {
+                    guard var attStatusesOfStudent = studentData[studentID] as? [Bool] else {
+                        completion(false)
+                        return
+                    }
+               
+                    attStatusesOfStudent[index] = true // update the value here
+                    studentData[studentID] = attStatusesOfStudent
+                    print("attStatusesOfStudent \(attStatusesOfStudent)")
+                    dataForDate = [studentData]
+                    attendanceData[date] = dataForDate
+                    docRef.setData(attendanceData, merge: true) { error in
+                        if let error = error {
+                            print("Error updating document: \(error)")
+                            completion(false)
+                        } else {
+                            print("Document successfully updated")
+                            completion(true)
+                        }
+                    }
+                }
+            } else {
+                print("Document does not exist")
+                completion(false)
+            }
+        }
+
     }
     
 }

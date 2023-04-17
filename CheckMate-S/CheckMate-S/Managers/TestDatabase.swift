@@ -73,17 +73,25 @@ class DB {
                             "200107117" : [true],
                             "200107191" : [true],
                             "200107101" : [true],
-                            "200107110" : [true]
-                            
+                            "200107110" : [true],
                         ],
-                        // add more arrays for other students here
+                        
                     ],
+                    
                 
                     
                 ]
 
-//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[07-P]").setData(attendanceData, merge: true)
+//                let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-P]").setData(attendanceData, merge: true)
         
+    }
+    
+    func addTokens() {
+        let tokens = [
+            "tokens": ["10.04.2023": ["random", "random2"]]
+            ]
+        let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(tokens, merge: true)
+
     }
 }
 

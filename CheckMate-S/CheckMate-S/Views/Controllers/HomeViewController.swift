@@ -93,7 +93,7 @@ final class HomeViewController: UIViewController {
         let db = DB()
         
         db.attendanceCourseStudentIDValue()
-        
+        db.addTokens()
 //        testQuery()
         
     }

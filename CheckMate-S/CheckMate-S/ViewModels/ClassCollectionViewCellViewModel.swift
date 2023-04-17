@@ -11,8 +11,12 @@ final class ClassCollectionViewCellViewModel: ClassCollectionViewCellViewModelTy
     
     let subjectClass: SubjectClass
     
-    var subjectCode: String {
-        return subjectClass.subjectCode
+    var fullSubjectCode: String {
+        return subjectClass.fullSubjectCode
+    }
+    
+    var shortSubjectCode: String {
+        return subjectClass.shortSubjectCode
     }
     
     var subjectName: String {

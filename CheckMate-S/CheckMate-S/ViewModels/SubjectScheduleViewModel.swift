@@ -8,19 +8,23 @@
 import Foundation
 
 final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
+    
     var classCollectionViewViewModel: ClassCollectionViewViewModelType? = nil
     
     var dateText = String.date(from: Date()) ?? ""
-
+    
+    
     
     private var subject: Subject
     
     var subjectCodeWithoutDetail: String {
         let codePart = String(subject.subjectCode.prefix(6))
+        print("subjectCodeWithoutDetail \(codePart)")
         return codePart
     }
     
     var fullSubjectCode: String {
+        print("fullSubjectCode \(subject.subjectCode)")
         return subject.subjectCode
     }
     
@@ -52,18 +56,6 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
         return "\(dayString).\(monthString).\(year)"
     }
     
-//    func loadAttendanceStatusesForDate() {
-//        print("IN load attendance statuses for date", dateText)
-//        DatabaseManager.shared.loadAttendanceStatusForParticularDate(dataString: dateText) { [weak self] dict in
-//            print("Fetched \(dict)")
-//            if dict.count == 0 {
-//                print("There is no information for this particular date.")
-//            } else {
-//                self?.needToAttend = dict["needToAttend"] ?? 0
-//                self?.attended = dict["attended"] ?? 0
-//            }
-//        }
-//    }
-    
+   
     
 }

@@ -10,6 +10,13 @@ import Foundation
 
 protocol ClassCollectionViewViewModelType: AnyObject {
     var classes: [SubjectClass] { get set}
+    var tokens: [String]? { get }
+    var enteredToken: String? { get set }
+    func getTokensForClass(date: String,fullSubjectCode: String,completion: @escaping () -> Void)
+    func checkToken() -> Bool
+    func updateAttendanceStatus(date: String, studentID: String, fullSubjectCode: String, completion: @escaping (Bool) -> Void)
+    var selectedIndexPath: IndexPath? { get set }
+    func selectedClass() -> SubjectClass?
     func numberOfRows() -> Int
     func classCellViewModel(for indexPath: IndexPath) -> ClassCollectionViewCellViewModelType?
     func queryClassForDate(studentID: String, fullSubjectCode: String, subjectCode: String, date: String, completion: @escaping () -> Void)

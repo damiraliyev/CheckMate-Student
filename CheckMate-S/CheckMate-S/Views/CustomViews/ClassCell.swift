@@ -118,7 +118,7 @@ final class ClassCell: UICollectionViewCell {
     
     func configure(viewModel: ClassCollectionViewCellViewModelType) {
         subjectName.text = viewModel.subjectName
-        subjectCode.text = viewModel.subjectCode
+        subjectCode.text = viewModel.shortSubjectCode
         startLabel.text = viewModel.startTime
         endLabel.text = viewModel.endTime
     }
@@ -130,7 +130,7 @@ final class ClassCell: UICollectionViewCell {
             }
             
             subjectName.text = viewModel.subjectName
-            subjectCode.text = viewModel.subjectCode
+            subjectCode.text = viewModel.shortSubjectCode
             startLabel.text = viewModel.startTime
             endLabel.text = viewModel.endTime
             

@@ -80,6 +80,15 @@ final class SubjectScheduleViewController: UIViewController {
                 }
             })
         
+        DatabaseManager.shared.getTokens(
+            for: String.date(from: Date()) ?? "",
+            fullCode: subjectScheduleViewModel.fullSubjectCode) { tokens in
+                guard let tokens = tokens else { return }
+                
+                print(tokens)
+            }
+        
+        
         
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.delegate = self
@@ -143,12 +152,7 @@ final class SubjectScheduleViewController: UIViewController {
     }
     
     @objc func checkAttendanceTapped(_ sender: UIButton) {
-//        let alertController = UIAlertController(title: "Check attendance", message: "Enter the token that teacher provided to you.", preferredStyle: .alert)
-//        alertController.addTextField()
-//        alertController.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
-//            let enteredToken = alertController.textFields![0]
-//            let actualToken =
-//        })
+        
     }
 
     
@@ -173,6 +177,51 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 14
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard var viewModel = subjectScheduleViewModel?.classCollectionViewViewModel else {
+            return
+        }
+        
+        viewModel.selectedIndexPath = indexPath
+        
+        guard let selectedClass: SubjectClass = viewModel.selectedClass() else {
+            return
+        }
+        
+        print("SELECTED CLASS'S code \(selectedClass.fullSubjectCode)" )
+        
+        viewModel.getTokensForClass(
+            date: subjectScheduleViewModel?.dateText ?? "x",
+            fullSubjectCode: selectedClass.fullSubjectCode) { [weak self] in
+                
+                let alertController = UIAlertController(title: "Check attendance", message: "Enter the token that teacher provided to you.", preferredStyle: .alert)
+                alertController.addTextField()
+                alertController.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
+                    let enteredToken = alertController.textFields![0]
+                    
+                    viewModel.enteredToken = enteredToken.text
+                    
+                    if viewModel.checkToken() {
+                        viewModel.updateAttendanceStatus(
+                            date: self?.subjectScheduleViewModel?.dateText ?? "X",
+                            studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",
+                            fullSubjectCode: selectedClass.fullSubjectCode) { hasUpdated in
+                                if hasUpdated {
+                                    print("Attendance was successfully checked")
+                                    collectionView.reloadData()
+                                } else {
+                                    print("Attendance was not checked")
+                                }
+                            }
+                    }
+                    
+                })
+                self?.present(alertController, animated: true)
+            }
+        
+    }
+    
 }
 
 
@@ -220,7 +269,6 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
             date: selectedDate,
             completion: { [weak self] in
             self?.dateLabel.text = selectedDate
-            print("CLASSES ARRAY AFTER COMPLETION", subjectScheduleViewModel.classCollectionViewViewModel?.classes)
             self?.collectionView.reloadData()
             
             if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
@@ -229,6 +277,21 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
                 self?.noClassesLabel.isHidden = true
             }
         })
+        
+        DatabaseManager.shared.getTokens(
+            for: selectedDate,
+            fullCode: subjectScheduleViewModel.fullSubjectCode) { tokens in
+               
+                guard let tokens = tokens else {
+                    print("NO TOKENS")
+                    print("getTokens fullCode \(subjectScheduleViewModel.fullSubjectCode)")
+                    return
+                    
+                }
+                
+                print("TOKENS", tokens)
+            }
+        
         
         showOrHideCalendar()
     }

@@ -8,7 +8,8 @@
 import Foundation
 
 struct SubjectClass {
-    let subjectCode: String
+    let fullSubjectCode: String
+    let shortSubjectCode: String
     let subjectName: String
     let startTime: String
     let endTime: String
