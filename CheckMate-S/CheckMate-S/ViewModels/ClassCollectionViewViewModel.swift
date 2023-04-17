@@ -18,6 +18,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     var needToAttend = 0
     var attended: [Int] = []
     var attendedDict: [String : [Int]] = [:]
+    
     func loadAttendanceStatusesForDate(date: String, fullSubjectCode: String, completion: @escaping ([Int]) -> ()) {
         DatabaseManager.shared.loadAttendanceStatusForParticularDate(dataString: date, fullCode: fullSubjectCode) { [weak self] dict in
             print("Fetched \(dict)")
@@ -35,7 +36,6 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                     self?.attendedDict[String(fullSubjectCode.suffix(6))] = self?.attended
                 }
                 completion(self?.attended ?? [0, 0])
-                
             }
 
         }
@@ -193,15 +193,36 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     
     var enteredToken: String?
     
-    func checkToken() -> Bool {
+    func checkToken(fullSubjectCode: String) -> Bool {
         guard let tokens = tokens, let enteredToken = enteredToken else {
             return false
         }
         
+        guard let selectedIndexPath = selectedIndexPath else {
+            return false
+        }
+        
+        var counter = 0
+        for class_ in classes {
+            if class_.fullSubjectCode == fullSubjectCode {
+                break
+            } else {
+                counter += 1
+            }
+        }
+        
+        let indexOfClassInArray = selectedIndexPath.row - counter
+        
         
         if tokens.contains(enteredToken) {
-            print("IT SHOULD BE REMOVED \(tokens)")
-            return true
+            for i in stride(from: 0, to: tokens.count, by: 1) {
+                if tokens[i] == enteredToken {
+                    if i == indexOfClassInArray {
+                        return true
+                    }
+                }
+            }
+            return false
         } else {
             return false
         }

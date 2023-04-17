@@ -73,7 +73,6 @@ final class SubjectScheduleViewController: UIViewController {
             subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
             date: String.date(from: Date()) ?? "",
             completion: { [weak self] in
-                print("CLASSES ARRAY AFTER COMPLETION", subjectScheduleViewModel.classCollectionViewViewModel?.classes)
                 self?.collectionView.reloadData()
                 if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
                     self?.noClassesLabel.isHidden = false
@@ -189,8 +188,6 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
             return
         }
         
-        print("SELECTED CLASS'S code \(selectedClass.fullSubjectCode)" )
-        
         viewModel.getTokensForClass(
             date: subjectScheduleViewModel?.dateText ?? "x",
             fullSubjectCode: selectedClass.fullSubjectCode) { [weak self] in
@@ -202,7 +199,7 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                     
                     viewModel.enteredToken = enteredToken.text
                     
-                    if viewModel.checkToken() {
+                    if viewModel.checkToken(fullSubjectCode: selectedClass.fullSubjectCode) {
                         viewModel.updateAttendanceStatus(
                             date: self?.subjectScheduleViewModel?.dateText ?? "X",
                             studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",

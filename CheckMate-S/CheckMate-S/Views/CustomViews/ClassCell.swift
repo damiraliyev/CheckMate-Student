@@ -28,7 +28,7 @@ final class ClassCell: UICollectionViewCell {
         let button = ViewFactory.makeButton(withText: "", image: UIImage(systemName: "circle"))
         button.imageView?.layer.transform = CATransform3DMakeScale(1.7, 1.7, 1.7)
         button.imageView?.tintColor = .gray
-//        button.addTarget(self, action: #selector(attendanceButtonTapped), for: .primaryActionTriggered)
+        button.isUserInteractionEnabled = false
         return button
     }()
     
