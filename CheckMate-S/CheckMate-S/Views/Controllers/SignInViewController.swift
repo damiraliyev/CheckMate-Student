@@ -36,6 +36,23 @@ final class SignInViewController: UIViewController {
         return textFieldView
     }()
     
+    let emailEmptyErrorLabel: UILabel = {
+        let label = ViewFactory.makeLabel(fontSize: 15, weight: .regular)
+        label.text = "Please, enter your id."
+        label.textColor = .systemRed
+        label.isHidden = true
+        return label
+    }()
+    
+    let passwordEmptyErrorLabel: UILabel = {
+        let label = ViewFactory.makeLabel(fontSize: 15, weight: .regular)
+        label.text = "Please, enter the password."
+        label.textColor = .systemRed
+        label.isHidden = true
+        return label
+    }()
+    
+    
     
     let sduGradientButton: SDUGradientButton = {
         let button = SDUGradientButton(withText: "Sign in")
@@ -76,6 +93,8 @@ final class SignInViewController: UIViewController {
         
         stackView.addArrangedSubview(IDTextField)
         stackView.addArrangedSubview(passwordTextField)
+        view.addSubview(emailEmptyErrorLabel)
+        view.addSubview(passwordEmptyErrorLabel)
         
         view.addSubview(sduGradientButton)
         
@@ -122,6 +141,14 @@ final class SignInViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
+            emailEmptyErrorLabel.topAnchor.constraint(equalTo: IDTextField.bottomAnchor, constant: 8),
+            emailEmptyErrorLabel.leadingAnchor.constraint(equalTo: IDTextField.leadingAnchor),
+            
+            passwordEmptyErrorLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 8),
+            passwordEmptyErrorLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
             sduGradientButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: view.frame.size.height / 18),
             sduGradientButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             sduGradientButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -155,6 +182,21 @@ extension SignInViewController {
     @objc func didTapSignIn(_ sender: UIButton) {
         IDTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+        
+        if IDTextField.textField.text == "" {
+            emailEmptyErrorLabel.isHidden = false
+            return
+        } else {
+            emailEmptyErrorLabel.isHidden = true
+        }
+        
+       if passwordTextField.textField.text == ""{
+            passwordEmptyErrorLabel.isHidden = false
+            return
+        } else {
+            passwordEmptyErrorLabel.isHidden = true
+        }
+        
         activityIndicator.startAnimating()
         
         let domain = "@stu.sdu.edu.kz"
