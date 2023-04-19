@@ -46,6 +46,14 @@ final class SignInViewController: UIViewController {
     
     let forgotPasswordLabel = ViewFactory.makeLabel(fontSize: 15, color: .sduLightBlue, weight: .regular, text: "Forgot password?")
     
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.style = .large
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -72,6 +80,8 @@ final class SignInViewController: UIViewController {
         view.addSubview(sduGradientButton)
         
         view.addSubview(forgotPasswordLabel)
+        
+        view.addSubview(activityIndicator)
     }
     
     
@@ -122,6 +132,11 @@ final class SignInViewController: UIViewController {
             forgotPasswordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             forgotPasswordLabel.topAnchor.constraint(equalTo: sduGradientButton.bottomAnchor, constant: 16)
         ])
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
        
     }
 }
@@ -140,6 +155,7 @@ extension SignInViewController {
     @objc func didTapSignIn(_ sender: UIButton) {
         IDTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+        activityIndicator.startAnimating()
         
         let domain = "@stu.sdu.edu.kz"
        
@@ -153,7 +169,7 @@ extension SignInViewController {
         AuthManager.shared.signIn(email: email, password: password) { [weak self] result in
             switch result {
             case .success(_):
-                let vc = HomeViewController()
+                let vc = MainTabBarControlller()
                 let navVC = UINavigationController(rootViewController: vc)
                 self?.IDTextField.textField.text = ""
                 self?.passwordTextField.textField.text = ""
@@ -169,6 +185,8 @@ extension SignInViewController {
                 self?.present(alertController, animated: true)
                 print(error)
             }
+            
+            self?.activityIndicator.stopAnimating()
         }
         
         sender.animatePress()

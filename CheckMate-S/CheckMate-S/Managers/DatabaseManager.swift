@@ -35,53 +35,54 @@ final class DatabaseManager {
     }
     
     func queryAmountOfClasses(subjectCode code: String, completion: @escaping (Int) -> ()) {
-            let docID = DatabaseManager.shared.database.collection("students").document("Damir Aliyev")
-            var totalAttendanceCount = 0
-            var amountOfHours = 0
-            docID.getDocument {snapshot, error in
+        let fullname = (UserDefaults.standard.value(forKey: "name") as? String ?? "") + " " +  (UserDefaults.standard.value(forKey: "surname") as? String ?? "")
+        let docID = DatabaseManager.shared.database.collection("students").document(fullname)
+        var totalAttendanceCount = 0
+        var amountOfHours = 0
+        docID.getDocument {snapshot, error in
+            guard let snapshot = snapshot, error == nil else {
+                return
+            }
+            
+            let studentID = snapshot.get("id") as? String ?? ""
+            
+            let ref = DatabaseManager.shared.database.collection("subjects")
+                .whereField("code", isGreaterThan: "\(code)")
+                .whereField("code", isLessThan: "\(code)u{f8ff}]")
+                .whereField("enrolledStudents", arrayContains: studentID)
+            ref.getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
+                    print("queryAmountOfClasses: \(error)")
                     return
                 }
                 
-                let studentID = snapshot.get("id") as? String ?? ""
-                
-                let ref = DatabaseManager.shared.database.collection("subjects")
-                    .whereField("code", isGreaterThan: "\(code)")
-                    .whereField("code", isLessThan: "\(code)u{f8ff}]")
-                    .whereField("enrolledStudents", arrayContains: studentID)
-                ref.getDocuments { snapshot, error in
-                    guard let snapshot = snapshot, error == nil else {
-                        print("queryAmountOfClasses: \(error)")
-                        return
-                    }
+                for doc in snapshot.documents {
+                    totalAttendanceCount += (doc.get("dates") as? [String])?.count ?? 15
                     
-                    for doc in snapshot.documents {
-                        totalAttendanceCount += (doc.get("dates") as? [String])?.count ?? 15
-                        
-                        let startTime = (doc.get("startTime") as? String ?? "")
-                        let endTime = (doc.get("endTime") as? String ?? "")
-                        
-                        let startHour = Int(String(startTime.prefix(2))) ?? 0
-                        let endHour = Int(String(endTime.prefix(2))) ?? 0
-                        
-                        amountOfHours = endHour - startHour
-                    }
-                    completion(totalAttendanceCount * (amountOfHours + 1))
-                    totalAttendanceCount = 0
+                    let startTime = (doc.get("startTime") as? String ?? "")
+                    let endTime = (doc.get("endTime") as? String ?? "")
+                    
+                    let startHour = Int(String(startTime.prefix(2))) ?? 0
+                    let endHour = Int(String(endTime.prefix(2))) ?? 0
+                    
+                    amountOfHours = endHour - startHour
                 }
+                completion(totalAttendanceCount * (amountOfHours + 1))
+                totalAttendanceCount = 0
             }
         }
+    }
     
     func querySubjects(name: String, surname: String, completion: @escaping ([Subject]) -> Void) {
         var subjects: [Subject] = []
         let docID = DatabaseManager.shared.database.collection("students").document("\(name) \(surname)")
         let dispatchGroup = DispatchGroup()
- 
+        
         docID.getDocument { [weak self] snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 return
             }
-        
+            
             guard let studentID = snapshot.get("id") else { return }
             
             

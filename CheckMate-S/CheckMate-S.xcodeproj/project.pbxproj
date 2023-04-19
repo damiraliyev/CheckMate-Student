@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6812ACAC29ED758000B80736 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6812ACAB29ED758000B80736 /* MainTabBarController.swift */; };
 		6814354829B2063B00F53F33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814354729B2063B00F53F33 /* AppDelegate.swift */; };
 		6814354A29B2063B00F53F33 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814354929B2063B00F53F33 /* SceneDelegate.swift */; };
 		6814355129B2063C00F53F33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6814355029B2063C00F53F33 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		4A9E494242569B928C06906D /* Pods-CheckMate-S.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckMate-S.release.xcconfig"; path = "Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S.release.xcconfig"; sourceTree = "<group>"; };
 		5DF5E5FD0F189C94E377CD7E /* Pods-CheckMate-S.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckMate-S.debug.xcconfig"; path = "Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S.debug.xcconfig"; sourceTree = "<group>"; };
+		6812ACAB29ED758000B80736 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		6814354429B2063B00F53F33 /* CheckMate-S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CheckMate-S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6814354729B2063B00F53F33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6814354929B2063B00F53F33 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,18 @@
 		6845DE9129BB6D590096A602 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		685641FA29BA0C78007735B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		685A3EEA29C2DB27007B1EA1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6876BECB29ED31C600717CF3 /* FirebaseAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FirebaseAnalytics.xcframework; path = Pods/FirebaseAnalytics/Frameworks/FirebaseAnalytics.xcframework; sourceTree = "<group>"; };
+		6876BECD29ED31C600717CF3 /* FirebaseAppCheckInterop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseAppCheckInterop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BECF29ED31C600717CF3 /* FirebaseAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BED129ED31C600717CF3 /* FirebaseAuthInterop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseAuthInterop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BED329ED31C600717CF3 /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BED529ED31C600717CF3 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BED729ED31C600717CF3 /* FirebaseCoreExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCoreExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BED929ED31C600717CF3 /* FirebaseCoreInternal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCoreInternal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BEDB29ED31C600717CF3 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BEDD29ED31C600717CF3 /* FirebaseInstallations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseInstallations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BEDF29ED31C600717CF3 /* FirebaseStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6876BEE129ED31C600717CF3 /* FirebaseStorageInternal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorageInternal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68A7BDE329BA0E9B007B4495 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		68D1595F29CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewCellViewModelType.swift; sourceTree = "<group>"; };
@@ -203,6 +217,7 @@
 				68E4E3F629B30E2300A1B956 /* HomeViewController.swift */,
 				6837CC6229C4953D00ECBD48 /* SubjectScheduleViewController.swift */,
 				68DA507629CC4CB000A7041C /* ResetPasswordViewController.swift */,
+				6812ACAB29ED758000B80736 /* MainTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -246,6 +261,18 @@
 		DF092A5F395807C5DECF5CF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6876BECB29ED31C600717CF3 /* FirebaseAnalytics.xcframework */,
+				6876BECD29ED31C600717CF3 /* FirebaseAppCheckInterop.framework */,
+				6876BECF29ED31C600717CF3 /* FirebaseAuth.framework */,
+				6876BED129ED31C600717CF3 /* FirebaseAuthInterop.framework */,
+				6876BED329ED31C600717CF3 /* FirebaseCore.framework */,
+				6876BED529ED31C600717CF3 /* FirebaseCoreDiagnostics.framework */,
+				6876BED729ED31C600717CF3 /* FirebaseCoreExtension.framework */,
+				6876BED929ED31C600717CF3 /* FirebaseCoreInternal.framework */,
+				6876BEDB29ED31C600717CF3 /* FirebaseFirestore.framework */,
+				6876BEDD29ED31C600717CF3 /* FirebaseInstallations.framework */,
+				6876BEDF29ED31C600717CF3 /* FirebaseStorage.framework */,
+				6876BEE129ED31C600717CF3 /* FirebaseStorageInternal.framework */,
 				824C450409063A382E55E003 /* Pods_CheckMate_S.framework */,
 			);
 			name = Frameworks;
@@ -280,7 +307,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					6814354329B2063B00F53F33 = {
@@ -368,6 +395,7 @@
 			files = (
 				6837CC6529C497EA00ECBD48 /* ClassCell.swift in Sources */,
 				685A3EEB29C2DB27007B1EA1 /* Extensions.swift in Sources */,
+				6812ACAC29ED758000B80736 /* MainTabBarController.swift in Sources */,
 				6837CC6329C4953D00ECBD48 /* SubjectScheduleViewController.swift in Sources */,
 				6837CC6129C47B1F00ECBD48 /* Colors.swift in Sources */,
 				6835174029BB757100EB893A /* HomeViewModelType.swift in Sources */,

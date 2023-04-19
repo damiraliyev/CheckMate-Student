@@ -90,7 +90,7 @@ class DB {
         let tokens = [
             "tokens": ["10.04.2023": ["random", "random2"]]
             ]
-        let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(tokens, merge: true)
+//        let ref = DatabaseManager.shared.database.collection("attendance").document("CSS342[01-N]").setData(tokens, merge: true)
 
     }
 }

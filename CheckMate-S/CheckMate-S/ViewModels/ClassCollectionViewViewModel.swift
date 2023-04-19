@@ -86,7 +86,6 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                     dispatchGroup.enter()
                                     self?.loadAttendanceStatusesForDate(date: date, fullSubjectCode: (document["code"] as? String) ?? "No code", completion: { attendedValues in
                                         code = String((document["code"] as? String)?.suffix(6) ?? "")
-                                        print("WHY only 07-P \(fullSubjectCode)")
                                         fullCodes.append((document["code"] as? String) ?? "No code")
                                         name = String((document["name"] as? String) ?? "")
                                         startTime = (document["startTime"] as? String ?? "")

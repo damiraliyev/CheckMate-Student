@@ -185,7 +185,6 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
         viewModel.getTokensForClass(
             date: subjectScheduleViewModel?.dateText ?? "x",
             fullSubjectCode: selectedClass.fullSubjectCode) { [weak self] in
-                
                 let alertController = UIAlertController(title: "Check attendance", message: "Enter the token that teacher provided to you.", preferredStyle: .alert)
                 alertController.addTextField()
                 alertController.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
@@ -203,7 +202,6 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                                     self?.showResultAlert(isSuccessfull: true)
                                     collectionView.reloadData()
                                 } else {
-                                    print("NEED TO SHOW THE ALERT")
                                     self?.showResultAlert(isSuccessfull: false)
                                     print("Attendance was not checked")
                                 }

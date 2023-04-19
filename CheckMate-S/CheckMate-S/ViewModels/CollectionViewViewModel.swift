@@ -33,7 +33,6 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
     func loadSubjectsInfo(completion: @escaping () -> Void) {
         DatabaseManager.shared.loadAttendance { [weak self] subjects in
             self?.subjects = subjects
-            print("SSUUUUBJJJECTS AFTER REFACTORING", self?.subjects)
             completion()
         }
     }
