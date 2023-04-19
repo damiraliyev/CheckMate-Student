@@ -80,6 +80,7 @@ final class HomeViewController: UIViewController {
         collectionView.delegate = self
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.register(SubjectCell.self, forCellWithReuseIdentifier: SubjectCell.reuseID)
+        collectionView.register(SkeletonCell.self, forCellWithReuseIdentifier: SkeletonCell.reuseID)
         
         signOutButton.translatesAutoresizingMaskIntoConstraints = false
         signOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
@@ -90,11 +91,12 @@ final class HomeViewController: UIViewController {
         
         setupInfo()
         
+        setupSkeletons()
+        
         let db = DB()
         
         db.attendanceCourseStudentIDValue()
         db.addTokens()
-//        testQuery()
         
     }
     
@@ -155,32 +157,26 @@ final class HomeViewController: UIViewController {
         accountInfoView.email.text = homeViewModel?.accountInfoViewModel?.email
     }
     
+    private func setupSkeletons() {
+        homeViewModel?.collectionViewViewModel?.setSubjectsForSkeletons()
+        collectionView.reloadData()
+    }
+    
+    private func configureCollectionCells(with subjects: [Subject]) {
+        
+    }
+    
     func loadAttendance() {
         self.homeViewModel?.collectionViewViewModel?.loadSubjectsInfo(completion: { [weak self] in
 //            print(homeViewModel?.collectionViewViewModel.subj)
             DispatchQueue.main.async { [weak self] in
+                self?.isLoaded = true
                 self?.collectionView.reloadData()
+                
             }
         })
-             
-//            self?.homeViewModel?.collectionViewViewModel?.querySubjects(
-//                name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
-//                surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
-//                completion: { [weak self] in
-//                    print("Reload please")
-//                    DispatchQueue.main.async { [weak self] in
-//                        self?.collectionView.reloadData()
-//                    }
-//
-//                })
-                
-//            completion()
-//        }
 
     }
-
-    
-    
 }
 
 
@@ -222,13 +218,27 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubjectCell.reuseID, for: indexPath) as! SubjectCell
+        if isLoaded {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubjectCell.reuseID, for: indexPath) as! SubjectCell
+            
+            let cellViewModel = homeViewModel?.collectionViewViewModel?.cellViewModel(for: indexPath)
+           
+            cell.viewModel = cellViewModel
+            
+            return cell
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SkeletonCell.reuseID, for: indexPath) as! SkeletonCell
         
         let cellViewModel = homeViewModel?.collectionViewViewModel?.cellViewModel(for: indexPath)
        
         cell.viewModel = cellViewModel
         
+        cell.viewModel = cellViewModel
+        
         return cell
+        
+        
     }
     
     

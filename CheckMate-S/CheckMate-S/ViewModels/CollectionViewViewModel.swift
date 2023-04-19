@@ -18,6 +18,16 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
     var totalAttendanceCount: Int = 0;
     var absenceCount: Int = 0;
     
+//    private func getSubjects() -> [Subject] {
+//        return subjects
+//    }
+    
+    func setSubjectsForSkeletons() {
+        let row = Subject.makeSkeleton()
+        
+        self.subjects = Array(repeating: row, count: 5)
+    }
+    
     func checkIfContains(name: String) -> Bool {
         var contains = false
         

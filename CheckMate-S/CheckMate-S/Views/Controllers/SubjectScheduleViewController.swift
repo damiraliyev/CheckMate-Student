@@ -211,6 +211,7 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                     }
                     
                 })
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                 self?.present(alertController, animated: true)
             }
         
@@ -303,7 +304,6 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
                     print("NO TOKENS")
                     print("getTokens fullCode \(subjectScheduleViewModel.fullSubjectCode)")
                     return
-                    
                 }
                 
                 print("TOKENS", tokens)

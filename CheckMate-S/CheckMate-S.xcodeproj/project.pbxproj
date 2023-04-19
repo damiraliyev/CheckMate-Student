@@ -15,6 +15,8 @@
 		6814356229B20B0900F53F33 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356129B20B0900F53F33 /* SignInViewController.swift */; };
 		6814356829B2282F00F53F33 /* SignInTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356729B2282F00F53F33 /* SignInTextFieldView.swift */; };
 		6814356A29B22C3200F53F33 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814356929B22C3200F53F33 /* Factory.swift */; };
+		681601E529EFE12800914CEA /* SkeletonLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681601E429EFE12800914CEA /* SkeletonLoadable.swift */; };
+		681601E729EFE14F00914CEA /* SkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681601E629EFE14F00914CEA /* SkeletonCell.swift */; };
 		6821F3CC29C1ACA900583B1E /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6821F3CB29C1ACA900583B1E /* TestDatabase.swift */; };
 		682A7C6229D7E60C0064E7BB /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A7C6129D7E60C0064E7BB /* CustomProgressView.swift */; };
 		6835173E29BB708200EB893A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835173D29BB708200EB893A /* HomeViewModel.swift */; };
@@ -62,6 +64,8 @@
 		6814356129B20B0900F53F33 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6814356729B2282F00F53F33 /* SignInTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTextFieldView.swift; sourceTree = "<group>"; };
 		6814356929B22C3200F53F33 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		681601E429EFE12800914CEA /* SkeletonLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadable.swift; sourceTree = "<group>"; };
+		681601E629EFE14F00914CEA /* SkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonCell.swift; sourceTree = "<group>"; };
 		6821F3CB29C1ACA900583B1E /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
 		682A7C6129D7E60C0064E7BB /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		6835173D29BB708200EB893A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 				68D1595F29CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift */,
 				68D1596529CAEB7700051FE6 /* ClassCollectionViewViewModelType.swift */,
 				68D1596929CB01D200051FE6 /* SubjectScheduleViewModelType.swift */,
+				681601E429EFE12800914CEA /* SkeletonLoadable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				68E4E3FB29B32E3700A1B956 /* SubjectCell.swift */,
 				6837CC6429C497EA00ECBD48 /* ClassCell.swift */,
 				682A7C6129D7E60C0064E7BB /* CustomProgressView.swift */,
+				681601E629EFE14F00914CEA /* SkeletonCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 			files = (
 				6837CC6529C497EA00ECBD48 /* ClassCell.swift in Sources */,
 				685A3EEB29C2DB27007B1EA1 /* Extensions.swift in Sources */,
+				681601E729EFE14F00914CEA /* SkeletonCell.swift in Sources */,
 				6812ACAC29ED758000B80736 /* MainTabBarController.swift in Sources */,
 				6837CC6329C4953D00ECBD48 /* SubjectScheduleViewController.swift in Sources */,
 				6837CC6129C47B1F00ECBD48 /* Colors.swift in Sources */,
@@ -424,6 +431,7 @@
 				68E4E3F729B30E2300A1B956 /* HomeViewController.swift in Sources */,
 				6845DE8829BB672C0096A602 /* CollectionViewViewModel.swift in Sources */,
 				6814356A29B22C3200F53F33 /* Factory.swift in Sources */,
+				681601E529EFE12800914CEA /* SkeletonLoadable.swift in Sources */,
 				6845DE9029BB6CFC0096A602 /* AccountInfoViewModelType.swift in Sources */,
 				6845DE9229BB6D590096A602 /* Student.swift in Sources */,
 				68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */,

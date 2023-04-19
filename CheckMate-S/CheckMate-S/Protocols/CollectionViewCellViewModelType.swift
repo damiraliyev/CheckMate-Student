@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol CollectionViewCellViewModelType: AnyObject {
+    
     var subjectCode: String { get }
     var subjectName: String { get }
     var totalAttendanceCount: Int { get }

@@ -1,34 +1,42 @@
 //
-//  ClassCell.swift
+//  SkeletonCell.swift
 //  CheckMate-S
 //
-//  Created by Damir Aliyev on 04.03.2023.
+//  Created by Damir Aliyev on 19.04.2023.
 //
 
-import Foundation
 import UIKit
 
+extension SkeletonCell: SkeletonLoadable {}
 
-final class SubjectCell: UICollectionViewCell {
+class SkeletonCell: UICollectionViewCell {
     
-    static let reuseID = "SubjectCell"
+    static let reuseID = "SkeletonCell"
     
-    let subjectCode = ViewFactory.makeLabel(fontSize: 17, color: .label, weight: .bold, text: "CSS 342")
     
-    let subjectName = ViewFactory.makeLabel(fontSize: 15, color: .label, weight: .medium, text: "Sofware Engineering")
+    let subjectCode = ViewFactory.makeLabel(fontSize: 17, color: .label, weight: .bold, text: "  ")
+    
+    let subjectName = ViewFactory.makeLabel(fontSize: 15, color: .label, weight: .medium, text: "  ")
     
     let lineView    = UIView()
 
-    
     let absenceProgressBar = CustomProgressView()
     
-    let percentageLabel = ViewFactory.makeLabel(fontSize: 10, color: UIColor.sduBlue, weight: .bold)
+//    let percentageLabel = ViewFactory.makeLabel(fontSize: 10, color: UIColor.sduBlue, weight: .bold)
+    
+    
+    //Gradients
+    let subjectCodeLayer = CAGradientLayer()
+    let subjectNameLayer = CAGradientLayer()
+    let absenceProgressLayer = CAGradientLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         
         setup()
+        setupLayers()
+        setupAnimation()
         layout()
     }
     
@@ -40,7 +48,7 @@ final class SubjectCell: UICollectionViewCell {
         layer.cornerRadius = 10
         layer.borderWidth = 1
         subjectName.numberOfLines = 0
-        subjectCode.textColor = UIColor.sduBlue
+//        subjectCode.textColor = UIColor.sduBlue
         subjectCode.numberOfLines = 0
         
         lineView.translatesAutoresizingMaskIntoConstraints = false
@@ -48,15 +56,36 @@ final class SubjectCell: UICollectionViewCell {
         lineView.backgroundColor = .black
         
         setupAbsenceProgressBar()
+    }
+    
+    private func setupLayers() {
+        subjectCodeLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        subjectCodeLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        subjectCode.layer.addSublayer(subjectCodeLayer)
         
-        percentageLabel.text = "0%"
+        subjectNameLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        subjectNameLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        subjectName.layer.addSublayer(subjectNameLayer)
         
+        absenceProgressLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        absenceProgressLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        absenceProgressBar.layer.addSublayer(absenceProgressLayer)
+    }
+    
+    private func setupAnimation() {
+        let codeGroup = makeAnimationGroup()
+        codeGroup.beginTime = 0.0
+        subjectCodeLayer.add(codeGroup, forKey: "backgroundColor")
         
+        let nameGroup = makeAnimationGroup(previousGroup: codeGroup)
+        subjectNameLayer.add(nameGroup, forKey: "backgroundColor")
+        
+        let progressGroup = makeAnimationGroup(previousGroup: nameGroup)
+        absenceProgressLayer.add(progressGroup, forKey: "backgroundColor")
     }
     
     private func setupAbsenceProgressBar() {
         absenceProgressBar.translatesAutoresizingMaskIntoConstraints = false
-        absenceProgressBar.layer.borderWidth = 1.5
         absenceProgressBar.layer.cornerRadius = 5
         absenceProgressBar.progressView.layer.cornerRadius = 5
         absenceProgressBar.barView.backgroundColor = .white
@@ -67,7 +96,6 @@ final class SubjectCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         absenceProgressBar.percentage = 0
-        percentageLabel.text = "0%"
         subjectCode.text = nil
         subjectName.text = nil
     }
@@ -75,7 +103,16 @@ final class SubjectCell: UICollectionViewCell {
     override func layoutSubviews() {
         absenceProgressBar.heightAnchor.constraint(equalToConstant: frame.height / 3.5).isActive = true
         absenceProgressBar.widthAnchor.constraint(equalToConstant: frame.width / 4.5).isActive = true
-        percentageLabel.font = UIFont.systemFont(ofSize: frame.height / 6.5)
+        
+        subjectCodeLayer.frame = subjectCode.bounds
+        subjectCodeLayer.cornerRadius = 5
+        
+        subjectNameLayer.frame = subjectName.bounds
+        subjectNameLayer.cornerRadius = 5
+
+        absenceProgressLayer.frame = absenceProgressBar.bounds
+        absenceProgressLayer.cornerRadius = 5
+
     }
     
     private func layout() {
@@ -83,7 +120,6 @@ final class SubjectCell: UICollectionViewCell {
         contentView.addSubview(lineView)
         contentView.addSubview(subjectName)
         contentView.addSubview(absenceProgressBar)
-        contentView.addSubview(percentageLabel)
         
         NSLayoutConstraint.activate([
             subjectCode.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -105,20 +141,9 @@ final class SubjectCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             absenceProgressBar.centerYAnchor.constraint(equalTo: subjectName.centerYAnchor),
-//            absenceProgressBar.leadingAnchor.constraint(equalTo: subjectName.trailingAnchor, constant: 16),
             absenceProgressBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
-        
-        NSLayoutConstraint.activate([
-            percentageLabel.centerYAnchor.constraint(equalTo: absenceProgressBar.centerYAnchor),
-            percentageLabel.centerXAnchor.constraint(equalTo: absenceProgressBar.centerXAnchor)
-        ])
-        
     }
-    
-    
-    
-    
     weak var viewModel: CollectionViewCellViewModelType? {
         willSet(viewModel) {
             guard let viewModel = viewModel else {
@@ -132,11 +157,12 @@ final class SubjectCell: UICollectionViewCell {
                 self?.absenceProgressBar.percentage = viewModel.progress
                 self?.absenceProgressBar.progressView.backgroundColor = viewModel.progressColor
                 self?.absenceProgressBar.updateProgressViewWidthConstraint()
-                self?.percentageLabel.text = viewModel.percentage
+//                self?.percentageLabel.text = viewModel.percentage
             }
             
             
             
         }
     }
+    
 }
