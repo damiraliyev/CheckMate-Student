@@ -8,6 +8,8 @@
 import Foundation
 
 struct Message {
+    let sender: String
+    let senderID: String
     let forSubject: String
     let body: String
     let time: String

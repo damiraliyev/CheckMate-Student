@@ -42,20 +42,27 @@ class MessageCell: UITableViewCell {
         ])
         
         NSLayoutConstraint.activate([
+            timeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+        ])
+        
+        NSLayoutConstraint.activate([
             messageBodyLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             messageBodyLabel.leadingAnchor.constraint(equalTo: subjectCodeLabel.trailingAnchor, constant: 16),
             messageBodyLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor, constant: -8)
         ])
         
-        NSLayoutConstraint.activate([
-            timeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
-        ])
+       
     }
     
     weak var viewModel: MessageCellViewModel? {
-        willSet {
-            
+        willSet(viewModel) {
+            guard let viewModel = viewModel else {
+                return
+            }
+            subjectCodeLabel.text = viewModel.subject
+            messageBodyLabel.text = viewModel.messageBody
+            timeLabel.text = viewModel.time
         }
     }
 }

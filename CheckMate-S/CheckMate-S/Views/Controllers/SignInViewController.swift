@@ -21,7 +21,7 @@ final class SignInViewController: UIViewController {
     let stackView = ViewFactory.makeStackView(axis: .vertical, spacing: 60)
     
     let IDTextField: SignInTextFieldView = {
-        let textFieldView = SignInTextFieldView(withText: "Email")
+        let textFieldView = SignInTextFieldView(withText: "Student number")
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         textFieldView.textField.keyboardType = .emailAddress
         return textFieldView

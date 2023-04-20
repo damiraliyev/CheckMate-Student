@@ -20,6 +20,11 @@ class MainTabBarControlller: UITabBarController {
         let homeVC = HomeViewController()
         homeVC.tabBarItem = UITabBarItem(title: "Main", image: UIImage(systemName: "house.fill"), selectedImage: nil)
         
-        viewControllers = [homeVC]
+        let absenceReasonVC = AbsenceReasonViewController()
+        absenceReasonVC.tabBarItem = UITabBarItem(title: "Compose", image: UIImage(systemName: "message"), tag: 1)
+        
+        let absenceReasonNC = UINavigationController(rootViewController: absenceReasonVC)
+        
+        viewControllers = [homeVC, absenceReasonNC]
     }
 }

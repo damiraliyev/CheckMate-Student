@@ -52,7 +52,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .systemBackground
         
         
         let collectionViewViewModel = CollectionViewViewModel()
@@ -78,7 +78,7 @@ final class HomeViewController: UIViewController {
         accountInfoView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .secondarySystemBackground
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(SubjectCell.self, forCellWithReuseIdentifier: SubjectCell.reuseID)
         collectionView.register(SkeletonCell.self, forCellWithReuseIdentifier: SkeletonCell.reuseID)
         
