@@ -18,6 +18,10 @@ class ReasonMessagesViewModel {
             time: "14:00")
     ]
     
+    func isTableEmpty() -> Bool {
+        return messages.isEmpty
+    }
+    
     func numberOfRows() -> Int {
         return messages.count
     }

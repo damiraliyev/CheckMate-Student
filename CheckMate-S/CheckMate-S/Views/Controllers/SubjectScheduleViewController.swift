@@ -172,7 +172,7 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard var viewModel = subjectScheduleViewModel?.classCollectionViewViewModel else {
+        guard let viewModel = subjectScheduleViewModel?.classCollectionViewViewModel else {
             return
         }
         
@@ -182,11 +182,28 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
             return
         }
         
+        let alertController = UIAlertController(title: "Action", message: "Choose the action", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Check attendance", style: .default) { [weak self] _ in
+            self?.checkAttendanceWithToken(viewModel: viewModel, selectedClass: selectedClass)
+        })
+        
+        self.present(alertController, animated: true)
+        
+
+        
+    }
+    
+    private func checkAttendanceWithToken(
+        viewModel: ClassCollectionViewViewModelType,
+        selectedClass: SubjectClass
+    ) {
         viewModel.getTokensForClass(
             date: subjectScheduleViewModel?.dateText ?? "x",
             fullSubjectCode: selectedClass.fullSubjectCode) { [weak self] in
                 let alertController = UIAlertController(title: "Check attendance", message: "Enter the token that teacher provided to you.", preferredStyle: .alert)
                 alertController.addTextField()
+                
                 alertController.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
                     let enteredToken = alertController.textFields![0]
                     
@@ -200,7 +217,7 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                                 if hasUpdated {
                                     print("Attendance was successfully checked")
                                     self?.showResultAlert(isSuccessfull: true)
-                                    collectionView.reloadData()
+                                    self?.collectionView.reloadData()
                                 } else {
                                     self?.showResultAlert(isSuccessfull: false)
                                     print("Attendance was not checked")
@@ -211,6 +228,11 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                     }
                     
                 })
+                
+//                alertController.addAction(UIAlertAction(title: "Attach absence reason", style: .default) {_ in
+//                    let vc = MailComposerViewController()
+//                    self?.navigationController?.pushViewController(vc, animated: true)
+//                })
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                 self?.present(alertController, animated: true)
             }

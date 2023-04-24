@@ -41,6 +41,7 @@
 		685A3EEB29C2DB27007B1EA1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A3EEA29C2DB27007B1EA1 /* Extensions.swift */; };
 		68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE329BA0E9B007B4495 /* AuthManager.swift */; };
 		68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */; };
+		68B61D0F29F13ADA00CF0F03 /* MailComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B61D0E29F13ADA00CF0F03 /* MailComposerViewController.swift */; };
 		68D1596029CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1595F29CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift */; };
 		68D1596229CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596129CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift */; };
 		68D1596429CAE63900051FE6 /* SubjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D1596329CAE63900051FE6 /* SubjectClass.swift */; };
@@ -107,6 +108,7 @@
 		6876BEE129ED31C600717CF3 /* FirebaseStorageInternal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorageInternal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68A7BDE329BA0E9B007B4495 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		68B61D0E29F13ADA00CF0F03 /* MailComposerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposerViewController.swift; sourceTree = "<group>"; };
 		68D1595F29CAE59E00051FE6 /* ClassCollectionViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewCellViewModelType.swift; sourceTree = "<group>"; };
 		68D1596129CAE5F800051FE6 /* ClassCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		68D1596329CAE63900051FE6 /* SubjectClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectClass.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				68DA507629CC4CB000A7041C /* ResetPasswordViewController.swift */,
 				6812ACAB29ED758000B80736 /* MainTabBarController.swift */,
 				681601E929EFFED700914CEA /* AbsenceReasonViewController.swift */,
+				68B61D0E29F13ADA00CF0F03 /* MailComposerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				6812ACAC29ED758000B80736 /* MainTabBarController.swift in Sources */,
 				6837CC6329C4953D00ECBD48 /* SubjectScheduleViewController.swift in Sources */,
 				6837CC6129C47B1F00ECBD48 /* Colors.swift in Sources */,
+				68B61D0F29F13ADA00CF0F03 /* MailComposerViewController.swift in Sources */,
 				6835174029BB757100EB893A /* HomeViewModelType.swift in Sources */,
 				68E4E3FC29B32E3700A1B956 /* SubjectCell.swift in Sources */,
 				6821F3CC29C1ACA900583B1E /* TestDatabase.swift in Sources */,

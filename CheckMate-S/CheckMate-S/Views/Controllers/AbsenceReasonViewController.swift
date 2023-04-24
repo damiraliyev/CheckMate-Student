@@ -11,6 +11,14 @@ class AbsenceReasonViewController: UIViewController {
     
     let reasonMessagesViewModel = ReasonMessagesViewModel()
     
+    let gmailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "gmailImage")
+        imageView.isHidden = true
+        return imageView
+    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,9 +28,7 @@ class AbsenceReasonViewController: UIViewController {
     
     let composeButton: UIButton = {
         let button = ViewFactory.makeButton(withText: "Compose", image: UIImage(systemName: "pencil"))
-        
         button.setTitleColor(.black, for: .normal)
-        
         button.layer.borderWidth = 1
         button.tintColor = .black
         button.backgroundColor = .lightBlue
@@ -42,11 +48,35 @@ class AbsenceReasonViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(MessageCell.self, forCellReuseIdentifier: MessageCell.reuseID)
         tableView.rowHeight = view.frame.size.height / 12
+        
+        composeButton.addTarget(self, action: #selector(composeButtonTapped), for: .primaryActionTriggered)
+        
+        showOrHideTable()
+    }
+    @objc func composeButtonTapped(_ sender: UIButton) {
+        let vc = MailComposerViewController()
+        navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    private func showOrHideTable() {
+        if reasonMessagesViewModel.isTableEmpty() {
+            tableView.isHidden = true
+            gmailImageView.isHidden = false
+        } else {
+            tableView.isHidden = false
+            gmailImageView.isHidden = true
+        }
     }
     
     private func layout() {
+        view.addSubview(gmailImageView)
         view.addSubview(tableView)
         view.addSubview(composeButton)
+        
+        NSLayoutConstraint.activate([
+            gmailImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            gmailImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
