@@ -188,6 +188,13 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
             self?.checkAttendanceWithToken(viewModel: viewModel, selectedClass: selectedClass)
         })
         
+        alertController.addAction(UIAlertAction(title: "Attach absence reason", style: .default) {[weak self] _ in
+            let vc = MailComposerViewController()
+            self?.navigationController?.pushViewController(vc, animated: true)
+        })
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
         self.present(alertController, animated: true)
         
 
@@ -229,10 +236,6 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                     
                 })
                 
-//                alertController.addAction(UIAlertAction(title: "Attach absence reason", style: .default) {_ in
-//                    let vc = MailComposerViewController()
-//                    self?.navigationController?.pushViewController(vc, animated: true)
-//                })
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                 self?.present(alertController, animated: true)
             }
