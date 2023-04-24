@@ -44,6 +44,12 @@ class MailComposerViewController: UIViewController {
         return textView
     }()
     
+    var hasTyped = false
+    
+    var date = ""
+    
+    var time = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -61,13 +67,34 @@ class MailComposerViewController: UIViewController {
             image: UIImage(systemName: "paperplane"),
             style: .plain,
             target: self,
-            action: nil)
+            action: #selector(sendMessage))
         rightBarItem.tintColor = .sduBlue
+        
         
         navigationItem.rightBarButtonItem = rightBarItem
     }
     
-    
+    @objc func sendMessage() {
+        let studentFullName = (UserDefaults.standard.value(forKey: "name") as? String ?? "") + " " + (UserDefaults.standard.value(forKey: "surname") as? String ?? "")
+        let fullSubjectCode = fullSubjectCodeLabel.text ?? "CSS"
+        let message = textView.text
+        
+        let dict = [
+            "sender": studentFullName,
+            "subject": fullSubjectCode,
+            "message": message,
+            "date": date,
+            "time": time
+        ]
+        
+        DatabaseManager.shared.database.collection("message").document(fullSubjectCode).setData(dict as [String : Any]) { error in
+            guard error == nil else {
+                return
+            }
+            
+            print("Message was sent successfully!")
+        }
+    }
     
     private func layout() {
         view.addSubview(stackView)
@@ -97,12 +124,23 @@ class MailComposerViewController: UIViewController {
         ])
         
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+        
+    }
 }
 
 
 extension MailComposerViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = ""
+        if !hasTyped {
+            textView.text = ""
+            hasTyped = true
+        }
+        
         textView.textColor = .label
     }
+
 }

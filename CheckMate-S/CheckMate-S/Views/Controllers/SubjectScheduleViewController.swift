@@ -23,6 +23,8 @@ final class SubjectScheduleViewController: UIViewController {
     
     let calendarView = UICalendarView()
     
+    var selectedDate = String.date(from: Date()) ?? "1.1.1970"
+    
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -190,6 +192,10 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
         
         alertController.addAction(UIAlertAction(title: "Attach absence reason", style: .default) {[weak self] _ in
             let vc = MailComposerViewController()
+            vc.fullSubjectCodeLabel.text = selectedClass.fullSubjectCode
+            vc.date = self?.selectedDate ?? "1.1.1970"
+        
+            vc.time = selectedClass.startTime
             self?.navigationController?.pushViewController(vc, animated: true)
         })
         
@@ -294,7 +300,7 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         guard var subjectScheduleViewModel = subjectScheduleViewModel else { return }
-        let selectedDate = subjectScheduleViewModel.convertDate(
+        selectedDate = subjectScheduleViewModel.convertDate(
             day: dateComponents?.day,
             month: dateComponents?.month,
             year: dateComponents?.year
@@ -311,15 +317,15 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
             subjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail,
             date: selectedDate,
             completion: { [weak self] in
-            self?.dateLabel.text = selectedDate
-            self?.collectionView.reloadData()
-            
-            if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
-                self?.noClassesLabel.isHidden = false
-            } else {
-                self?.noClassesLabel.isHidden = true
-            }
-        })
+                self?.dateLabel.text = self?.selectedDate
+                self?.collectionView.reloadData()
+                
+                if self?.subjectScheduleViewModel?.classCollectionViewViewModel?.numberOfRows() == 0 {
+                    self?.noClassesLabel.isHidden = false
+                } else {
+                    self?.noClassesLabel.isHidden = true
+                }
+            })
         
         DatabaseManager.shared.getTokens(
             for: selectedDate,
