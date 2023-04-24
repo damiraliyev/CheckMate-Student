@@ -89,8 +89,6 @@ final class SubjectScheduleViewController: UIViewController {
                 print(tokens)
             }
         
-        
-        
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.delegate = self
         collectionView.dataSource = self

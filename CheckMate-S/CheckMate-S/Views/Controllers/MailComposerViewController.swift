@@ -87,13 +87,26 @@ class MailComposerViewController: UIViewController {
             "time": time
         ]
         
-        DatabaseManager.shared.database.collection("message").document(fullSubjectCode).setData(dict as [String : Any]) { error in
-            guard error == nil else {
-                return
+        DatabaseManager.shared.sendMessage(
+            fullSubjectCode: fullSubjectCode,
+            dict: dict as [String: Any]) { [weak self] isSuccessfull in
+                let alertController = UIAlertController(title: "Success!", message: "Your message was sent successfully!", preferredStyle: .alert)
+                
+                if !isSuccessfull {
+                    alertController.title = "Error"
+                    alertController.message = "For some reason, your message was not sent."
+                }
+                
+                alertController.addAction(UIAlertAction(title: "Done", style: .default) { _ in
+                    if isSuccessfull {
+                        self?.textView.text = "Write your message here..."
+                        self?.textView.textColor = .sduBlue
+                        self?.hasTyped = false
+                    }
+                })
+                
+                self?.present(alertController, animated: true)
             }
-            
-            print("Message was sent successfully!")
-        }
     }
     
     private func layout() {

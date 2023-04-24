@@ -314,5 +314,20 @@ final class DatabaseManager {
 
     }
     
+    func sendMessage(
+        fullSubjectCode: String,
+        dict: [String: Any],
+        completion: @escaping (Bool) -> Void) {
+            DatabaseManager.shared.database
+                .collection("message")
+                .document(fullSubjectCode).setData(dict as [String : Any]) { error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
+        }
+    
 }
 
