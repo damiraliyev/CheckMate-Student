@@ -193,7 +193,7 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
             vc.fullSubjectCodeLabel.text = selectedClass.fullSubjectCode
             vc.date = self?.selectedDate ?? "1.1.1970"
         
-            vc.time = selectedClass.startTime
+            vc.classTime = selectedClass.startTime
             self?.navigationController?.pushViewController(vc, animated: true)
         })
         

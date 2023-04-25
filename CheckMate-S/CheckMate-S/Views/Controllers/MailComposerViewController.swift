@@ -48,7 +48,7 @@ class MailComposerViewController: UIViewController {
     
     var date = ""
     
-    var time = ""
+    var classTime = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,13 +78,17 @@ class MailComposerViewController: UIViewController {
         let studentFullName = (UserDefaults.standard.value(forKey: "name") as? String ?? "") + " " + (UserDefaults.standard.value(forKey: "surname") as? String ?? "")
         let fullSubjectCode = fullSubjectCodeLabel.text ?? "CSS"
         let message = textView.text
+        let sentTime = DateFormatter.getCurrentTime()
+        
         
         let dict = [
-            "sender": studentFullName,
-            "subject": fullSubjectCode,
-            "message": message,
-            "date": date,
-            "time": time
+            date: [
+                "sender": studentFullName,
+                "subject": fullSubjectCode,
+                "message": message,
+                "classTime": classTime,
+                "sentTime": sentTime
+            ]
         ]
         
         DatabaseManager.shared.sendMessage(
@@ -102,6 +106,7 @@ class MailComposerViewController: UIViewController {
                         self?.textView.text = "Write your message here..."
                         self?.textView.textColor = .sduBlue
                         self?.hasTyped = false
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "message"), object: nil, userInfo: dict)
                     }
                 })
                 
@@ -142,6 +147,11 @@ class MailComposerViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        NotificationCenter.default.remov
     }
 }
 

@@ -34,6 +34,9 @@ class AbsenceReasonViewController: UIViewController {
         button.backgroundColor = .lightBlue
         return button
     }()
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,11 @@ class AbsenceReasonViewController: UIViewController {
         title = "Messages"
         setup()
         layout()
+        
+        reasonMessagesViewModel.fetchMessages { [weak self] in
+            self?.tableView.reloadData()
+            self?.showOrHideTable()
+        }
     }
     
     private func setup() {
@@ -51,7 +59,17 @@ class AbsenceReasonViewController: UIViewController {
         
         composeButton.addTarget(self, action: #selector(composeButtonTapped), for: .primaryActionTriggered)
         
+        reasonMessagesViewModel.subscribeForNotifications()
+        
         showOrHideTable()
+        
+        reasonMessagesViewModel.messagesDidChange = { [weak self] in
+            print("Needs to reload data.")
+            self?.tableView.reloadData()
+            self?.showOrHideTable()
+        }
+        
+        
     }
     @objc func composeButtonTapped(_ sender: UIButton) {
         let vc = MailComposerViewController()

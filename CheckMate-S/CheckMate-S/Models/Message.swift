@@ -12,5 +12,6 @@ struct Message {
     let senderID: String
     let forSubject: String
     let body: String
-    let time: String
+    let classTime: String
+    let sentTime: String
 }

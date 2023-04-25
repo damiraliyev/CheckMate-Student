@@ -26,5 +26,20 @@ class MainTabBarControlller: UITabBarController {
         let absenceReasonNC = UINavigationController(rootViewController: absenceReasonVC)
         
         viewControllers = [homeVC, absenceReasonNC]
+        
+        loadAllControllers()
     }
+    
+    func loadAllControllers() {
+        if let viewControllers = self.viewControllers {
+            for viewController in viewControllers {
+                if let navVC = viewController as? UINavigationController {
+                    print("true")
+                    let _ = navVC.viewControllers.first?.view
+                }
+               
+            }
+        }
+    }
+
 }

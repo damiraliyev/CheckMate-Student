@@ -24,6 +24,6 @@ class MessageCellViewModel {
     }
     
     var time: String {
-        return message.time
+        return message.sentTime
     }
 }

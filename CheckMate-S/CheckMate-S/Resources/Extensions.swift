@@ -28,3 +28,14 @@ extension String {
         return formatter.string(from: date)
     }
 }
+
+extension DateFormatter {
+    static func getCurrentTime() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm"
+        let timeString = formatter.string(from: Date())
+        
+        return timeString
+    }
+   
+}

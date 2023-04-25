@@ -41,10 +41,7 @@ class MessageCell: UITableViewCell {
             subjectCodeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8)
         ])
         
-        NSLayoutConstraint.activate([
-            timeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
-        ])
+       
         
         NSLayoutConstraint.activate([
             messageBodyLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -52,6 +49,10 @@ class MessageCell: UITableViewCell {
             messageBodyLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor, constant: -8)
         ])
         
+        NSLayoutConstraint.activate([
+            timeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+        ])
        
     }
     

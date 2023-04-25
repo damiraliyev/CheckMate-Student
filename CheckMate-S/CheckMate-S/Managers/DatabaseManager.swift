@@ -320,7 +320,7 @@ final class DatabaseManager {
         completion: @escaping (Bool) -> Void) {
             DatabaseManager.shared.database
                 .collection("message")
-                .document(fullSubjectCode).setData(dict as [String : Any]) { error in
+                .document(fullSubjectCode).setData(dict as [String : Any], merge: true) { error in
                     guard error == nil else {
                         completion(false)
                         return
@@ -328,6 +328,38 @@ final class DatabaseManager {
                     completion(true)
                 }
         }
+    
+    func getAllMessages(completion: @escaping ([[String: String]]?) -> Void) {
+        let fullName = (UserDefaults.standard.value(forKey: "name") as? String ?? "") + " " + (UserDefaults.standard.value(forKey: "surname") as? String ?? "")
+        var resultInfo: [[String: String]] = []
+        
+        database.collection("message")
+            .getDocuments { snapshot, error in
+                guard let snapshot = snapshot, error == nil else {
+                    print("Error when fetching messages")
+                    print(fullName)
+                    return
+                }
+                
+                for document in snapshot.documents {
+                    for (key, _) in document.data() {
+                        guard let messageData = document.data()[key] as? [String: String] else {
+                            print("Couldn't cast as [String: String] message")
+                            completion(nil)
+                            return
+                        }
+                        
+                        if messageData["sender"] == fullName {
+                            print(messageData)
+                            resultInfo.append(messageData)
+                        }
+                    }
+                    
+                }
+                completion(resultInfo)
+
+            }
+    }
     
 }
 
