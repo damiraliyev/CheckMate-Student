@@ -26,4 +26,25 @@ class MessageCellViewModel {
     var time: String {
         return message.sentTime
     }
+    
+    var sentDate: String {
+        return message.sentDate
+    }
+    
+    var formattedDateAndTime: String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        guard let date = dateFormatter.date(from: sentDate) else {
+            print("IS NOT ABLE TO CONVERT date from \(sentDate)")
+            return ""
+        }
+
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "dd MMMM"
+        let formattedString = dateFormatter2.string(from: date)
+
+        
+        return formattedString + ", " + time
+    }
 }

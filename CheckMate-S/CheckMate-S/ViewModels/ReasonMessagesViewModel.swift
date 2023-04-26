@@ -30,7 +30,7 @@ class ReasonMessagesViewModel {
                 let subject = info["subject"] ?? ""
                 let sentTime = info["sentTime"] ?? ""
                 let messageBody = info["message"] ?? ""
-                
+                let sentDate = info["sentDate"] ?? ""
                 let message = Message(
                     sender: "",
                     senderID: "",
@@ -38,7 +38,7 @@ class ReasonMessagesViewModel {
                     body: messageBody,
                     classTime: "",
                     sentTime: sentTime,
-                    sentDate: "")
+                    sentDate: sentDate)
                 self?.messages.append(message)
                 
             }
@@ -105,7 +105,6 @@ class ReasonMessagesViewModel {
     
     func cellViewModel(for indexPath: IndexPath) -> MessageCellViewModel {
         let message = messages[indexPath.row]
-        
         return MessageCellViewModel(message: message)
     }
 }

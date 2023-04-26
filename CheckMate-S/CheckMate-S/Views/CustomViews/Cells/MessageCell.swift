@@ -14,7 +14,7 @@ class MessageCell: UITableViewCell {
     
     let messageBodyLabel = ViewFactory.makeLabel(fontSize: 17, weight: .regular)
     
-    let timeLabel = ViewFactory.makeLabel(fontSize: 17, weight: .regular)
+    let dateAndTimeLabel = ViewFactory.makeLabel(fontSize: 17, weight: .regular)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,7 +36,7 @@ class MessageCell: UITableViewCell {
     private func layout() {
         contentView.addSubview(subjectCodeLabel)
         contentView.addSubview(messageBodyLabel)
-        contentView.addSubview(timeLabel)
+        contentView.addSubview(dateAndTimeLabel)
         
         NSLayoutConstraint.activate([
             subjectCodeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -50,8 +50,8 @@ class MessageCell: UITableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            timeLabel.centerYAnchor.constraint(equalTo: subjectCodeLabel.centerYAnchor),
-            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            dateAndTimeLabel.centerYAnchor.constraint(equalTo: subjectCodeLabel.centerYAnchor),
+            dateAndTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
        
     }
@@ -63,7 +63,7 @@ class MessageCell: UITableViewCell {
             }
             subjectCodeLabel.text = viewModel.subject
             messageBodyLabel.text = viewModel.messageBody
-            timeLabel.text = viewModel.time
+            dateAndTimeLabel.text = viewModel.formattedDateAndTime
         }
     }
 }

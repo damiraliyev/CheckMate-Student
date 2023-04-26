@@ -32,7 +32,7 @@ extension String {
 extension DateFormatter {
     static func getCurrentTime() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm"
+        formatter.dateFormat = "HH:mm"
         let timeString = formatter.string(from: Date())
         
         return timeString
