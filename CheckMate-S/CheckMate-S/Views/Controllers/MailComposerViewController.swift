@@ -79,6 +79,7 @@ class MailComposerViewController: UIViewController {
         let fullSubjectCode = fullSubjectCodeLabel.text ?? "CSS"
         let message = textView.text
         let sentTime = DateFormatter.getCurrentTime()
+        let sentDate = String.date(from: Date())
         
         
         let dict = [
@@ -87,7 +88,8 @@ class MailComposerViewController: UIViewController {
                 "subject": fullSubjectCode,
                 "message": message,
                 "classTime": classTime,
-                "sentTime": sentTime
+                "sentTime": sentTime,
+                "sentDate": sentDate
             ]
         ]
         

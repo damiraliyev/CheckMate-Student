@@ -31,8 +31,23 @@ class ReasonMessagesViewModel {
                 let sentTime = info["sentTime"] ?? ""
                 let messageBody = info["message"] ?? ""
                 
-                let message = Message(sender: "", senderID: "", forSubject: subject, body: messageBody, classTime: "", sentTime: sentTime)
+                let message = Message(
+                    sender: "",
+                    senderID: "",
+                    forSubject: subject,
+                    body: messageBody,
+                    classTime: "",
+                    sentTime: sentTime,
+                    sentDate: "")
                 self?.messages.append(message)
+                
+            }
+            self?.messages.sort {
+                if $0.sentDate == $1.sentDate {
+                    return $0.sentTime < $1.sentTime
+                } else {
+                    return $0.sentDate < $1.sentDate
+                }
             }
             completion()
         }
@@ -49,6 +64,7 @@ class ReasonMessagesViewModel {
         var classTime = ""
         var sentTime = ""
         var sender = ""
+        var sentDate = ""
         print("Message info", messageInfo)
         
         for (key, _) in messageInfo {
@@ -58,13 +74,23 @@ class ReasonMessagesViewModel {
             classTime = (messageInfo[key] as? [String: Any])?["classTime"] as? String ?? ""
             sentTime = (messageInfo[key] as? [String: Any])?["sentTime"] as? String ?? ""
             sender = (messageInfo[key] as? [String: Any])?["sender"] as? String ?? ""
+            sentDate = (messageInfo[key] as? [String: Any])?["sentDate"] as? String ?? ""
         }
         
         
         
-        let message = Message(sender: "", senderID: sender, forSubject: subject, body: messageBody, classTime: classTime, sentTime: sentTime)
+        let message = Message(sender: "", senderID: sender, forSubject: subject, body: messageBody, classTime: classTime, sentTime: sentTime, sentDate: sentDate)
         
         messages.append(message)
+        
+        self.messages.sort {
+            if $0.sentDate == $1.sentDate {
+                return $0.sentTime < $1.sentTime
+            } else {
+                return $0.sentDate < $1.sentDate
+            }
+        }
+        
         messagesDidChange?()
 
     }

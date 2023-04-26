@@ -55,7 +55,7 @@ class AbsenceReasonViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MessageCell.self, forCellReuseIdentifier: MessageCell.reuseID)
-        tableView.rowHeight = view.frame.size.height / 12
+        tableView.rowHeight = view.frame.size.height / 7.5
         
         composeButton.addTarget(self, action: #selector(composeButtonTapped), for: .primaryActionTriggered)
         

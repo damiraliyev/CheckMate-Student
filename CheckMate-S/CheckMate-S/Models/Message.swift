@@ -14,4 +14,5 @@ struct Message {
     let body: String
     let classTime: String
     let sentTime: String
+    let sentDate: String
 }

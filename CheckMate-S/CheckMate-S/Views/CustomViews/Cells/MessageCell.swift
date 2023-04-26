@@ -10,7 +10,7 @@ import UIKit
 class MessageCell: UITableViewCell {
     static let reuseID = "MessageCell"
     
-    let subjectCodeLabel = ViewFactory.makeLabel(fontSize: 17, weight: .regular)
+    let subjectCodeLabel = ViewFactory.makeLabel(fontSize: 19, weight: .medium)
     
     let messageBodyLabel = ViewFactory.makeLabel(fontSize: 17, weight: .regular)
     
@@ -28,7 +28,9 @@ class MessageCell: UITableViewCell {
     }
     
     private func setup() {
+        subjectCodeLabel.textColor = .sduBlue
         
+//        messageBodyLabel.numberOfLines = 2
     }
     
     private func layout() {
@@ -41,16 +43,14 @@ class MessageCell: UITableViewCell {
             subjectCodeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8)
         ])
         
-       
-        
         NSLayoutConstraint.activate([
-            messageBodyLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            messageBodyLabel.leadingAnchor.constraint(equalTo: subjectCodeLabel.trailingAnchor, constant: 16),
-            messageBodyLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor, constant: -8)
+            messageBodyLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            messageBodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            messageBodyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
         NSLayoutConstraint.activate([
-            timeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            timeLabel.centerYAnchor.constraint(equalTo: subjectCodeLabel.centerYAnchor),
             timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
        
