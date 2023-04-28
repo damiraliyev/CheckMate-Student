@@ -103,6 +103,20 @@ class ReasonMessagesViewModel {
         return messages.count
     }
     
+    func deleteMessage(at indexPath: IndexPath, completion: @escaping () -> Void) {
+        let message = messages[indexPath.row]
+        print("Deleting message: \(message.forSubject)")
+        print("Deleting message 2: \(message.sentDate)")
+        DatabaseManager.shared.deleteMessage(
+            fullSubjectCode: message.forSubject,
+            date: message.sentDate) { [weak self] in
+                self?.messages.remove(at: indexPath.row)
+                completion()
+            }
+        
+        
+    }
+    
     func cellViewModel(for indexPath: IndexPath) -> MessageCellViewModel {
         let message = messages[indexPath.row]
         return MessageCellViewModel(message: message)

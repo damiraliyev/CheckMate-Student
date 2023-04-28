@@ -39,7 +39,7 @@ class MessageCell: UITableViewCell {
         contentView.addSubview(dateAndTimeLabel)
         
         NSLayoutConstraint.activate([
-            subjectCodeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            subjectCodeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             subjectCodeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8)
         ])
         
@@ -54,6 +54,13 @@ class MessageCell: UITableViewCell {
             dateAndTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        messageBodyLabel.font = .systemFont(ofSize: contentView.frame.size.height / 4.5, weight: .regular)
+        dateAndTimeLabel.font = .systemFont(ofSize: contentView.frame.size.height / 4.5, weight: .regular)
+        
     }
     
     weak var viewModel: MessageCellViewModel? {

@@ -17,6 +17,4 @@ protocol CollectionViewCellViewModelType: AnyObject {
     var progress: Float {get}
     var percentage: String { get }
     var progressColor: UIColor { get }
-    
-    
 }

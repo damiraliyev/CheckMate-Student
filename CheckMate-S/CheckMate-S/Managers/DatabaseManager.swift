@@ -259,7 +259,7 @@ final class DatabaseManager {
             if let document = document, document.exists {
                 let data = document.data()
                 if let tokens = data?["tokens"] as? [String: Any] {
-                    let studentID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+//                    let studentID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
                     let tokensForDate = tokens[date] as? [String]
                     
                     completion(tokensForDate)
@@ -359,6 +359,21 @@ final class DatabaseManager {
                 completion(resultInfo)
 
             }
+    }
+    
+    func deleteMessage(fullSubjectCode: String, date: String, completion: @escaping () -> Void) {
+        let docRef = database.collection("message").document(fullSubjectCode)
+        docRef.setData(["24.04.2023": FieldValue.delete()], merge: true) { error in
+                if let error = error {
+                    print("Error deleting document: \(error.localizedDescription)")
+                } else {
+                    print("Document deleted successfully.")
+                    completion()
+                }
+            
+            
+        }
+        
     }
     
 }

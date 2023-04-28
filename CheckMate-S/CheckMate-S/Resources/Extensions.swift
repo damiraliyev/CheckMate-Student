@@ -15,7 +15,6 @@ extension UIButton {
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.alpha = 1
         }
-
     }
 }
 

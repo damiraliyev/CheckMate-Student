@@ -46,7 +46,6 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
             completion()
         }
     }
-   
     
     func numberOfRows() -> Int {
         print(subjects.count)

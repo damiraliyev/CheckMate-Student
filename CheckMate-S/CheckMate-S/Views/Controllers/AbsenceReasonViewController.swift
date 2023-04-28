@@ -35,9 +35,6 @@ class AbsenceReasonViewController: UIViewController {
         return button
     }()
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -55,7 +52,7 @@ class AbsenceReasonViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MessageCell.self, forCellReuseIdentifier: MessageCell.reuseID)
-        tableView.rowHeight = view.frame.size.height / 7.5
+        tableView.rowHeight = view.frame.size.height / 10.5
         
         composeButton.addTarget(self, action: #selector(composeButtonTapped), for: .primaryActionTriggered)
         
@@ -68,7 +65,7 @@ class AbsenceReasonViewController: UIViewController {
             self?.tableView.reloadData()
             self?.showOrHideTable()
         }
-        
+
         
     }
     @objc func composeButtonTapped(_ sender: UIButton) {
@@ -122,6 +119,18 @@ class AbsenceReasonViewController: UIViewController {
 extension AbsenceReasonViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            reasonMessagesViewModel.deleteMessage(at: indexPath) { [weak self] in
+                self?.tableView.reloadData()
+            }
+        }
     }
 }
 
