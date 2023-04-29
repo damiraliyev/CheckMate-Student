@@ -26,15 +26,6 @@ class AbsenceReasonViewController: UIViewController {
         return tableView
     }()
     
-    let composeButton: UIButton = {
-        let button = ViewFactory.makeButton(withText: "Compose", image: UIImage(systemName: "pencil"))
-        button.setTitleColor(.black, for: .normal)
-        button.layer.borderWidth = 1
-        button.tintColor = .black
-        button.backgroundColor = .lightBlue
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -54,8 +45,6 @@ class AbsenceReasonViewController: UIViewController {
         tableView.register(MessageCell.self, forCellReuseIdentifier: MessageCell.reuseID)
         tableView.rowHeight = view.frame.size.height / 10.5
         
-        composeButton.addTarget(self, action: #selector(composeButtonTapped), for: .primaryActionTriggered)
-        
         reasonMessagesViewModel.subscribeForNotifications()
         
         showOrHideTable()
@@ -67,10 +56,6 @@ class AbsenceReasonViewController: UIViewController {
         }
 
         
-    }
-    @objc func composeButtonTapped(_ sender: UIButton) {
-        let vc = MailComposerViewController()
-        navigationController?.pushViewController(vc, animated: false)
     }
     
     private func showOrHideTable() {
@@ -86,8 +71,7 @@ class AbsenceReasonViewController: UIViewController {
     private func layout() {
         view.addSubview(gmailImageView)
         view.addSubview(tableView)
-        view.addSubview(composeButton)
-        
+
         NSLayoutConstraint.activate([
             gmailImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             gmailImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -99,18 +83,9 @@ class AbsenceReasonViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        NSLayoutConstraint.activate([
-            composeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
-            composeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -18),
-            composeButton.heightAnchor.constraint(equalToConstant: view.frame.size.height / 15),
-            composeButton.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3)
-        ])
-        
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        composeButton.layer.cornerRadius = composeButton.frame.width / 5.5
     }
 }
 
