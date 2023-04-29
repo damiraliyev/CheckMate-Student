@@ -21,9 +21,23 @@ class MailComposerViewController: UIViewController {
         return label
     }()
     
-    let stackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
+    let forDateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .regular, text: "For date:")
+    let dateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: "29.04.2023")
     
-    let separatorLineView: UIView = {
+    
+    let subjectStackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
+    let dateStackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
+    
+    let separatorLineView1: UIView = {
+        let lineView = UIView()
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+
+        lineView.backgroundColor = .systemGray3
+        
+        return lineView
+    }()
+    
+    let separatorLineView2: UIView = {
         let lineView = UIView()
         lineView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -60,6 +74,7 @@ class MailComposerViewController: UIViewController {
     private func setup() {
         setupBarButtonItem()
         textView.delegate = self
+        dateLabel.text = date
     }
     
     private func setupBarButtonItem() {
@@ -117,27 +132,44 @@ class MailComposerViewController: UIViewController {
     }
     
     private func layout() {
-        view.addSubview(stackView)
-        view.addSubview(separatorLineView)
+        view.addSubview(subjectStackView)
+        view.addSubview(separatorLineView1)
+        view.addSubview(dateStackView)
+        view.addSubview(separatorLineView2)
         view.addSubview(textView)
         
-        stackView.addArrangedSubview(subjectLabel)
-        stackView.addArrangedSubview(fullSubjectCodeLabel)
+        subjectStackView.addArrangedSubview(subjectLabel)
+        subjectStackView.addArrangedSubview(fullSubjectCodeLabel)
+        
+        dateStackView.addArrangedSubview(forDateLabel)
+        dateStackView.addArrangedSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            subjectStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            subjectStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
         
         NSLayoutConstraint.activate([
-            separatorLineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
-            separatorLineView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            separatorLineView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            separatorLineView.heightAnchor.constraint(equalToConstant: 1)
+            separatorLineView1.topAnchor.constraint(equalTo: subjectStackView.bottomAnchor, constant: 8),
+            separatorLineView1.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            separatorLineView1.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            separatorLineView1.heightAnchor.constraint(equalToConstant: 1)
         ])
         
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 8),
+            dateStackView.topAnchor.constraint(equalTo: separatorLineView1.bottomAnchor, constant: 8),
+            dateStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            separatorLineView2.topAnchor.constraint(equalTo: dateStackView.bottomAnchor, constant: 8),
+            separatorLineView2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            separatorLineView2.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            separatorLineView2.heightAnchor.constraint(equalToConstant: 1)
+        ])
+        
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: separatorLineView2.bottomAnchor, constant: 8),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
