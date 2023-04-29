@@ -24,9 +24,12 @@ class MailComposerViewController: UIViewController {
     let forDateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .regular, text: "For date:")
     let dateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: "29.04.2023")
     
+    let toLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .regular, text: "To:")
+    let teacherLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: "Bakdaulet Aidarbekov")
     
     let subjectStackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
     let dateStackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
+    let recipientStackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
     
     let separatorLineView1: UIView = {
         let lineView = UIView()
@@ -38,6 +41,15 @@ class MailComposerViewController: UIViewController {
     }()
     
     let separatorLineView2: UIView = {
+        let lineView = UIView()
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+
+        lineView.backgroundColor = .systemGray3
+        
+        return lineView
+    }()
+    
+    let separatorLineView3: UIView = {
         let lineView = UIView()
         lineView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -63,6 +75,8 @@ class MailComposerViewController: UIViewController {
     var date = ""
     
     var classTime = ""
+    
+    var teacherID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +118,8 @@ class MailComposerViewController: UIViewController {
                 "message": message,
                 "classTime": classTime,
                 "sentTime": sentTime,
-                "sentDate": sentDate
+                "sentDate": sentDate,
+                "to": teacherID
             ]
         ]
         
@@ -137,12 +152,17 @@ class MailComposerViewController: UIViewController {
         view.addSubview(dateStackView)
         view.addSubview(separatorLineView2)
         view.addSubview(textView)
+        view.addSubview(recipientStackView)
+        view.addSubview(separatorLineView3)
         
         subjectStackView.addArrangedSubview(subjectLabel)
         subjectStackView.addArrangedSubview(fullSubjectCodeLabel)
         
         dateStackView.addArrangedSubview(forDateLabel)
         dateStackView.addArrangedSubview(dateLabel)
+        
+        recipientStackView.addArrangedSubview(toLabel)
+        recipientStackView.addArrangedSubview(teacherLabel)
         
         NSLayoutConstraint.activate([
             subjectStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -169,7 +189,19 @@ class MailComposerViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: separatorLineView2.bottomAnchor, constant: 8),
+            recipientStackView.topAnchor.constraint(equalTo: separatorLineView2.bottomAnchor, constant: 8),
+            recipientStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            separatorLineView3.topAnchor.constraint(equalTo: recipientStackView.bottomAnchor, constant: 8),
+            separatorLineView3.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            separatorLineView3.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            separatorLineView3.heightAnchor.constraint(equalToConstant: 1)
+        ])
+        
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: separatorLineView3.bottomAnchor, constant: 8),
             textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)

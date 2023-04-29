@@ -79,6 +79,8 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                         var name = ""
                         var startTime = ""
                         var endTime = ""
+                        #warning("adding teacher id")
+                        var teacherID = ""
                         print("STUDENT ID", studentID)
                         if snapshot.documents.count > 0 {
                             for document in snapshot.documents {
@@ -90,7 +92,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                         name = String((document["name"] as? String) ?? "")
                                         startTime = (document["startTime"] as? String ?? "")
                                         endTime = (document["endTime"] as? String ?? "")
-                                        
+                                        teacherID = (document["teacherID"] as? String ?? "")
                                         let fullCode = String((document["code"] as? String ?? "No code"))
                                         let startHour = Int(String(startTime.prefix(2))) ?? 0
                                         let endHour = Int(String(endTime.prefix(2))) ?? 0
@@ -108,6 +110,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                             }
                                             
                                             let subjectFirstClass = SubjectClass(
+                                                teacherID: teacherID,
                                                 fullSubjectCode: fullCode,
                                                 shortSubjectCode: code,
                                                 subjectName: name,
@@ -118,6 +121,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                             )
                                             
                                             let subjectSecondClass = SubjectClass(
+                                                teacherID: teacherID,
                                                 fullSubjectCode: fullCode,
                                                 shortSubjectCode: code,
                                                 subjectName: name,
@@ -131,6 +135,7 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                             self?.classes.append(subjectSecondClass)
                                         } else {
                                             let subjectClass = SubjectClass(
+                                                teacherID: teacherID,
                                                 fullSubjectCode: fullCode,
                                                 shortSubjectCode: code,
                                                 subjectName: name,

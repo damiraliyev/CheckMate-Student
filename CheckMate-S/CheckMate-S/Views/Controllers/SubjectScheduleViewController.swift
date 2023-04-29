@@ -192,8 +192,15 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
             let vc = MailComposerViewController()
             vc.fullSubjectCodeLabel.text = selectedClass.fullSubjectCode
             vc.date = self?.selectedDate ?? "1.1.1970"
-        
+            vc.teacherID = selectedClass.teacherID
             vc.classTime = selectedClass.startTime
+            
+            let components = selectedClass.teacherID.components(separatedBy: ".")
+            let teacherName = components[0].capitalized
+            let teacherSurname = components[1].capitalized
+            
+            vc.teacherLabel.text = teacherName + " " + teacherSurname
+            
             self?.navigationController?.pushViewController(vc, animated: true)
         })
         
