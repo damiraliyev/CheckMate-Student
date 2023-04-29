@@ -39,6 +39,7 @@
 		6845DE9229BB6D590096A602 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845DE9129BB6D590096A602 /* Student.swift */; };
 		685641FB29BA0C78007735B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 685641FA29BA0C78007735B7 /* GoogleService-Info.plist */; };
 		685A3EEB29C2DB27007B1EA1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A3EEA29C2DB27007B1EA1 /* Extensions.swift */; };
+		687900BC29FD0248005D5DB8 /* MailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687900BB29FD0248005D5DB8 /* MailViewModel.swift */; };
 		68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE329BA0E9B007B4495 /* AuthManager.swift */; };
 		68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */; };
 		68B61D0F29F13ADA00CF0F03 /* MailComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B61D0E29F13ADA00CF0F03 /* MailComposerViewController.swift */; };
@@ -106,6 +107,7 @@
 		6876BEDD29ED31C600717CF3 /* FirebaseInstallations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseInstallations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876BEDF29ED31C600717CF3 /* FirebaseStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876BEE129ED31C600717CF3 /* FirebaseStorageInternal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorageInternal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		687900BB29FD0248005D5DB8 /* MailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewModel.swift; sourceTree = "<group>"; };
 		68A7BDE329BA0E9B007B4495 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		68B61D0E29F13ADA00CF0F03 /* MailComposerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposerViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				68D1596B29CB023C00051FE6 /* SubjectScheduleViewModel.swift */,
 				681601EB29EFFFF800914CEA /* ReasonMessagesViewModel.swift */,
 				681601F129F001BE00914CEA /* MessageCellViewModel.swift */,
+				687900BB29FD0248005D5DB8 /* MailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */,
 				682A7C6229D7E60C0064E7BB /* CustomProgressView.swift in Sources */,
 				68D1596429CAE63900051FE6 /* SubjectClass.swift in Sources */,
+				687900BC29FD0248005D5DB8 /* MailViewModel.swift in Sources */,
 				681601F029F0016800914CEA /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

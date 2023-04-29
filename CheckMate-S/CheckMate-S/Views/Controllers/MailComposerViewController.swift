@@ -9,6 +9,8 @@ import UIKit
 
 class MailComposerViewController: UIViewController {
     
+    var mailViewModel: MailViewModel?
+    
     let subjectLabel: UILabel = {
         let label = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .regular, text: "Subject:")
         
@@ -16,16 +18,16 @@ class MailComposerViewController: UIViewController {
     }()
     
     let fullSubjectCodeLabel: UILabel = {
-        let label = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: "CSS342[01-N]")
+        let label = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: " ")
         
         return label
     }()
     
     let forDateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .regular, text: "For date:")
-    let dateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: "29.04.2023")
+    let dateLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: " ")
     
     let toLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .regular, text: "To:")
-    let teacherLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: "Bakdaulet Aidarbekov")
+    let teacherLabel = ViewFactory.makeLabel(fontSize: 18, color: .sduBlue, weight: .medium, text: " ")
     
     let subjectStackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
     let dateStackView = ViewFactory.makeStackView(axis: .horizontal, spacing: 10)
@@ -88,7 +90,19 @@ class MailComposerViewController: UIViewController {
     private func setup() {
         setupBarButtonItem()
         textView.delegate = self
-        dateLabel.text = date
+        
+        fillWithInformation()
+    }
+    
+    private func fillWithInformation() {
+        guard let mailViewModel = mailViewModel else {
+            return
+        }
+        
+        fullSubjectCodeLabel.text = mailViewModel.fullSubjectCode
+        dateLabel.text = mailViewModel.date
+        teacherLabel.text = mailViewModel.teacherFullName
+        classTime = mailViewModel.classTime
     }
     
     private func setupBarButtonItem() {
