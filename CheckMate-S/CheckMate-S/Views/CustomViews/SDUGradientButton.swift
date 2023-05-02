@@ -25,8 +25,6 @@ final class SDUGradientButton: UIButton {
         
         titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         titleLabel?.textColor = .white
-        
-        
     }
     
     private func setupGradientLayer() {

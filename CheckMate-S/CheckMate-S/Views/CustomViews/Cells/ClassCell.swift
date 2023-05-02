@@ -94,7 +94,10 @@ final class ClassCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             stackView2.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            stackView2.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+//            stackView2.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            stackView2.leadingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 8),
+            stackView2.trailingAnchor.constraint(equalTo: attendanceButton.leadingAnchor, constant: -8)
+            
         ])
         
         NSLayoutConstraint.activate([
