@@ -117,7 +117,8 @@ final class SubjectScheduleViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             noClassesLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            noClassesLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            noClassesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            noClassesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
         
         NSLayoutConstraint.activate([
@@ -302,13 +303,18 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         guard var subjectScheduleViewModel = subjectScheduleViewModel else { return }
+        
+        guard let dateComponents = dateComponents else {
+            return
+        }
         selectedDate = subjectScheduleViewModel.convertDate(
-            day: dateComponents?.day,
-            month: dateComponents?.month,
-            year: dateComponents?.year
+            day: dateComponents.day,
+            month: dateComponents.month,
+            year: dateComponents.year
         )
         
         subjectScheduleViewModel.dateText = selectedDate
+        
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",
