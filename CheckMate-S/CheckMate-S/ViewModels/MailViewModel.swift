@@ -29,6 +29,10 @@ final class MailViewModel {
         return selectedClass.fullSubjectCode
     }
     
+//    var absenceDate: String {
+//        return da
+//    }
+    
     var teacherID: String {
         return selectedClass.teacherID
     }

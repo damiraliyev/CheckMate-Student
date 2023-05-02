@@ -15,4 +15,6 @@ struct Message {
     let classTime: String
     let sentTime: String
     let sentDate: String
+    let teacherID: String
+    let absenceDate: String
 }

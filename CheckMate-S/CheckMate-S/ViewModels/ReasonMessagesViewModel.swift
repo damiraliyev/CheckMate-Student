@@ -31,6 +31,9 @@ class ReasonMessagesViewModel {
                 let sentTime = info["sentTime"] ?? ""
                 let messageBody = info["message"] ?? ""
                 let sentDate = info["sentDate"] ?? ""
+                let teacherID = info["to"] ?? ""
+                let classDate = info["classDate"] ?? ""
+                print("TEACHER ID", teacherID)
                 let message = Message(
                     sender: "",
                     senderID: "",
@@ -38,7 +41,10 @@ class ReasonMessagesViewModel {
                     body: messageBody,
                     classTime: "",
                     sentTime: sentTime,
-                    sentDate: sentDate)
+                    sentDate: sentDate,
+                    teacherID: teacherID,
+                    absenceDate: classDate
+                )
                 self?.messages.append(message)
                 
             }
@@ -65,6 +71,8 @@ class ReasonMessagesViewModel {
         var sentTime = ""
         var sender = ""
         var sentDate = ""
+        var teacherID = ""
+        var classDate = ""
         print("Message info", messageInfo)
         
         for (key, _) in messageInfo {
@@ -75,12 +83,15 @@ class ReasonMessagesViewModel {
             sentTime = (messageInfo[key] as? [String: Any])?["sentTime"] as? String ?? ""
             sender = (messageInfo[key] as? [String: Any])?["sender"] as? String ?? ""
             sentDate = (messageInfo[key] as? [String: Any])?["sentDate"] as? String ?? ""
+            teacherID = (messageInfo[key] as? [String: Any])?["to"] as? String ?? ""
+            classDate = (messageInfo[key] as? [String: Any])?["classDate"] as? String ?? ""
         }
         
         
         
-        let message = Message(sender: "", senderID: sender, forSubject: subject, body: messageBody, classTime: classTime, sentTime: sentTime, sentDate: sentDate)
+        let message = Message(sender: "", senderID: sender, forSubject: subject, body: messageBody, classTime: classTime, sentTime: sentTime, sentDate: sentDate, teacherID: teacherID, absenceDate: classDate)
         
+        print(message)
         messages.append(message)
         
         self.messages.sort {

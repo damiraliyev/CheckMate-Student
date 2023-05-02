@@ -201,9 +201,7 @@ final class DatabaseManager {
     func loadAttendance(completion: @escaping ([Subject]) -> Void) {
         let docRef = DatabaseManager.shared.database.collection("attendance")
         
-        
-        var listener = docRef
-            .addSnapshotListener {[weak self] snapshot, error in
+        docRef.getDocuments {[weak self] snapshot, error in
                 guard let _ = snapshot, error == nil else {
                     return
                 }
@@ -318,6 +316,7 @@ final class DatabaseManager {
         fullSubjectCode: String,
         dict: [String: Any],
         completion: @escaping (Bool) -> Void) {
+            print("SEND MESSAGE DICT: ", dict)
             DatabaseManager.shared.database
                 .collection("message")
                 .document(fullSubjectCode).setData(dict as [String : Any], merge: true) { error in
@@ -343,14 +342,15 @@ final class DatabaseManager {
                 
                 for document in snapshot.documents {
                     for (key, _) in document.data() {
-                        guard let messageData = document.data()[key] as? [String: String] else {
+                        guard var messageData = document.data()[key] as? [String: String] else {
                             print("Couldn't cast as [String: String] message")
                             completion(nil)
                             return
                         }
                         
                         if messageData["sender"] == fullName {
-                            print(messageData)
+                            messageData["classDate"]  = key
+                            print("MESSAGE DATA", messageData)
                             resultInfo.append(messageData)
                         }
                     }
@@ -363,7 +363,7 @@ final class DatabaseManager {
     
     func deleteMessage(fullSubjectCode: String, date: String, completion: @escaping () -> Void) {
         let docRef = database.collection("message").document(fullSubjectCode)
-        docRef.setData(["24.04.2023": FieldValue.delete()], merge: true) { error in
+        docRef.setData([date: FieldValue.delete()], merge: true) { error in
                 if let error = error {
                     print("Error deleting document: \(error.localizedDescription)")
                 } else {

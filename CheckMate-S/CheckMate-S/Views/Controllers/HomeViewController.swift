@@ -45,7 +45,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        loadAttendance()
+//        loadAttendance()
         
     }
     
@@ -66,11 +66,15 @@ final class HomeViewController: UIViewController {
         
         homeViewModel = HomeViewModel(collectionViewViewModel: collectionViewViewModel, accountInfoViewModel: accountInfoViewModel)
         
-        
+        subcribeToNotifications()
         loadAttendance()
         setup()
         addAllSubViews()
         layout()
+    }
+    
+    private func subcribeToNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(loadAttendance), name: NSNotification.Name("attendanceChecked"), object: nil)
     }
     
     
@@ -166,13 +170,12 @@ final class HomeViewController: UIViewController {
         
     }
     
-    func loadAttendance() {
+    @objc func loadAttendance() {
         self.homeViewModel?.collectionViewViewModel?.loadSubjectsInfo(completion: { [weak self] in
 //            print(homeViewModel?.collectionViewViewModel.subj)
             DispatchQueue.main.async { [weak self] in
                 self?.isLoaded = true
                 self?.collectionView.reloadData()
-                
             }
         })
 

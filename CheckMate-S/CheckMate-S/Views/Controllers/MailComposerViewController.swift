@@ -99,10 +99,12 @@ class MailComposerViewController: UIViewController {
             return
         }
         
+        date = mailViewModel.date
         fullSubjectCodeLabel.text = mailViewModel.fullSubjectCode
         dateLabel.text = mailViewModel.date
         teacherLabel.text = mailViewModel.teacherFullName
         classTime = mailViewModel.classTime
+        teacherID = mailViewModel.teacherID
     }
     
     private func setupBarButtonItem() {
@@ -124,7 +126,7 @@ class MailComposerViewController: UIViewController {
         let sentTime = DateFormatter.getCurrentTime()
         let sentDate = String.date(from: Date())
         
-        
+        print("TEACHER ID IN SEND MESSAGE", teacherID)
         let dict = [
             date: [
                 "sender": studentFullName,
@@ -133,7 +135,8 @@ class MailComposerViewController: UIViewController {
                 "classTime": classTime,
                 "sentTime": sentTime,
                 "sentDate": sentDate,
-                "to": teacherID
+                "to": teacherID,
+                "classDate": date
             ]
         ]
         

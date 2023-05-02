@@ -266,6 +266,8 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                 alerController.message = "Fail to check your attendance."
             }
             
+        } else {
+            NotificationCenter.default.post(name: NSNotification.Name("attendanceChecked"), object: nil)
         }
         present(alerController, animated: true)
     }
@@ -307,9 +309,6 @@ extension SubjectScheduleViewController: UICalendarViewDelegate, UICalendarSelec
         )
         
         subjectScheduleViewModel.dateText = selectedDate
-        
-        print("BEFOR LOADING ATTENDANCE STATUSES", subjectScheduleViewModel.dateText)
-//        subjectScheduleViewModel.loadAttendanceStatusesForDate()
         
         subjectScheduleViewModel.classCollectionViewViewModel?.queryClassForDate(
             studentID: UserDefaults.standard.value(forKey: "id") as? String ?? "",

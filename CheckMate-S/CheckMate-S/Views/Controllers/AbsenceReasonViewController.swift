@@ -94,6 +94,16 @@ class AbsenceReasonViewController: UIViewController {
 extension AbsenceReasonViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let message = reasonMessagesViewModel.messages[indexPath.row]
+        let vc = MailComposerViewController()
+        vc.fullSubjectCodeLabel.text = message.forSubject
+        vc.dateLabel.text = message.absenceDate
+        vc.teacherLabel.text = message.teacherID
+//        vc.classTime = message.classTime
+//        vc.teacherID = message.
+        vc.textView.text = message.body
+        vc.textView.isUserInteractionEnabled = false
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
