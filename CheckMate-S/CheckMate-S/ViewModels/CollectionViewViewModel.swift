@@ -42,6 +42,7 @@ final class CollectionViewViewModel: CollectionViewViewModelType {
     
     func loadSubjectsInfo(completion: @escaping () -> Void) {
         DatabaseManager.shared.loadAttendance { [weak self] subjects in
+            print("Why there is 2 software engineerings in loadSubjectsInfo", subjects)
             self?.subjects = subjects
             completion()
         }

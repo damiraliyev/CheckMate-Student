@@ -24,6 +24,7 @@ final class SignInViewController: UIViewController {
         let textFieldView = SignInTextFieldView(withText: "Student number")
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         textFieldView.textField.keyboardType = .emailAddress
+        textFieldView.textField.placeholder = "200107111"
         return textFieldView
     }()
     

@@ -57,7 +57,9 @@ final class DatabaseManager {
                 }
                 
                 for doc in snapshot.documents {
-                    totalAttendanceCount += (doc.get("dates") as? [String])?.count ?? 15
+                    print("DOOOC", doc.data())
+                    var temp = 0
+                    
                     
                     let startTime = (doc.get("startTime") as? String ?? "")
                     let endTime = (doc.get("endTime") as? String ?? "")
@@ -66,8 +68,14 @@ final class DatabaseManager {
                     let endHour = Int(String(endTime.prefix(2))) ?? 0
                     
                     amountOfHours = endHour - startHour
+                    if amountOfHours + 1 == 2 {
+                        totalAttendanceCount += (((doc.get("dates") as? [String])?.count ?? 15) * 2)
+                    } else {
+                        totalAttendanceCount += ((doc.get("dates") as? [String])?.count ?? 15)
+                    }
+//                    totalAttendanceCount *= (amountOfHours + 1)
                 }
-                completion(totalAttendanceCount * (amountOfHours + 1))
+                completion(totalAttendanceCount)
                 totalAttendanceCount = 0
             }
         }
@@ -123,6 +131,7 @@ final class DatabaseManager {
                             }
                         }
                         dispatchGroup.notify(queue: .main) { // Call the completion block when all tasks have finished
+                            print("Why there is 2 software engineerings?", subjects)
                             completion(subjects)
                         }
                     }
@@ -209,6 +218,7 @@ final class DatabaseManager {
                 DatabaseManager.shared.querySubjects(
                     name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
                     surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "") { subjects in
+                        print("Why there is 2 software engineerings in completion")
                         completion(subjects)
                     }
             }
