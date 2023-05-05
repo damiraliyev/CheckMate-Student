@@ -101,6 +101,10 @@ final class SubjectScheduleViewController: UIViewController {
         collectionView.register(ClassCell.self, forCellWithReuseIdentifier: ClassCell.reuseID)
         
         configureCalendarView()
+        
+        reportView.hoursCountLabel.text = String(subjectScheduleViewModel.totalHours)
+        reportView.absenceCountLabel.text = String(subjectScheduleViewModel.absenceCount)
+        reportView.presenceCountLabel.text = String(subjectScheduleViewModel.presenceCount)
  
 //        subjectScheduleViewModel.loadAttendanceStatusesForDate()
         

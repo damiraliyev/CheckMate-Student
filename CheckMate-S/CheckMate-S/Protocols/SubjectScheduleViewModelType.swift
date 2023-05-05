@@ -13,6 +13,9 @@ protocol SubjectScheduleViewModelType {
     var fullSubjectCode: String { get }
     var subjectCodeWithoutDetail: String { get }
     var dateText: String { get set }
+    var totalHours: Int { get }
+    var presenceCount: Int { get }
+    var absenceCount: Int { get }
     func convertDate(day: Int?, month: Int?, year: Int?) -> String
     
     

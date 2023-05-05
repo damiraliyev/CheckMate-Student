@@ -13,8 +13,6 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
     
     var dateText = String.date(from: Date()) ?? ""
     
-    
-    
     private var subject: Subject
     
     var subjectCodeWithoutDetail: String {
@@ -31,6 +29,18 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
     
     var needToAttend = 0
     var attended = 0
+    
+    var totalHours: Int {
+        return subject.totalAttendanceCount
+    }
+    
+    var presenceCount: Int {
+        return subject.presenceCount
+    }
+    
+    var absenceCount: Int {
+        return subject.absenceCount
+    }
     
     init(subject: Subject) {
         self.subject = subject

@@ -111,7 +111,7 @@ final class DatabaseManager {
                                     name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
                                     surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "",
                                     for: String(code.prefix(6)),
-                                    completion: { absence in
+                                    completion: { presence, absence in
                                         guard let contains = self?.checkIfContains(subjects: subjects,name: name) else { return }
                                     
                                     if !contains {
@@ -120,6 +120,7 @@ final class DatabaseManager {
                                                 subjectCode: code,
                                                 subjectName: name,
                                                 totalAttendanceCount: total,
+                                                presenceCount: presence,
                                                 absenceCount: absence)
                                         )
                                         subjects.sort(by: { s1, s2 in
@@ -141,9 +142,10 @@ final class DatabaseManager {
     }
     
     
-    func queryAttendance(name: String, surname: String, for subject: String, completion: @escaping (Int) -> Void) {
+    func queryAttendance(name: String, surname: String, for subject: String, completion: @escaping (_ presenceCount: Int, _ absenceCount: Int) -> Void) {
         let docID = DatabaseManager.shared.database.collection("students")
             .document("\(name) \(surname)")
+        var presenceCount = 0
         var absenceCount = 0
 
         docID
@@ -176,6 +178,8 @@ final class DatabaseManager {
                                 for attendance in attendances {
                                     if(attendance == 0) {
                                         absenceCount += 1;
+                                    } else {
+                                        presenceCount += 1
                                     }
                                 }
                                 
@@ -188,7 +192,7 @@ final class DatabaseManager {
                         }
                     }
                 }
-                    completion(absenceCount ?? 0)
+                    completion(presenceCount, absenceCount)
             }
 
         }
@@ -257,6 +261,21 @@ final class DatabaseManager {
             }
         }
         
+    }
+    
+    func getRecordsCount(shortSubjectCode: String, completion: @escaping (Int) -> Void) {
+        let docRef = DatabaseManager.shared.database.collection("attendance")
+            .whereField("code", isGreaterThan: "\(shortSubjectCode)")
+            .whereField("code", isLessThan: "\(shortSubjectCode)u{f8ff}]")
+        
+        docRef.getDocuments { snapshot, error in
+            guard let snapshot = snapshot, error == nil else {
+                completion(0)
+                return
+            }
+            
+            completion(snapshot.count)
+        }
     }
     
     

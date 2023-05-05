@@ -210,6 +210,8 @@ extension HomeViewController: UICollectionViewDelegate {
         let vc = SubjectScheduleViewController()
         homeViewModel?.collectionViewViewModel?.selectRow(atIndextPath: indexPath)
         vc.subjectScheduleViewModel = homeViewModel?.collectionViewViewModel?.viewModelForSelectedRow()
+
+//        vc.reportView.presenceCountLabel.text = String(homeViewModel?.collectionViewViewModel?.numberOfRows() ?? 0)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

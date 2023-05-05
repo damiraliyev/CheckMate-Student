@@ -17,7 +17,6 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
     
     var selectedIndexPath: IndexPath?
     
-    
     var needToAttend = 0
     var attended: [Int] = []
     var attendedDict: [String : [Int]] = [:]

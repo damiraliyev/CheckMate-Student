@@ -9,7 +9,7 @@ import UIKit
 
 class ReportView: UIView {
     
-    let hoursLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "Hours")
+    let hoursLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "Total Hours")
     let hoursCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "45")
     let hoursStack = ViewFactory.makeStackView(axis: .vertical, spacing: 16)
     

@@ -11,9 +11,10 @@ struct Subject {
     let subjectCode: String
     let subjectName: String
     let totalAttendanceCount: Int
+    let presenceCount: Int
     let absenceCount: Int
     
     static func makeSkeleton() -> Subject {
-        return Subject(subjectCode: "--------", subjectName: "----", totalAttendanceCount: 15, absenceCount: 1)
+        return Subject(subjectCode: "--------", subjectName: "----", totalAttendanceCount: 15, presenceCount: 14,absenceCount: 1)
     }
 }
