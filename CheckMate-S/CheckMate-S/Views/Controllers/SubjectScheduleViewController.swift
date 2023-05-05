@@ -25,6 +25,12 @@ final class SubjectScheduleViewController: UIViewController {
     
     var selectedDate = String.date(from: Date()) ?? "1.1.1970"
     
+    let reportView: ReportView = {
+        let reportView = ReportView()
+        reportView.translatesAutoresizingMaskIntoConstraints = false
+        return reportView
+    }()
+    
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +111,9 @@ final class SubjectScheduleViewController: UIViewController {
     }
     
     private func layout() {
+        
         view.addSubview(dateLabel)
+        view.addSubview(reportView)
         view.addSubview(collectionView)
         view.addSubview(noClassesLabel)
         view.addSubview(calendarView)
@@ -116,13 +124,21 @@ final class SubjectScheduleViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
+            reportView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
+            reportView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            reportView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            reportView.heightAnchor.constraint(equalToConstant: view.frame.height / 6.25)
+           
+        ])
+        
+        NSLayoutConstraint.activate([
             noClassesLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             noClassesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             noClassesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
+            collectionView.topAnchor.constraint(equalTo: reportView.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
