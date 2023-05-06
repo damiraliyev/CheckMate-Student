@@ -263,19 +263,77 @@ final class DatabaseManager {
         
     }
     
-    func getRecordsCount(shortSubjectCode: String, completion: @escaping (Int) -> Void) {
+    func getAbsenceClassesForSubject(shortSubjectCode: String, completion: @escaping ([String: [Int]], String) -> Void) {
         let docRef = DatabaseManager.shared.database.collection("attendance")
-            .whereField("code", isGreaterThan: "\(shortSubjectCode)")
+            .whereField("code", isGreaterThanOrEqualTo: shortSubjectCode)
             .whereField("code", isLessThan: "\(shortSubjectCode)u{f8ff}]")
-        
-        docRef.getDocuments { snapshot, error in
-            guard let snapshot = snapshot, error == nil else {
-                completion(0)
+
+        let studID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+        var absenceDict: [String: [Int]] = [:]
+        var fullSubjectCode = ""
+        getDates(shortSubjectCode: shortSubjectCode) { dates in
+            guard let dates = dates else {
+                completion([:], "Q")
                 return
             }
             
-            completion(snapshot.count)
+            docRef.getDocuments { snapshot, error in
+                guard let snapshot = snapshot, error == nil else {
+                    completion([:], "Q")
+                    return
+                }
+  
+                for doc in snapshot.documents {
+                    let data = doc.data()
+                    for date in dates {
+                        if let dateInfo = data[date] as? [[String: [Int]]] {
+                            if let statuses = dateInfo[0][studID] {
+                                absenceDict[date] = statuses
+                            }
+                        }
+                    }
+                    
+                    fullSubjectCode = data["code"] as? String ?? "QWE"
+
+                }
+                print("Absence dict", absenceDict)
+                completion(absenceDict, fullSubjectCode)
+            }
+            
         }
+       
+        
+       
+    }
+    
+    func getDates(shortSubjectCode: String, completion: @escaping ([String]?) -> Void) {
+        let studID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+        
+        var dates: [String] = []
+        let docRef = DatabaseManager.shared.database.collection("subjects")
+            .whereField("code", isGreaterThanOrEqualTo: shortSubjectCode)
+            .whereField("code", isLessThan: "\(shortSubjectCode)u{f8ff}]")
+            .whereField("enrolledStudents", arrayContains: studID)
+    
+        docRef.getDocuments { snapshot, error in
+            guard let snapshot = snapshot, error == nil else {
+                print("Error when fetching dates")
+                completion(nil)
+                return
+            }
+            
+            print("DOCUMENT LENGTH", snapshot.documents.count)
+            
+            for doc in snapshot.documents {
+                if let data = doc.data()["dates"] as? [String]{
+                    for date in data {
+                        dates.append(date)
+                    }
+                }
+            }
+            completion(dates)
+        }
+        
     }
     
     

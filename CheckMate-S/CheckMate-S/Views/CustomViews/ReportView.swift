@@ -11,8 +11,6 @@ class ReportView: UIView {
     
     let hoursLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "Total Hours")
     let hoursCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "45")
-    let hoursStack = ViewFactory.makeStackView(axis: .vertical, spacing: 16)
-    
     
     let presentImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
@@ -22,7 +20,6 @@ class ReportView: UIView {
         return imageView
     }()
     let presenceCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue,weight: .regular, text: "45")
-    let presenceStack = ViewFactory.makeStackView(axis: .vertical, spacing: 16)
     
     let absentImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "x.circle.fill"))
@@ -32,9 +29,15 @@ class ReportView: UIView {
         return imageView
     }()
     let absenceCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "0")
-    let absenceStack = ViewFactory.makeStackView(axis: .vertical, spacing: 16)
     
     let viewDetailsLabel = ViewFactory.makeLabel(fontSize: 17, color: .systemGray, weight: .regular, text: "View details")
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,20 +50,15 @@ class ReportView: UIView {
     }
     
     private func setup() {
-        hoursStack.alignment = .center
-        presenceStack.alignment = .center
-        absenceStack.alignment = .center
         backgroundColor = .white
         layer.cornerRadius = 10
         clipsToBounds = true
         
+        viewDetailsLabel.isUserInteractionEnabled = true
+        
     }
     
     private func layout() {
-//        addSubview(hoursStack)
-//        addSubview(presenceStack)
-//        addSubview(absenceStack)
-        
         addSubview(hoursLabel)
         addSubview(hoursCountLabel)
 
@@ -72,8 +70,8 @@ class ReportView: UIView {
      
         addSubview(viewDetailsLabel)
         
-//
-        
+        addSubview(tableView)
+
         NSLayoutConstraint.activate([
             hoursLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             hoursLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
@@ -108,6 +106,12 @@ class ReportView: UIView {
             viewDetailsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             viewDetailsLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
+        
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: viewDetailsLabel.bottomAnchor, constant: 8),
+//            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
+//        ])
     }
     
     override func layoutSubviews() {

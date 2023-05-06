@@ -22,6 +22,8 @@ extension UIColor {
     
     static let lightBlue = ColorAdapter.adapt(hexValue: "C9E6FC")
     
+    static let lightGreyBlue = ColorAdapter.adapt(hexValue: "ECF2FF")
+    
 }
 
 class ColorAdapter {

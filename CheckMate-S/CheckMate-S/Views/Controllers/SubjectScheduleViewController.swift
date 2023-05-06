@@ -49,7 +49,7 @@ final class SubjectScheduleViewController: UIViewController {
         
         setup()
         layout()
-        
+
     }
     
     private func setup() {
@@ -105,9 +105,19 @@ final class SubjectScheduleViewController: UIViewController {
         reportView.hoursCountLabel.text = String(subjectScheduleViewModel.totalHours)
         reportView.absenceCountLabel.text = String(subjectScheduleViewModel.absenceCount)
         reportView.presenceCountLabel.text = String(subjectScheduleViewModel.presenceCount)
+        
+        let viewDetailsTap = UITapGestureRecognizer(target: self, action: #selector(viewDetailsTapped))
+        reportView.viewDetailsLabel.addGestureRecognizer(viewDetailsTap)
  
 //        subjectScheduleViewModel.loadAttendanceStatusesForDate()
         
+    }
+    
+    @objc func viewDetailsTapped() {
+        print("Tapped")
+        let vc = AbsenceDatesViewController()
+        
+        present(vc, animated: true)
     }
     
     @objc func showOrHideCalendar() {
