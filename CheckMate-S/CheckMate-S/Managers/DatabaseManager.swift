@@ -292,13 +292,26 @@ final class DatabaseManager {
                     for date in dates {
                         if let dateInfo = data[date] as? [[String: [Int]]] {
                             if let statuses = dateInfo[0][studID] {
+                                var counter = 0
                                 for status in statuses {
                                     if status == 0 {
                                         absenceDates.append(date)
                                         print("adding absence", absenceDict[date])
-                                        times.append(data["startTime"] as? String ?? ":")
+                                        if counter > 0 {
+                                            let startHour = (Int((data["startTime"] as? String ?? ":").prefix(2)) ?? 0) + 1
+                                            print("startHour", startHour)
+                                            let time = String(startHour) + ":00"
+                                            print("Incremented time", time)
+                                            times.append(time)
+                                            
+                                        } else {
+                                            times.append(data["startTime"] as? String ?? ":")
+                                        }
+                                        
+                                        
                                         print("adding absence time", times)
                                     }
+                                    counter += 1
                                     
                                 }
                             
