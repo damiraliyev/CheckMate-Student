@@ -7,6 +7,7 @@
 
 import FirebaseFirestore
 import Foundation
+//import OrderedCollections
 
 final class DatabaseManager {
     
@@ -263,23 +264,26 @@ final class DatabaseManager {
         
     }
     
-    func getAbsenceClassesForSubject(shortSubjectCode: String, completion: @escaping ([String: [Int]], String) -> Void) {
+    func getAbsenceClassesForSubject(shortSubjectCode: String, completion: @escaping ([String], [String]) -> Void) {
         let docRef = DatabaseManager.shared.database.collection("attendance")
             .whereField("code", isGreaterThanOrEqualTo: shortSubjectCode)
             .whereField("code", isLessThan: "\(shortSubjectCode)u{f8ff}]")
 
         let studID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         var absenceDict: [String: [Int]] = [:]
-        var fullSubjectCode = ""
-        getDates(shortSubjectCode: shortSubjectCode) { dates in
+        var absenceDates: [String] = []
+//        var statuse:
+        
+        var times: [String] = []
+        getDates(shortSubjectCode: shortSubjectCode) { dates, time in
             guard let dates = dates else {
-                completion([:], "Q")
+                completion([], [])
                 return
             }
             
             docRef.getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
-                    completion([:], "Q")
+                    completion([], [])
                     return
                 }
   
@@ -288,16 +292,27 @@ final class DatabaseManager {
                     for date in dates {
                         if let dateInfo = data[date] as? [[String: [Int]]] {
                             if let statuses = dateInfo[0][studID] {
-                                absenceDict[date] = statuses
+                                for status in statuses {
+                                    if status == 0 {
+                                        absenceDates.append(date)
+                                        print("adding absence", absenceDict[date])
+                                        times.append(data["startTime"] as? String ?? ":")
+                                        print("adding absence time", times)
+                                    }
+                                    
+                                }
+                            
+//                                absenceDict[date] = statuses
                             }
                         }
                     }
                     
-                    fullSubjectCode = data["code"] as? String ?? "QWE"
+//                    time = data["code"] as? String ?? "QWE"
 
                 }
-                print("Absence dict", absenceDict)
-                completion(absenceDict, fullSubjectCode)
+                print("Absence dict", absenceDates)
+                print("times", times)
+                completion(absenceDates, times)
             }
             
         }
@@ -306,10 +321,11 @@ final class DatabaseManager {
        
     }
     
-    func getDates(shortSubjectCode: String, completion: @escaping ([String]?) -> Void) {
+    func getDates(shortSubjectCode: String, completion: @escaping ([String]?, [String]?) -> Void) {
         let studID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         
         var dates: [String] = []
+        var times: [String] = []
         let docRef = DatabaseManager.shared.database.collection("subjects")
             .whereField("code", isGreaterThanOrEqualTo: shortSubjectCode)
             .whereField("code", isLessThan: "\(shortSubjectCode)u{f8ff}]")
@@ -318,20 +334,22 @@ final class DatabaseManager {
         docRef.getDocuments { snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 print("Error when fetching dates")
-                completion(nil)
+                completion(nil, nil)
                 return
             }
             
             print("DOCUMENT LENGTH", snapshot.documents.count)
             
             for doc in snapshot.documents {
-                if let data = doc.data()["dates"] as? [String]{
+                if let data = doc.data()["dates"] as? [String], let startTime = doc.data()["startTime"] as? String{
                     for date in data {
                         dates.append(date)
+                        times.append(startTime)
                     }
                 }
+//                time = doc.data()["startTime"] as? String ?? ""
             }
-            completion(dates)
+            completion(dates, times)
         }
         
     }

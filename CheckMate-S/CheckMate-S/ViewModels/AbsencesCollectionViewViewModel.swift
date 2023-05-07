@@ -9,10 +9,8 @@
 import UIKit
 class AbsencesCollectionViewViewModel {
     private var absenceClasses: [AbsenceClass] = [
-        AbsenceClass(date: "06.05.2023", time: "15:00"),
-        AbsenceClass(date: "13.05.2023", time: "16:00")
     ]
-    
+
     func numberOfRows() -> Int {
         return absenceClasses.count
     }
@@ -21,5 +19,24 @@ class AbsencesCollectionViewViewModel {
         let absenceClass = absenceClasses[indexPath.row]
         
         return AbsenceCollectionViewCellViewModel(absenceClass: absenceClass)
+    }
+    
+    func getAbsenceClasses(shortSubjectCode: String, completion: @escaping () -> Void) {
+        DatabaseManager.shared.getAbsenceClassesForSubject(shortSubjectCode: shortSubjectCode) {[weak self] dates, times in
+        
+//            var i = 0
+            print("dates in getAbsenceClasses", dates)
+            print("times in getAbsenceClasses", times)
+            
+            for i in 0..<dates.count {
+                let absentClass = AbsenceClass(date: dates[i], time: times[i])
+                self?.absenceClasses.append(absentClass)
+            }
+
+            self?.absenceClasses.sort(by: {
+                $0.date < $1.date
+            })
+            completion()
+        }
     }
 }

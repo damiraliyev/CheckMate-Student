@@ -65,12 +65,7 @@ final class SubjectScheduleViewModel: SubjectScheduleViewModelType {
         }
         return "\(dayString).\(monthString).\(year)"
     }
-    
-    func getAbsenceClasses(shortSubjectCode: String, completion: @escaping ([String: [Int]], String) -> Void) {
-        DatabaseManager.shared.getAbsenceClassesForSubject(shortSubjectCode: shortSubjectCode) { dict, fullCode in
-            completion(dict, fullCode)
-        }
-    }
+
     
    
     

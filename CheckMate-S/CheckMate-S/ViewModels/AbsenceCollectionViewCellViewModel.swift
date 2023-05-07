@@ -19,4 +19,6 @@ class AbsenceCollectionViewCellViewModel {
     init(absenceClass: AbsenceClass) {
         self.absenceClass = absenceClass
     }
+    
+    
 }

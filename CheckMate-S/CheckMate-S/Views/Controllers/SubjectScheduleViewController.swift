@@ -91,7 +91,6 @@ final class SubjectScheduleViewController: UIViewController {
             for: String.date(from: Date()) ?? "",
             fullCode: subjectScheduleViewModel.fullSubjectCode) { tokens in
                 guard let tokens = tokens else { return }
-                
                 print(tokens)
             }
         
@@ -115,8 +114,10 @@ final class SubjectScheduleViewController: UIViewController {
     
     @objc func viewDetailsTapped() {
         print("Tapped")
-        let vc = AbsenceDatesViewController()
-        
+        guard let subjectScheduleViewModel = subjectScheduleViewModel else {
+            return
+        }
+        let vc = AbsenceDatesViewController(shortSubjectCode: subjectScheduleViewModel.subjectCodeWithoutDetail)
         present(vc, animated: true)
     }
     

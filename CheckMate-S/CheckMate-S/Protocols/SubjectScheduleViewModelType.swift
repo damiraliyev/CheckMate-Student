@@ -17,6 +17,5 @@ protocol SubjectScheduleViewModelType {
     var presenceCount: Int { get }
     var absenceCount: Int { get }
     func convertDate(day: Int?, month: Int?, year: Int?) -> String
-    func getAbsenceClasses(shortSubjectCode: String, completion: @escaping ([String: [Int]], String) -> Void)
     
 }

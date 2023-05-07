@@ -9,6 +9,8 @@ import UIKit
 
 class AbsenceDatesViewController: UIViewController {
     
+    let shortSubjectCode: String
+    
     let absencesCollectionViewViewModel = AbsencesCollectionViewViewModel()
     
     let titleLabel = ViewFactory.makeLabel(fontSize: 25, weight: .medium, text: "Absences")
@@ -27,12 +29,37 @@ class AbsenceDatesViewController: UIViewController {
         return collectionView
     }()
     
+    let doneButton: UIButton = {
+        let button = ViewFactory.makeButton(withText: "Done")
+        button.setTitleColor(.link, for: .normal)
+        button.addTarget(self, action: #selector(doneTapped), for: .primaryActionTriggered)
+        return button
+    }()
+    
+    init(shortSubjectCode: String) {
+        
+        self.shortSubjectCode = shortSubjectCode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Absences"
         view.backgroundColor = .secondarySystemBackground
         setup()
         layout()
+        absencesCollectionViewViewModel.getAbsenceClasses(shortSubjectCode: shortSubjectCode) { [weak self] in
+//            print("AbsenceVC", time, statuses)
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    @objc func doneTapped() {
+        self.dismiss(animated: true)
     }
     
     private func setup() {
@@ -40,17 +67,23 @@ class AbsenceDatesViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(AbscencesCell.self, forCellWithReuseIdentifier: AbscencesCell.reuseID)
         collectionView.backgroundColor = .secondarySystemBackground
-        
+//        titleLabel.text = "Absences: \()"
     }
     
     private func layout() {
         view.addSubview(titleLabel)
+        view.addSubview(doneButton)
         view.addSubview(lineView)
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            doneButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ])
         
         NSLayoutConstraint.activate([
@@ -61,7 +94,7 @@ class AbsenceDatesViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
+            collectionView.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
