@@ -11,6 +11,7 @@ class ReportView: UIView {
     
     let hoursLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "Total Hours")
     let hoursCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "45")
+    let stackHours = ViewFactory.makeStackView(axis: .vertical, spacing: 10)
     
     let presentImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
@@ -20,6 +21,7 @@ class ReportView: UIView {
         return imageView
     }()
     let presenceCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue,weight: .regular, text: "45")
+    let stackPresence = ViewFactory.makeStackView(axis: .vertical, spacing: 10)
     
     let absentImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "x.circle.fill"))
@@ -29,6 +31,19 @@ class ReportView: UIView {
         return imageView
     }()
     let absenceCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "0")
+    let stackAbsence = ViewFactory.makeStackView(axis: .vertical, spacing: 10)
+    
+    let bluePImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "p"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
+    let pCountLabel = ViewFactory.makeLabel(fontSize: 17, color: .sduBlue, weight: .regular, text: "0")
+    let stackP = ViewFactory.makeStackView(axis: .vertical, spacing: 10)
+    
+    let stack = ViewFactory.makeStackView(axis: .horizontal, spacing: 8)
     
     let viewDetailsLabel = ViewFactory.makeLabel(fontSize: 17, color: .systemGray, weight: .regular, text: "View details")
     
@@ -54,52 +69,46 @@ class ReportView: UIView {
         layer.cornerRadius = 10
         clipsToBounds = true
         
+        stack.distribution = .equalSpacing
+        
+        stackHours.alignment = .center
+        stackPresence.alignment = .center
+        stackAbsence.alignment = .center
+        stackP.alignment = .center
+        
         viewDetailsLabel.isUserInteractionEnabled = true
         
     }
     
     private func layout() {
-        addSubview(hoursLabel)
-        addSubview(hoursCountLabel)
-
-        addSubview(presentImageView)
-        addSubview(presenceCountLabel)
-
-        addSubview(absentImageView)
-        addSubview(absenceCountLabel)
+            
+        addSubview(stack)
+        
+        stack.addArrangedSubview(stackHours)
+        stack.addArrangedSubview(stackPresence)
+        stack.addArrangedSubview(stackAbsence)
+        stack.addArrangedSubview(stackP)
+        
+        stackHours.addArrangedSubview(hoursLabel)
+        stackHours.addArrangedSubview(hoursCountLabel)
+        
+        stackPresence.addArrangedSubview(presentImageView)
+        stackPresence.addArrangedSubview(presenceCountLabel)
+//
+        stackAbsence.addArrangedSubview(absentImageView)
+        stackAbsence.addArrangedSubview(absenceCountLabel)
+//
+        stackP.addArrangedSubview(bluePImageView)
+        stackP.addArrangedSubview(pCountLabel)
      
         addSubview(viewDetailsLabel)
         
         addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            hoursLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            hoursLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            hoursCountLabel.centerXAnchor.constraint(equalTo: hoursLabel.centerXAnchor),
-            hoursCountLabel.centerYAnchor.constraint(equalTo: presenceCountLabel.centerYAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            presentImageView.centerYAnchor.constraint(equalTo: hoursLabel.centerYAnchor),
-            presentImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            presenceCountLabel.centerXAnchor.constraint(equalTo: presentImageView.centerXAnchor),
-            presenceCountLabel.topAnchor.constraint(equalTo: presentImageView.bottomAnchor, constant: 16)
-        ])
-//
-        NSLayoutConstraint.activate([
-            absentImageView.centerYAnchor.constraint(equalTo: hoursLabel.centerYAnchor),
-            absentImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        ])
-
-        NSLayoutConstraint.activate([
-            absenceCountLabel.centerXAnchor.constraint(equalTo: absentImageView.centerXAnchor),
-            absenceCountLabel.topAnchor.constraint(equalTo: absentImageView.bottomAnchor, constant: 16)
+            stack.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
@@ -107,11 +116,6 @@ class ReportView: UIView {
             viewDetailsLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
         
-//        NSLayoutConstraint.activate([
-//            tableView.topAnchor.constraint(equalTo: viewDetailsLabel.bottomAnchor, constant: 8),
-//            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
-//        ])
     }
     
     override func layoutSubviews() {
@@ -121,6 +125,8 @@ class ReportView: UIView {
         presentImageView.widthAnchor.constraint(equalToConstant: frame.size.height / 4.5).isActive = true
         absentImageView.heightAnchor.constraint(equalToConstant: frame.size.height / 4.5).isActive = true
         absentImageView.widthAnchor.constraint(equalToConstant: frame.size.height / 4.5).isActive = true
+        bluePImageView.heightAnchor.constraint(equalToConstant: frame.size.height / 4.5).isActive = true
+        bluePImageView.widthAnchor.constraint(equalToConstant: frame.size.height / 4.5).isActive = true
     }
     
     override var intrinsicContentSize: CGSize {
