@@ -103,6 +103,7 @@ extension AbsenceReasonViewController: UITableViewDelegate {
 //        vc.teacherID = message.
         vc.textView.text = message.body
         vc.textView.isUserInteractionEnabled = false
+//        vc.navigationItem.rightBarButtonItem = nil
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -112,8 +113,16 @@ extension AbsenceReasonViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            reasonMessagesViewModel.deleteMessage(at: indexPath) { [weak self] in
-                self?.tableView.reloadData()
+            reasonMessagesViewModel.deleteMessage(at: indexPath) { [weak self] success in
+                if success {
+                    self?.tableView.reloadData()
+                    self?.showOrHideTable()
+                } else {
+                    let alertController = UIAlertController(title: "Error", message: "Could not delete the message", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Done", style: .default))
+                    self?.present(alertController, animated: true)
+                }
+                
             }
         }
     }

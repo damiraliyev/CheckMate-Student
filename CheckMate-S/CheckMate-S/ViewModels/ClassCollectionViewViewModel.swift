@@ -108,30 +108,58 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                                                 secondClassStart = "0\(startHour + 1):00"
                                             }
                                             
-                                            let subjectFirstClass = SubjectClass(
-                                                teacherID: teacherID,
-                                                fullSubjectCode: fullCode,
-                                                shortSubjectCode: code,
-                                                subjectName: name,
-                                                startTime: startTime,
-                                                endTime: firstClassEnd,
-                                                needToAttend: 1,
-                                                attended: attendedValues[0]
-                                            )
+                                            if attendedValues.count == 2 {
+                                                let subjectFirstClass = SubjectClass(
+                                                    teacherID: teacherID,
+                                                    fullSubjectCode: fullCode,
+                                                    shortSubjectCode: code,
+                                                    subjectName: name,
+                                                    startTime: startTime,
+                                                    endTime: firstClassEnd,
+                                                    needToAttend: 1,
+                                                    attended: attendedValues[0]
+                                                )
+                                                
+                                                let subjectSecondClass = SubjectClass(
+                                                    teacherID: teacherID,
+                                                    fullSubjectCode: fullCode,
+                                                    shortSubjectCode: code,
+                                                    subjectName: name,
+                                                    startTime: secondClassStart,
+                                                    endTime: endTime,
+                                                    needToAttend: 1,
+                                                    attended: attendedValues[1]
+                                                )
+                                                self?.classes.append(subjectFirstClass)
+                                                self?.classes.append(subjectSecondClass)
+                                            } else if attendedValues.count == 1{
+                                                let subjectFirstClass = SubjectClass(
+                                                    teacherID: teacherID,
+                                                    fullSubjectCode: fullCode,
+                                                    shortSubjectCode: code,
+                                                    subjectName: name,
+                                                    startTime: startTime,
+                                                    endTime: firstClassEnd,
+                                                    needToAttend: 1,
+                                                    attended: attendedValues[0]
+                                                )
+                                                
+                                                let subjectSecondClass = SubjectClass(
+                                                    teacherID: teacherID,
+                                                    fullSubjectCode: fullCode,
+                                                    shortSubjectCode: code,
+                                                    subjectName: name,
+                                                    startTime: secondClassStart,
+                                                    endTime: endTime,
+                                                    needToAttend: 1,
+                                                    attended: attendedValues[0]
+                                                )
+                                                self?.classes.append(subjectFirstClass)
+                                                self?.classes.append(subjectSecondClass)
+                                            }
                                             
-                                            let subjectSecondClass = SubjectClass(
-                                                teacherID: teacherID,
-                                                fullSubjectCode: fullCode,
-                                                shortSubjectCode: code,
-                                                subjectName: name,
-                                                startTime: secondClassStart,
-                                                endTime: endTime,
-                                                needToAttend: 1,
-                                                attended: attendedValues[1]
-                                            )
                                             
-                                            self?.classes.append(subjectFirstClass)
-                                            self?.classes.append(subjectSecondClass)
+                                            
                                         } else {
                                             let subjectClass = SubjectClass(
                                                 teacherID: teacherID,
@@ -259,10 +287,10 @@ final class ClassCollectionViewViewModel: ClassCollectionViewViewModelType {
                 fullSubjectCode: fullSubjectCode,
                 index: selectedIndexPath.row - counter) {[weak self] hasUpdated in
                     if hasUpdated {
-                        guard let enteredToken = self?.enteredToken, var tokens = self?.tokens else {
-                            print("No entered token or tokens")
-                            return
-                        }
+//                        guard let enteredToken = self?.enteredToken, var tokens = self?.tokens else {
+//                            print("No entered token or tokens")
+//                            return
+//                        }
                         self?.classes[selectedIndexPath.row].attended = 1
                         
                     }

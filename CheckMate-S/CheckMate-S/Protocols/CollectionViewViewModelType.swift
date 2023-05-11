@@ -8,8 +8,6 @@
 import Foundation
 
 protocol CollectionViewViewModelType: AnyObject {
-//    func querySubjects(name: String, surname: String, completion: @escaping () -> Void)
-//    func queryAttendance(name: String, surname: String, for subject: String, completion: @escaping (Int) -> Void)
     func setSubjectsForSkeletons()
     func loadSubjectsInfo(completion: @escaping () -> Void) 
     var totalAttendanceCount: Int {get set}

@@ -84,9 +84,18 @@ final class SignInViewController: UIViewController {
         addAllSubViews()
         setup()
         layout()
-       
+        addTapGestureRecognizer()
+        
     }
     
+    private func addTapGestureRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     private func addAllSubViews() {
         view.addSubview(logoImageView)
         view.addSubview(stackView)

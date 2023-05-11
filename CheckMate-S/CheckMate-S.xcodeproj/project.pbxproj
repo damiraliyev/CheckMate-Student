@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680C96D02A0B6374004DBF21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 680C96CF2A0B6374004DBF21 /* GoogleService-Info.plist */; };
 		6812ACAC29ED758000B80736 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6812ACAB29ED758000B80736 /* MainTabBarController.swift */; };
 		6814354829B2063B00F53F33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814354729B2063B00F53F33 /* AppDelegate.swift */; };
 		6814354A29B2063B00F53F33 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814354929B2063B00F53F33 /* SceneDelegate.swift */; };
@@ -23,7 +24,6 @@
 		681601F029F0016800914CEA /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681601EF29F0016800914CEA /* MessageCell.swift */; };
 		681601F229F001BE00914CEA /* MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681601F129F001BE00914CEA /* MessageCellViewModel.swift */; };
 		6816D4742A03F3DE00437E74 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816D4732A03F3DE00437E74 /* ReportView.swift */; };
-		6821F3CC29C1ACA900583B1E /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6821F3CB29C1ACA900583B1E /* TestDatabase.swift */; };
 		682A7C6229D7E60C0064E7BB /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A7C6129D7E60C0064E7BB /* CustomProgressView.swift */; };
 		6835173E29BB708200EB893A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835173D29BB708200EB893A /* HomeViewModel.swift */; };
 		6835174029BB757100EB893A /* HomeViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835173F29BB757100EB893A /* HomeViewModelType.swift */; };
@@ -38,7 +38,6 @@
 		6845DE8E29BB6CEA0096A602 /* AccountInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845DE8D29BB6CEA0096A602 /* AccountInfoViewModel.swift */; };
 		6845DE9029BB6CFC0096A602 /* AccountInfoViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845DE8F29BB6CFC0096A602 /* AccountInfoViewModelType.swift */; };
 		6845DE9229BB6D590096A602 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845DE9129BB6D590096A602 /* Student.swift */; };
-		685641FB29BA0C78007735B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 685641FA29BA0C78007735B7 /* GoogleService-Info.plist */; };
 		685A3EEB29C2DB27007B1EA1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A3EEA29C2DB27007B1EA1 /* Extensions.swift */; };
 		687900BC29FD0248005D5DB8 /* MailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687900BB29FD0248005D5DB8 /* MailViewModel.swift */; };
 		68A7BDE429BA0E9B007B4495 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7BDE329BA0E9B007B4495 /* AuthManager.swift */; };
@@ -67,6 +66,7 @@
 /* Begin PBXFileReference section */
 		4A9E494242569B928C06906D /* Pods-CheckMate-S.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckMate-S.release.xcconfig"; path = "Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S.release.xcconfig"; sourceTree = "<group>"; };
 		5DF5E5FD0F189C94E377CD7E /* Pods-CheckMate-S.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckMate-S.debug.xcconfig"; path = "Target Support Files/Pods-CheckMate-S/Pods-CheckMate-S.debug.xcconfig"; sourceTree = "<group>"; };
+		680C96CF2A0B6374004DBF21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6812ACAB29ED758000B80736 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		6814354429B2063B00F53F33 /* CheckMate-S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CheckMate-S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6814354729B2063B00F53F33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +85,6 @@
 		681601EF29F0016800914CEA /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		681601F129F001BE00914CEA /* MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewModel.swift; sourceTree = "<group>"; };
 		6816D4732A03F3DE00437E74 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
-		6821F3CB29C1ACA900583B1E /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
 		682A7C6129D7E60C0064E7BB /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		6835173D29BB708200EB893A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6835173F29BB757100EB893A /* HomeViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelType.swift; sourceTree = "<group>"; };
@@ -100,7 +99,6 @@
 		6845DE8D29BB6CEA0096A602 /* AccountInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewModel.swift; sourceTree = "<group>"; };
 		6845DE8F29BB6CFC0096A602 /* AccountInfoViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewModelType.swift; sourceTree = "<group>"; };
 		6845DE9129BB6D590096A602 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
-		685641FA29BA0C78007735B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		685A3EEA29C2DB27007B1EA1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6876BECB29ED31C600717CF3 /* FirebaseAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FirebaseAnalytics.xcframework; path = Pods/FirebaseAnalytics/Frameworks/FirebaseAnalytics.xcframework; sourceTree = "<group>"; };
 		6876BECD29ED31C600717CF3 /* FirebaseAppCheckInterop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseAppCheckInterop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,7 +176,7 @@
 				6814355E29B2079200F53F33 /* Views */,
 				6814355F29B2079E00F53F33 /* ViewModels */,
 				6814355529B2063C00F53F33 /* Info.plist */,
-				685641FA29BA0C78007735B7 /* GoogleService-Info.plist */,
+				680C96CF2A0B6374004DBF21 /* GoogleService-Info.plist */,
 			);
 			path = "CheckMate-S";
 			sourceTree = "<group>";
@@ -201,7 +199,6 @@
 			children = (
 				68A7BDE329BA0E9B007B4495 /* AuthManager.swift */,
 				68A7BDE529BA0EF0007B4495 /* DatabaseManager.swift */,
-				6821F3CB29C1ACA900583B1E /* TestDatabase.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -392,8 +389,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6814355429B2063C00F53F33 /* LaunchScreen.storyboard in Resources */,
-				685641FB29BA0C78007735B7 /* GoogleService-Info.plist in Resources */,
 				6814355129B2063C00F53F33 /* Assets.xcassets in Resources */,
+				680C96D02A0B6374004DBF21 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,7 +454,6 @@
 				68B61D0F29F13ADA00CF0F03 /* MailComposerViewController.swift in Sources */,
 				6835174029BB757100EB893A /* HomeViewModelType.swift in Sources */,
 				68E4E3FC29B32E3700A1B956 /* SubjectCell.swift in Sources */,
-				6821F3CC29C1ACA900583B1E /* TestDatabase.swift in Sources */,
 				68A7BDE629BA0EF1007B4495 /* DatabaseManager.swift in Sources */,
 				68D1596A29CB01D200051FE6 /* SubjectScheduleViewModelType.swift in Sources */,
 				6845DE8629BB65160096A602 /* CollectionViewViewModelType.swift in Sources */,
@@ -634,6 +630,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3F7BDN63CA;
@@ -649,8 +646,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.damiraliyev.CheckMate-S";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.damiraliyev.CheckMate-ST";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -663,6 +661,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3F7BDN63CA;
@@ -678,8 +677,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.damiraliyev.CheckMate-S";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.damiraliyev.CheckMate-ST";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -53,15 +53,11 @@ final class DatabaseManager {
                 .whereField("enrolledStudents", arrayContains: studentID)
             ref.getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
-                    print("queryAmountOfClasses: \(error)")
+                    print("queryAmountOfClasses: \(String(describing: error))")
                     return
                 }
                 
                 for doc in snapshot.documents {
-                    print("DOOOC", doc.data())
-                    var temp = 0
-                    
-                    
                     let startTime = (doc.get("startTime") as? String ?? "")
                     let endTime = (doc.get("endTime") as? String ?? "")
                     
@@ -74,7 +70,6 @@ final class DatabaseManager {
                     } else {
                         totalAttendanceCount += ((doc.get("dates") as? [String])?.count ?? 15)
                     }
-//                    totalAttendanceCount *= (amountOfHours + 1)
                 }
                 completion(totalAttendanceCount)
                 totalAttendanceCount = 0
@@ -150,7 +145,7 @@ final class DatabaseManager {
         var absenceCount = 0
 
         docID
-            .getDocument { [weak self] snapshot, error in
+            .getDocument { snapshot, error in
             guard let snapshot = snapshot, error == nil else {
                 return
             }
@@ -164,7 +159,7 @@ final class DatabaseManager {
                 .whereField("code", isLessThan: "\(subject)u{f8ff}]")
                 .getDocuments { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
-                    print("Error: \(error)")
+                    print("Error: \(String(describing: error))")
                     return
                 }
 
@@ -215,7 +210,7 @@ final class DatabaseManager {
     func loadAttendance(completion: @escaping ([Subject]) -> Void) {
         let docRef = DatabaseManager.shared.database.collection("attendance")
         
-        docRef.getDocuments {[weak self] snapshot, error in
+        docRef.getDocuments { snapshot, error in
                 guard let _ = snapshot, error == nil else {
                     return
                 }
@@ -223,7 +218,6 @@ final class DatabaseManager {
                 DatabaseManager.shared.querySubjects(
                     name: UserDefaults.standard.value(forKey: "name") as? String ?? "",
                     surname: UserDefaults.standard.value(forKey: "surname") as? String ?? "") { subjects in
-                        print("Why there is 2 software engineerings in completion")
                         completion(subjects)
                     }
             }
@@ -270,9 +264,7 @@ final class DatabaseManager {
             .whereField("code", isLessThan: "\(shortSubjectCode)u{f8ff}]")
 
         let studID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
-        var absenceDict: [String: [Int]] = [:]
         var absenceDates: [String] = []
-//        var statuse:
         
         var times: [String] = []
         getDates(shortSubjectCode: shortSubjectCode) { dates, time in
@@ -296,7 +288,7 @@ final class DatabaseManager {
                                 for status in statuses {
                                     if status == 0 {
                                         absenceDates.append(date)
-                                        print("adding absence", absenceDict[date])
+                                       
                                         if counter > 0 {
                                             let startHour = (Int((data["startTime"] as? String ?? ":").prefix(2)) ?? 0) + 1
                                             print("startHour", startHour)
@@ -315,16 +307,11 @@ final class DatabaseManager {
                                     
                                 }
                             
-//                                absenceDict[date] = statuses
                             }
                         }
                     }
-                    
-//                    time = data["code"] as? String ?? "QWE"
-
                 }
-                print("Absence dict", absenceDates)
-                print("times", times)
+
                 completion(absenceDates, times)
             }
             
@@ -351,8 +338,6 @@ final class DatabaseManager {
                 return
             }
             
-            print("DOCUMENT LENGTH", snapshot.documents.count)
-            
             for doc in snapshot.documents {
                 if let data = doc.data()["dates"] as? [String], let startTime = doc.data()["startTime"] as? String{
                     for date in data {
@@ -360,7 +345,7 @@ final class DatabaseManager {
                         times.append(startTime)
                     }
                 }
-//                time = doc.data()["startTime"] as? String ?? ""
+
             }
             completion(dates, times)
         }
@@ -375,7 +360,6 @@ final class DatabaseManager {
             if let document = document, document.exists {
                 let data = document.data()
                 if let tokens = data?["tokens"] as? [String: Any] {
-//                    let studentID = UserDefaults.standard.value(forKey: "id") as? String ?? ""
                     let tokensForDate = tokens[date] as? [String]
                     
                     completion(tokensForDate)
@@ -479,17 +463,17 @@ final class DatabaseManager {
             }
     }
     
-    func deleteMessage(fullSubjectCode: String, date: String, completion: @escaping () -> Void) {
+    func deleteMessage(fullSubjectCode: String, date: String, completion: @escaping (Bool) -> Void) {
         let docRef = database.collection("message").document(fullSubjectCode)
+        print("Date to be deleted \(date)")
         docRef.setData([date: FieldValue.delete()], merge: true) { error in
                 if let error = error {
                     print("Error deleting document: \(error.localizedDescription)")
+                    completion(false)
                 } else {
                     print("Document deleted successfully.")
-                    completion()
+                    completion(true)
                 }
-            
-            
         }
         
     }

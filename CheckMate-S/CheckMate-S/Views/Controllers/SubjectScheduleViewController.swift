@@ -262,6 +262,8 @@ extension SubjectScheduleViewController: UICollectionViewDelegateFlowLayout {
                                 if hasUpdated {
                                     print("Attendance was successfully checked")
                                     self?.showResultAlert(isSuccessfull: true)
+                                    self?.reportView.presenceCountLabel.text = String((Int(self?.reportView.presenceCountLabel.text ?? "1") ?? 1) + 1)
+                                    self?.reportView.absenceCountLabel.text = String((Int(self?.reportView.absenceCountLabel.text ?? "1") ?? 1) - 1)
                                     self?.collectionView.reloadData()
                                 } else {
                                     self?.showResultAlert(isSuccessfull: false)

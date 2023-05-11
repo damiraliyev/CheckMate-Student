@@ -41,6 +41,8 @@ final class HomeViewController: UIViewController {
     
     var listener: ListenerRegistration?
     
+    private let refreshControl = UIRefreshControl()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -56,6 +58,7 @@ final class HomeViewController: UIViewController {
         
         
         let collectionViewViewModel = CollectionViewViewModel()
+        
         
         //Getting from UserDefaults
         let accountInfoViewModel = AccountInfoViewModel(
@@ -85,6 +88,8 @@ final class HomeViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(SubjectCell.self, forCellWithReuseIdentifier: SubjectCell.reuseID)
         collectionView.register(SkeletonCell.self, forCellWithReuseIdentifier: SkeletonCell.reuseID)
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(loadAttendance), for: .valueChanged)
         
         signOutButton.translatesAutoresizingMaskIntoConstraints = false
         signOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
@@ -96,12 +101,6 @@ final class HomeViewController: UIViewController {
         setupInfo()
         
         setupSkeletons()
-        
-        let db = DB()
-        
-        db.attendanceCourseStudentIDValue()
-        db.addTokens()
-        
     }
     
     private func addAllSubViews() {
@@ -176,6 +175,7 @@ final class HomeViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.isLoaded = true
                 self?.collectionView.reloadData()
+                self?.refreshControl.endRefreshing()
             }
         })
 
